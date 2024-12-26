@@ -1,0 +1,326 @@
+.payment {
+  background-color: #0e0e0e;
+  color: #fff;
+  height: fit-content;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+.hero-container {
+  background: linear-gradient(135deg, #152f35, #0e0e0e);
+  height: 50vh;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  direction: rtl;
+}
+.hero-content {
+  width: 1300px;
+  text-align: right;
+  margin: auto;
+  font-family: "nf-l", sans-serif !important;
+}
+.hero-title {
+  margin: 0;
+  text-align: right;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.hero-subtitle {
+  margin-bottom: 0;
+  text-align: right;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-top: 10px;
+}
+.d-none {
+  display: none;
+}
+.payment-main-container {
+  width: 1300px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  direction: rtl;
+  margin-top: 50px;
+  height: fit-content;
+  gap: 50px;
+  padding-bottom: 50px;
+}
+.container {
+  border-radius: 8px;
+  background: #141f25;
+  width: 1300px;
+  min-height: 120px;
+  height: fit-content;
+  padding: 40px;
+  box-sizing: border-box;
+}
+.payment-one {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px;
+}
+.payment-details-title {
+  text-align: right;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-bottom: 0;
+}
+.payment-channel {
+  display: flex;
+  flex-direction: row;
+  width: 1300px;
+  height: 200px;
+}
+.payment-channel input {
+  opacity: 0;
+}
+.payment-channel label {
+  padding-right: 40px;
+}
+.charge-account-radio input[type="radio"] {
+  visibility: hidden;
+  display: none;
+}
+.charge-account-radio input[type="radio"]:checked + label {
+  box-shadow: 0 10px 30px 0 rgba(255, 255, 255, 0.3);
+  border: 3px solid #fff;
+  /* background-color: #fff; */
+  transition: all 0.3s ease;
+  width: 100%;
+  border-radius: 8px;
+}
+.payment-details-container-two {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 50px;
+}
+.visa {
+  width: 120px;
+  height: 100px;
+}
+.coupon-section-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 50px;
+}
+
+.charge-section-container {
+  display: none;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 50px;
+}
+.coupon-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+}
+.details-title {
+  text-align: right;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin: 0;
+}
+.coupon-percent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 4px;
+direction: rtl;
+}
+.couponMsg {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: right;
+  width: 80%;
+  height: 120px;
+}
+.coupon-msg-p {
+  margin: 0;
+  margin-top: 10px;
+  font-size: 14px;
+}
+.danger {
+  color: red;
+}
+.coupon-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 20px;
+  padding-bottom: 50px;
+  border-bottom: 1px solid #599faf;
+  height: 80px;
+}
+
+.charge-row {
+  color: #9da6a8;
+  cursor: not-allowed;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+}
+.charge-row span {
+  cursor: not-allowed;
+}
+.coupon-input {
+  background-color: #141f25;
+  border: 1px solid #395868;
+  color: #ccf5ff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 1300px;
+  height: 30px;
+}
+
+.verify-button {
+  background: #599faf;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100px;
+  height: 50px;
+  color: #fff;
+  text-align: center;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  font-family: "nf-l", sans-serif !important;
+}
+
+.verify-button:hover {
+  background-color: #4b6a7a;
+}
+
+.total-row {
+  font-weight: bold;
+}
+
+.total-row span {
+  color: #ccf5ff;
+}
+.charge-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px;
+}
+.charge-section-row {
+  color: #ffffff;
+  cursor: auto;
+}
+.wallet-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  padding-bottom: 50px;
+  border-bottom: 1px solid #599faf;
+}
+
+.wallet-input {
+  background-color: #141f25;
+  border: 1px solid #395868;
+  color: #ccf5ff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 1000px;
+  height: 60%;
+}
+
+.wallet-input p {
+  margin: 0;
+}
+
+.wallet-button {
+  background: #599faf;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 150px;
+  height: 100%;
+  color: #fff;
+  text-align: center;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  font-family: "nf-l", sans-serif !important;
+}
+
+.wallet-button:hover {
+  background-color: #567b8c;
+}
+.action-buttons-container {
+  margin-right: auto;
+  text-align: center;  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 20px;
+}
+.prev-button {
+  width: 123px;
+  padding: 8px 20px;
+  border-radius: 6px;
+  border: 1px solid #ccf5ff;
+  color: #ccf5ff;
+  background-color: #141f25;
+  height: 40px;
+  cursor: pointer;
+  text-align: center;
+}
+.next-button {
+  width: 123px;
+  padding: 8px 20px;
+  border-radius: 6px;
+  background: #ccf5ff;
+  border: 1px solid #ccf5ff;
+  color: #0e0e0e;
+  height: 40px;
+  cursor: pointer;
+  text-align: center;
+
+}

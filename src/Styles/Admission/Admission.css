@@ -1,0 +1,262 @@
+.admission-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 40px;
+  padding: 40px;
+  padding-top: 0;
+  text-align: right;
+  font-family: "nf-l", sans-serif !important;
+}
+
+.section-title {
+  color: #ccf5ff;
+  text-align: right;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  width: fit-content;
+}
+
+.registered-admission,
+.new-admission-request {
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.admission-card {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+  width: 690px;
+  height: 109px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: #141f25;
+  gap: 80px;
+  padding: 16px 24px;
+  box-sizing: border-box;
+}
+
+.admission-title {
+  color: #ccf5ff;
+  text-align: right;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  width: fit-content;
+  margin: 0;
+}
+.admission-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+.admission-subtitle {
+  color: #fff;
+  text-align: right;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+}
+
+.admission-status {
+  color: #ccf5ff;
+  text-align: right;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+}
+.admission-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+.payment-p {
+  margin: 0;
+  padding: 10px 24px;
+  width: 100px;
+  height: fit-content;
+  align-self: stretch;
+  border-radius: 6px;
+  border: 1px solid #599faf;
+  color: #fff;
+  text-align: center;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  background-color: transparent;
+  font-family: "nf-l", sans-serif !important;
+}
+
+.go-to-program-button {
+  height: fit-content;
+  padding: 10px 24px;
+  align-self: stretch;
+  border-radius: 6px;
+  background: #599faf;
+  border: 1px solid #599faf;
+  color: #fff;
+  text-align: center;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  cursor: pointer;
+  font-family: "nf-l", sans-serif !important;
+}
+
+.admission-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 935px;
+  height: 356px;
+  padding: 27px 43px;
+  align-items: flex-end;
+  border-radius: 8px;
+  background: #141f25;
+}
+
+.form-label {
+  color: #ccf5ff;
+  text-align: right;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  direction: rtl;
+}
+
+.custom-dropdown {
+  position: relative;
+  background-color: #f6f7f8;
+  border-radius: 6px;
+  padding: 10px;
+  cursor: pointer;
+  margin-bottom: 16px;
+  width: 500px;
+}
+
+.dropdown-header {
+  color: #141f25;
+  text-align: right;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.dropdown-header::after {
+  content: "▼";
+  color: #000;
+  position: absolute;
+  right: 95%;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 12px;
+}
+.dropdown-list {
+  position: absolute;
+  left: 0%;
+  background-color: #f6f7f8;
+  border-radius: 6px;
+  width: 100%;
+  margin-top: 8px;
+  z-index: 10;
+  padding: 0;
+  list-style: none;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+.dropdown-item {
+  padding: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.form-checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-direction: row-reverse;
+}
+
+.form-checkbox-group label {
+  color: #fff;
+  text-align: right;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+/* Style the checkbox */
+input[type="checkbox"] {
+  appearance: none; /* Remove default styling */
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  background-color: #141f25;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Checked state */
+input[type="checkbox"]:checked {
+  background-color: #5bc0de; /* Change background color when checked */
+}
+
+/* Add a checkmark on the checkbox */
+input[type="checkbox"]:checked::before {
+  content: "✔"; /* Unicode checkmark */
+  color: #ffffff;
+  font-size: 12px;
+  position: absolute;
+  left: 4px;
+}
+
+.form-submit-button {
+  display: flex;
+  width: 125px;
+  height: 36px;
+  padding: 8px 38px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  background: #599faf;
+  color: #fff;
+  text-align: right;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  border: none;
+  cursor: pointer;
+  font-family: "nf-l", sans-serif !important;
+}
+
+.form-submit-button:hover:not(:disabled) {
+  background-color: #31a3c0;
+}
+.form-submit-button:disabled {
+  cursor: not-allowed;
+}

@@ -1,0 +1,101 @@
+.footer {
+    /* height: 358px; */
+    height: fit-content;
+    flex-shrink: 0;
+    background-color: #394148;
+    color: #FFFFFF;
+    padding-bottom: 35px;
+    padding-right: 89px;
+    padding-left: 126px;
+    padding-top: 59px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-top {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 34px;
+
+}
+
+.social-icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 12px;
+    margin-left: 10px;
+}
+
+.social-icon-container {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    background: #FFF;
+}
+
+.social-icon {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    padding: 7.5px;
+}
+
+.footer-middle {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: 30px;
+
+}
+
+.footer-menu {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    align-items: center;
+    list-style: none;
+    width: 100%;
+    margin-top: 0;
+}
+
+.footer-menu-item {
+    color: #FFF;
+    text-align: right;
+    font-family: "IBM Plex Sans";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: 40px;
+}
+
+.footer-menu-item:last-child {
+    margin-left: 0;
+}
+
+.uklogo {
+    width: 144.53px;
+    height: 144.53px;
+    flex-shrink: 0;
+
+}
+
+.footer-bottom {
+    width: 100%;
+    text-align: right;
+    height: 15px;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 100;
+    line-height: 15px; /* 125% */
+}

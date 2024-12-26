@@ -1,0 +1,218 @@
+.custom-calendar {
+  border-radius: 8px;
+  width: 300px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+  
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.arrow-button {
+  border: none;
+  background-color: transparent;
+}
+
+.arrow {
+  width: 12px;
+  height: 10px;
+}
+  
+.current-month {
+  color: #CCF5FF;
+  text-align: right;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+  
+.calendar-week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* Each week in 7 columns */
+}
+
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  color: #CCF5FF;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal; 
+  direction: rtl;
+  align-items: center;
+}
+
+
+.calendar-dates {
+  display: flex;
+  flex-direction: column; /* Stack rows vertically */
+  gap: 5px; /* Optional spacing between rows */
+}
+  
+.calendar-week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* Ensure 7 columns in each week */
+}
+
+.calendar-day {
+  padding: 10px 4px;
+  cursor: pointer;
+  color: #fff;
+  text-align: center;
+  font-size: 14px; /* Ensures text size is consistent */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transitions */
+  border-radius: 50%; /* Applies consistent rounding */
+}
+
+.calendar-day.disabled {
+  color: transparent;
+  pointer-events: none;
+  background-color: transparent;
+}
+
+.calendar-day.selected:not(.disabled) {
+  background-color: #61dbfa96; /* Highlight selected day with another color */
+  color: #000; /* Text color for better contrast */
+  border-radius: 50%; /* Ensures a circular highlight */
+  font-weight: bold;
+}
+
+.calendar-day.current-day:not(.disabled) {
+  background-color: #CCF5FF; /* Highlight current day with a distinct color */
+  color: #000;
+  border-radius: 50%; /* Keeps current day circular */
+  font-weight: bold;
+}
+
+
+.calendar-day:hover:not(.disabled):not(.selected):not(.current-day) {
+  background-color: rgba(204, 245, 255, 0.5); /* Subtle hover effect for non-selected days */
+  color: #fff; /* Keeps hover color consistent */
+}
+
+.calendar-day.disabled:hover {
+  background-color: transparent; /* Ensure disabled days have no hover effect */
+  cursor: not-allowed; /* Show "not-allowed" cursor for clarity */
+}
+.calendar-day.has-events {
+  position: relative; /* Ensure the pseudo-element is positioned relative to the day */
+}
+
+.calendar-day.has-events:not(.disabled)::after {
+  content: '';
+  position: absolute;
+  bottom: -5%;
+  left: 30%;
+  width: 40%; /* Full width of the day box */
+  height: 2px; /* Thickness of the line */
+  background-color: red; /* Red color for the line */
+  border-radius: 0; /* Ensures no radius on the line */
+}
+
+.events-container {
+  padding: 15px;
+  color: #fff;
+  border-top: 1px solid #D3D2D2;
+  direction: rtl;
+  height: 120px;
+}
+.events-container-title {
+  direction: rtl;
+  text-align: right;
+  margin-top: 0;
+}
+.events-list-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px;
+  max-height: 120px; /* Set a maximum height for the container */
+  overflow-y: auto;  /* Enable vertical scrolling */
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none;
+}
+.event-item {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  direction: rtl;
+  justify-content: flex-start;
+  border-radius: 5px;
+  gap: 10px;
+}
+
+.event-color {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-top: 5px;
+}
+.event-time {
+  color: #ABABAB;
+text-align: right;
+font-size: 12px;
+font-style: normal;
+font-weight: 500;
+line-height: 22px; /* 183.333% */
+}
+.event-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  color: #CCF5FF;
+  text-align: right;
+  font-style: normal;
+width: 200px;
+}
+
+.event-title {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+  width: 180px;
+}
+.event-link {
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 20px; /* 200% */
+  color: #CCF5FF;
+  text-decoration: none;
+}
+.no-events {
+  text-align: center;
+  color: #999;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.no-events-placeholder {
+  margin-top: 20px;
+}
+.no-events-title {
+  color: #CCF5FF;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px; /* 200% */
+}
+.noEvents-image {
+  width: 64px;
+  height: 59px;
+}
+
+  
+  

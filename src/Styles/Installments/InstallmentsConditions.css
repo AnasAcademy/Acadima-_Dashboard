@@ -1,0 +1,153 @@
+.conditions-page-container {
+  background-color: #0e0e0e; /* Dark background */
+  min-height: 100vh;
+  padding: 50px 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 36px;
+}
+
+.conditions-page-header {
+  width: 100%;
+  max-width: 1600px;
+  text-align: right;
+  padding: 0 20px; /* Responsive padding */
+}
+
+.conditions-hero-section {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin-top: 50px;
+}
+
+.conditionsbg {
+  width: 100%;
+  height: auto;
+  opacity: 0.5;
+  border-radius: 10px;
+}
+.brief-details {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 50px;
+}
+.brief-details-part {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+.conditions-hero-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.installment-brief {
+  width: 1000px;
+  /* max-width: 932px; */
+  border-radius: 20px;
+  padding: 40px 80px;
+  border: 1px solid #ccf5ff;
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+  color: #fff;
+  text-align: right;
+  direction: rtl;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+}
+
+.conditions-list {
+  list-style: numbers;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0;
+  margin-top: 80px;
+}
+
+.conditions-list .condition {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.conditions-list .condition {
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 36px;
+  color: #fff;
+
+}
+
+.brief-subcontainer {
+  border-radius: 10px;
+  background: #141f25;
+  width: 90%;
+  height: fit-content;
+  padding: 20px 40px;
+}
+.subcontainer {
+  margin-top: 0;
+}
+.button-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 1000px;
+  direction: rtl;
+  box-sizing: border-box;
+}
+.back-button {
+  width: 121px;
+  height: 49px;
+  padding: 8px 24px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  background: #979797;
+  color: #141f25;
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  border: none;
+  cursor: pointer;
+}
+.back-button:hover{
+  background-color: #979797b7;
+}
+.confirm-button {
+  width: 121px;
+  height: 49px;
+  padding: 8px 24px;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  background-color: #599faf;
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  border: none;
+  cursor: pointer;
+}
+.confirm-button:hover {
+  background-color: #599fafc5;
+
+}

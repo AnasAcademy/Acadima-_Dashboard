@@ -1,0 +1,124 @@
+/* Container */
+.settings-sidebar-container {
+  max-width: 275px;
+  text-align: center;
+  color: #fff;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+/* Title */
+.settings-title {
+  color: #fff;
+  text-align: right;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-bottom: 23px;
+  margin-top: 0;
+}
+
+/* Progress Bar
+.progress-bar-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.progress-bar {
+  width: 80%;
+  height: 8px;
+  background-color: #333;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: #599faf;
+  border-radius: 4px 0 0 4px;
+  transition: width 0.3s ease-in-out;
+}
+
+.progress-percentage {
+  font-size: 14px;
+  color: #ccf5ff;
+} */
+
+/* Description */
+.settings-description {
+  color: #fff;
+  text-align: right;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+  margin-bottom: 43px;
+}
+.settings-description span {
+  color: #f74949;
+}
+
+/* Section Buttons */
+.settings-sections {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 36px;
+}
+
+.settings-button {
+  color: #fff;
+  text-align: right;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+}
+
+.settings-button .settings-icon {
+  width: 16px;
+  height: 18px;
+}
+.settings-button.active .settings-icon {
+  width: 20px; /* Larger size for active icon */
+  height: 22px;
+}
+.settings-button.active {
+  background-color: #ccf5ffcc; /* Active background */
+  color: #152f35; /* Active text color */
+  width: 204px;
+  height: 52px;
+  border-radius: 8px;
+  border: none;
+  border-right: 8px solid #316f7d;
+  padding: 15px;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.settings-text {
+  flex: 1;
+  text-align: right;
+}
+
+.section-content {
+  font-size: 18px;
+  background-color: #1b2a34;
+  padding: 20px;
+  border-radius: 8px;
+}

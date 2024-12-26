@@ -1,0 +1,226 @@
+.notifications-container {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-end;
+  width: 1350px;
+  margin: auto;
+  margin-right: 95px;
+  padding-top: 80px;
+  gap: 41px;
+}
+.notifications-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  gap: 41px;
+}
+.notifications-title {
+  color: #ccf5ff;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+}
+
+.notifications-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto;
+  max-height: 615px;
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none;
+}
+
+.notification-card {
+  display: flex;
+  width: 297px;
+  height: fit-content;
+  padding: 9px 16px;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 20px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: #141f25;
+  box-sizing: border-box;
+}
+
+.notification-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+
+.notification-title {
+  color: #fff;
+  text-align: right;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+}
+
+.notification-date {
+  color: #ccf5ff;
+  text-align: right;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  direction: rtl;
+}
+
+.notification-description {
+  color: #fff;
+  text-align: right;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+}
+
+.notification-button {
+  width: 125px;
+  padding: 8px 20px;
+  color: #141f25;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  border-radius: 6px;
+  background: #ccf5ff;
+  border: none;
+  font-family: "nf-l", sans-serif !important;
+  cursor: pointer;
+}
+.notification-button:hover {
+  background-color: #ccf5ffa2;
+}
+
+.notification-card-active {
+  background: #ccf5ff;
+}
+
+.notification-card-active .notification-button {
+  background-color: #599FAF;
+  color: #fff;
+}
+
+.notification-card-active .notification-title,
+.notification-card-active .notification-date,
+.notification-card-active .notification-description {
+  color: #000;
+}
+
+.chosen-notification-container {
+  width: 974px;
+  height: 596px;
+  flex-shrink: 0;
+  border-radius: 20px;
+  border: 1px solid #395868;
+  background: #000;
+  display: flex;
+  justify-content: flex-start;
+  color: #fff;
+  box-sizing: border-box;
+}
+.chosen-notification-top {
+  border-bottom: 1px solid #395868;
+  width: 970px;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+  padding: 35px 53px;
+  box-sizing: border-box;
+}
+.chosen-notification-title {
+  margin: 0;
+  color: #fff;
+  text-align: right;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.chosen-notification-date {
+  margin: 0;
+  color: #fff;
+  text-align: right;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.chosen-notification-bottom {
+  padding: 35px 53px;
+  direction: rtl;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.chosen-notification-description {
+  width: 498px;
+  height: fit-content;
+  flex-shrink: 0;
+  background-color: #ccf5ff;
+  color: #000;
+  text-align: right;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  align-items: center;
+  padding:25px 10px;
+  border-radius: 8px;
+  border-bottom-right-radius: 0;
+}
+.default-view {
+  text-align: center;
+}
+
+.msg-icon {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 16px;
+}
+
+.default-text {
+  color: #fff;
+  text-align: right;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.notification-details {
+  text-align: right;
+}
+
+.notification-details-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #ccf5ff;
+  margin-bottom: 16px;
+}
+
+.notification-details-date {
+  font-size: 14px;
+  color: #cbd5e0;
+  margin-bottom: 12px;
+}
+
+.notification-details-description {
+  font-size: 16px;
+  color: #fff;
+  line-height: 1.5;
+}

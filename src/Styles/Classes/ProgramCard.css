@@ -1,0 +1,89 @@
+/* Program Card Styling */
+.classes-program-card {
+  background-color: #f3f4f4;
+  border-radius: 10px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 295px;
+  height: fit-content;
+  min-height: 130px;
+  direction: rtl;
+  /* gap: 8px; */
+  cursor: pointer;
+}
+
+.program-title {
+  color: #141f25;
+  text-align: right;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.program-subtitle {
+  color: #141f25;
+  text-align: right;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+/* Progress bar styling */
+.progress-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+}
+.progress-bar-container {
+  background-color: #fff; /* Light grey background */
+  border-radius: 10px;
+  width: 95%;
+  height: 10px;
+  overflow: hidden;
+  position: relative;
+  border: none;
+}
+
+.progress-bar {
+  height: 11px;
+  background-color: #141f25; /* Progress bar color */
+  transition: width 0.3s ease-in-out;
+  border-radius: 5px;
+  border: none;
+  overflow: hidden;
+
+}
+
+.progress-percentage {
+  color: #5b767c;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.classes-program-card.selected {
+  background-color: #152f35;
+}
+
+.classes-program-card.selected .program-title {
+  color: #ffffff; /* Change text color when selected */
+}
+.classes-program-card.selected .program-subtitle {
+  color: #fff;
+}
+.classes-program-card.program-card.selected .progress-bar-container {
+  background-color: #fff;
+}
+.classes-program-card.selected .progress-percentage {
+  color: #ffffff; /* Light color for percentage text */
+}

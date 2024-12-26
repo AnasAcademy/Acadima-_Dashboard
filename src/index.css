@@ -1,0 +1,28 @@
+@font-face {
+  font-family: 'nf-b';
+  src: url(../public/Fonts/nf-b.ttf);
+}
+@font-face {
+  font-family: 'nf-l';
+  src: url(../public/Fonts/nf-l.ttf);
+}
+@font-face {
+  font-family: 'nf-m';
+  src: url(../public/Fonts/nf-m.ttf);
+}
+@font-face {
+  font-family: 'nf-sb';
+  src: url(../public/Fonts/nf-sb.ttf);
+}
+
+body {
+  margin: 0;
+  font-family:'nf-l' ,sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

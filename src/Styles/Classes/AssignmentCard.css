@@ -1,0 +1,53 @@
+.assignment-card {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #152F35;
+  border-radius: 10px;
+  padding: 15px;
+  border-right: 10px solid #4AAE68;
+  box-sizing: border-box;
+}
+.assignment-data {
+  font-size: 14px;
+  color: #fff;
+  width: 180px;
+  text-align: center;
+  direction: rtl;
+  height: fit-content;
+}
+
+.assignment-id {
+  font-size: 14px;
+  color: #fff;
+  width: 20px;
+  height: fit-content;
+
+}
+
+.assignment-task {
+  font-size: 14px;
+  color: #fff;
+  width: 50px;
+  text-align: left;
+  height: fit-content;
+
+}
+
+.assignment-action {
+  background-color: #CCF5FF;
+  color: #141F25;
+  border: none;
+  border-radius: 5px;
+  padding: 7px 24px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: 'nf-l', sans-serif !important;
+  height: fit-content;
+
+}
+
+.assignment-action:hover{
+  background-color: #ccf5ffa2;
+}

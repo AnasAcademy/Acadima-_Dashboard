@@ -1,0 +1,439 @@
+.course-screen {
+  background-color: #0e0e0e;
+  min-height: 100vh;
+  height: fit-content;
+  width: 1920px;
+  box-sizing: border-box;
+  font-family: "nf-l", sans-serif !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.course-header {
+  width: 100%;
+  height: 140px;
+  background-color: #141f25;
+  padding-left: 82px;
+  padding-right: 82px;
+  padding-top: 29px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+}
+.course-header-left {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 35px;
+}
+.course-header-right {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 160px;
+}
+.courselogo {
+  width: 149px;
+  height: 58px;
+}
+.schedule-button {
+  width: fit-content;
+  height: fit-content;
+  padding: 12px 42px;
+  border-radius: 8px;
+  border: 1px solid #fff;
+  background-color: transparent;
+  color: #fff;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  font-family: "nf-l", sans-serif !important;
+}
+.course-name {
+  color: #fff;
+  text-align: right;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin: 0;
+}
+/* Progress bar styling */
+.course-progress-container {
+  width: 600px;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+  margin-top: 8px;
+}
+.course-progress-bar-container {
+  background-color: #316f7d;
+  border-radius: 10px;
+  width: 95%;
+  height: 10px;
+  overflow: hidden;
+  position: relative;
+  border: none;
+  direction: rtl;
+}
+
+.course-progress-bar {
+  height: 11px;
+  background-color: #fff; /* Progress bar color */
+  transition: width 100s ease-in-out;
+  border-radius: 5px;
+  border: none;
+  overflow: hidden;
+}
+
+.course-progress-percentage {
+  color: #fff;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  width: 120px;
+}
+
+.course-main-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  width: 1880px;
+  box-sizing: border-box;
+  gap: 20px;
+  transition: all 100s ease;
+}
+.course-main-container.compact {
+  display: flex;
+  flex-direction: row-reverse;
+}
+/* Course List */
+.courses-list {
+  height: 913px;
+  border-radius: 20px;
+  background-color: #141f25;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: #fff;
+  gap: 20px;
+  box-sizing: border-box;
+  transition: all 100s ease;
+
+}
+.courses-info-selection-cont {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  direction: rtl;
+  border-bottom: 1px solid #203947;
+  padding-bottom: 24px;
+  padding-top: 40px;
+}
+/* Tab Selection Styling */
+.selection {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  direction: rtl;
+  cursor: pointer;
+  transition: all 100s ease;
+}
+
+.selection.active span {
+  color: #ccf5ff;
+  font-weight: bold;
+}
+
+.selection span {
+  color: #ffffff; /* Default white */
+  font-size: 18px;
+}
+
+.coursedetails-icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* Courses List Container */
+.courses-list-cont {
+  padding: 28px;
+  padding-top:0 ;
+  overflow-y: auto;
+  scrollbar-width: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Exam List */
+.exam-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 500px;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: #203947;
+  color: #fff;
+}
+
+.course-item {
+  display: flex;
+  flex-direction: column;
+  direction: rtl;
+  justify-content: space-between;
+  align-items: center;
+  width: 528px;
+  height: fit-content;
+  flex-shrink: 0;
+  border-radius: 8px;
+  border: 1px solid #203947;
+  box-sizing: border-box;
+  transition: all 100s ease;
+}
+.card-header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 28px;
+  box-sizing: border-box;
+}
+.course-item-right {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+}
+.courseiconcont {
+  border-radius: 50%;
+  background: #316f7d;
+  width: 30px;
+  height: 30px;
+  padding: 14px;
+  gap: 10px;
+}
+.courseicon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.course-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.course-title {
+  color: #fff;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.lecture-number {
+  color: #fff;
+  text-align: right;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.course-dropdownarrow {
+  width: 14px;
+  height: 7px;
+  flex-shrink: 0;
+  transition: transform 100s ease;
+}
+.course-dropdownarrow.rotated {
+  transform: rotate(180deg);
+}
+.course-content {
+  border-top: 1px solid #203947;
+  width: 100%;
+  margin-top: 10px;
+  text-align: right;
+  padding:30px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.lectures-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px;
+}
+.lecture-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+}
+.lecture-item-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.lectureIcon {
+  width: 50px;
+  height: 50px;
+}
+.course-desc-title {
+  margin-bottom: 0;
+}
+.lecture-container {
+  width: 1278px;
+  height: 913px;
+  flex-shrink: 0;
+  border-radius: 20px;
+  background-color: #141f25;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  direction: rtl;
+  transition: all 100s ease;
+flex: 1;
+}
+
+/* Video Container */
+.video-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  height: fit-content;
+  box-sizing: border-box;
+}
+.video-title {
+  margin: 0;
+  color: #fff;
+  text-align: right;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  padding: 70px 123px;
+}
+.video-content-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  background-color: #141f25;
+  border-radius: 10px;
+  color: #fff;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.video-section {
+  width: 724px;
+  height: 389px;
+  background-color: #d9d9d9; /* Placeholder Background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  position: relative;
+  margin: auto;
+}
+
+.video-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 724px;
+  height: 389px;
+  background-color: #eaeaea;
+  color: #555;
+  font-size: 18px;
+  border-radius: 10px;
+  margin: auto;
+}
+
+.video-player {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.additional-content {
+  padding: 30px;
+  border-top: 1px solid #1e2b32;
+  border-radius: 10px;
+  color: #fff;
+  width: 100%;
+  height: 100%;
+  text-align: right;
+  box-sizing: border-box;
+}
+.additional-content h3 {
+  color: #fff;
+  text-align: right;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-top: 0;
+}
+.content-section h4 {
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: bold;
+}
+.content-section p {
+  color: #fff;
+  text-align: right;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 171.429% */
+  width: 766px;
+}
+
+.attachments p {
+  margin: 5px 0 0;
+  font-size: 14px;
+}
+
+.attachments .pdf-item {
+  justify-content: flex-start;
+  color: #fff;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.lecture-container-full {
+  width: 100%;
+  height: 100%;
+}
