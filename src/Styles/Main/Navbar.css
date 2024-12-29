@@ -128,7 +128,7 @@
   }
 }
 
-@media (max-width: 780px) { /* Tablet View */
+@media (max-width: 1000px) { /* Tablet View */
   .navbar {
     padding: 24px 40px;
   }

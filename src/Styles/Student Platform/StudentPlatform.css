@@ -4,6 +4,10 @@
   justify-content: center;
   align-items: center;
   gap: 25px;
+  width: 86.3%;
+  margin: auto;
+  height: fit-content;
+  padding-bottom: 20px;
 }
 .student-right-container {
   display: flex;
@@ -11,6 +15,7 @@
   gap: 25px;
 }
 .student-right-bottom-container {
+  width: 100%;
   display: flex;
   flex-direction: row-reverse;
   gap: 25px;
@@ -22,7 +27,8 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  width: 717px;
+  /* width: 717px; */
+  width: 100%;
   height: 225px;
   flex-shrink: 0;
   font-style: normal;
@@ -91,21 +97,23 @@
   display: flex;
   flex-direction: row-reverse;
   gap: 10px;
+  width: 100%;
 }
 
 .general-info {
   display: flex;
   flex-direction: column;
   gap: 25px;
+  width: 100%;
 }
 /* App Card */
 .app-card {
-  width: 138px;
+  width: 90%;
   height: 175px;
   padding: 9px 14px 14px 12px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   gap: 14px;
   line-height: normal;
@@ -127,6 +135,7 @@
 
 .app-desc {
   color: #fff;
+  width: 100px;
 }
 
 .app-button {
@@ -142,6 +151,7 @@
   border: none;
   cursor: pointer;
   font-family: "nf-l";
+  width: 90%;
 }
 
 .app-button:hover {
@@ -150,9 +160,9 @@
 
 /* pdfs Card */
 .pdfs-card {
-  width: 285px;
-  height: 350px;
-  padding-top: 23px;
+  width: 100%;
+  height: fit-content;
+  padding-top: 18px;
   padding-bottom: 20px;
   padding-right: 20.38px;
   padding-left: 33px;
@@ -160,6 +170,7 @@
   font-style: normal;
   line-height: normal;
   direction: rtl;
+  box-sizing: border-box;
 }
 
 .pdf-card-title {
@@ -210,11 +221,10 @@
 }
 /* Calendar Card */
 .calendar-card {
-  height: 590px;
-  width: 294px;
-  padding-left: 30px;
-  padding-top: 24px;
-  padding-right: 30px;
+  height: 610px;
+  width: 100%;
+  padding:20px;
+  box-sizing: border-box;
 }
 
 /* Left Container  */
@@ -230,11 +240,12 @@
   height: 516px;
   padding-top: 62px;
   padding-left: 82px;
-  padding-right: 82px;
+  padding-right: 40px;
   padding-bottom: 20px;
   text-align: right;
   font-style: normal;
   line-height: normal;
+  /* box-sizing: border-box; */
 }
 
 .schedule-title {
@@ -356,16 +367,17 @@
 }
 
 .support-card {
-  width: 607px;
+  width: 100%;
   height: 235px;
   display: flex;
   justify-content: flex-end;
-  padding-right: 23px;
+  padding-right: 30px;
   flex-direction: row;
   align-items: center;
   line-height: normal;
   font-style: normal;
   text-align: right;
+  box-sizing: border-box;
 }
 
 .support-image {
@@ -434,30 +446,27 @@
     gap: 15px;
   }
   .student-info-card {
-    width: 620px;
+    /* width: 620px; */
     height: 228px;
   }
   .general-info {
     gap: 15px;
   }
   .app-card {
-    width: 110px;
+    /* width: 110px; */
     height: 188px;
     font-size: 12px;
   }
   .app-button {
     font-size: 12px;
-    padding: 7px 20px;
-  }
-  .pdfs-card {
-    width: 230px;
-    height: 340px;
+    width: 80%;
+    padding: 7px 10px;
   }
   .pdf-name {
     font-size: 12px;
   }
   .calendar-card {
-    width: 260px;
+    /* width: 260px; */
   }
   .student-left-container {
     gap: 15px;
@@ -465,23 +474,162 @@
     align-items: flex-start;
   }
   .schedule-card {
-    width: 400px;
-    height: 516px;
+    /* width: 400px; */
+    height: 510px;
     padding-top: 62px;
     padding-left: 62px;
     padding-right: 30px;
     padding-bottom: 20px;
   }
   .support-card {
-    width: 470px;
+    /* width: 470px; */
     height: 250px;
+  }
+}
+
+@media (max-width: 1320px) {
+  .student-platform-container {
+    flex-direction: column;
+    padding-top: 70px;
+    padding-bottom: 70px;
+    gap: 25px;
+    width: 100%;
+  }
+  .student-right-container {
+    /* width: 690px; */
+    width: 90%;
+    gap: 25px;
+  }
+  .student-info-card {
+    /* width: 690px; */
+    padding: 40px;
+  }
+  .student-right-bottom-container {
+    /* width: 690px; */
+    gap: 25px;
+  }
+  .student-left-container {
+    gap: 25px;
+    width: 90%;
+  }
+  .schedule-card {
+    width: 86%;
+  }
+  .lecture-types {
+    /* width: 600px; */
+    justify-content: space-around;
+    margin-left: auto;
+  }
+  .calendar-card {
+    height: 620px;
   }
 }
 
 @media (max-width: 780px) {
   /* Tablet View */
+  .student-platform-container {
+    flex-direction: column;
+    padding-top: 70px;
+    padding-bottom: 70px;
+    gap: 25px;
+    width: 100%;
+  }
+  .student-right-container {
+    /* width: 690px; */
+    width: 90%;
+    gap: 25px;
+  }
+  .student-info-card {
+    /* width: 690px; */
+    padding: 40px;
+  }
+  .student-right-bottom-container {
+    /* width: 690px; */
+    gap: 25px;
+  }
+  .student-left-container {
+    gap: 25px;
+    width: 90%;
+  }
+  .schedule-card {
+    width: 86%;
+  }
+  .lecture-types {
+    /* width: 600px; */
+    justify-content: space-around;
+    margin-left: auto;
+  }
+  
 }
-
-@media (max-width: 360px) {
+@media (max-width: 580px) {
+  .student-right-bottom-container{
+    flex-direction: column;
+    gap: 25px;
+  }
+  .schedule-card {
+    padding: 20px;
+  }
+  .dashboard-lecture-item {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    gap: 10px;
+  }
+  .lecture-type {
+    width: 120px;
+    height: fit-content;
+    padding: 9px 14px;
+    border-radius: 4px;
+    border: 1px solid #fff;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+  }
+  .lecture-type.active {
+    background: #CCF5FF;
+    color: #141F25;
+  }
+  .general-info {
+    gap: 25px;
+  }
+  .apps {
+    gap: 20px;
+  }
+  .app-card {
+    font-size: 14px;
+    height: 200px;
+  }
+  .app-desc {
+    width: 120px;
+  }
+  .app-button {
+    font-size: 14px;
+  }
+  .pdf-name {
+    font-size: 16px;
+  }
+  .schedule-card {
+    width: 90%;
+    height: fit-content;
+  }
+  .dashboard-lecture-list {
+    width: 100%;
+    align-items: flex-end;
+    margin-top: 20px;
+  }
+  
+  .lecture-types {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 15px;
+  }
+  
+  .support-card {
+    /* width: 340px; */
+    padding-right: 20px;
+  }
+}
+@media (max-width: 390px) {
   /* Mobile View */
+  
 }

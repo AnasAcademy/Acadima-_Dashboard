@@ -12,6 +12,6 @@
     gap: 31px;
     font-family: 'nf-l';
     width: 100%;
-    min-height: 970px;
+    /* min-height: 970px; */
     height: fit-content;
 }

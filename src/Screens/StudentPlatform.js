@@ -135,7 +135,7 @@ function StudentPlatform() {
     <>
       <MainPageContainer>
         <div className="student-platform-container">
-          <div className="student-right-container">
+          <div className="student-right-container"> 
             {/* Student Card */}
             <ContentCard>
               <div className="student-info-card">

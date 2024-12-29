@@ -1,6 +1,6 @@
 .custom-calendar {
   border-radius: 8px;
-  width: 300px;
+  width: 100%;
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -19,8 +19,8 @@
 }
 
 .arrow {
-  width: 12px;
-  height: 10px;
+  width: 16px;
+  height: 14px;
 }
   
 .current-month {
@@ -215,9 +215,14 @@ width: 200px;
 }
 
 @media (max-width: 1440px) {
- .custom-calendar {
-  width: 260px;
+ .calendar-day-name {
+  font-size: 12px;
+ }
+ .calendar-days {
+  gap: 5px;
  }
 }
+
+/* @media (max-width: 780px) {
   
-  
+} */
