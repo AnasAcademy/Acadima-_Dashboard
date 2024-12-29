@@ -91,8 +91,8 @@
 }
 
 .settings-button .settings-icon {
-  width: 16px;
-  height: 18px;
+  width: 18px;
+  height: 20px;
 }
 .settings-button.active .settings-icon {
   width: 20px; /* Larger size for active icon */

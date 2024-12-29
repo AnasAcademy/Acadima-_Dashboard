@@ -5,21 +5,14 @@
   align-items: center;
   gap: 25px;
 }
-
-.student-right-bottom-container {
-  display: flex;
-  flex-direction: row-reverse;
-  gap: 25px;
-}
-
-.general-info {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-}
 .student-right-container {
   display: flex;
   flex-direction: column;
+  gap: 25px;
+}
+.student-right-bottom-container {
+  display: flex;
+  flex-direction: row-reverse;
   gap: 25px;
 }
 
@@ -27,9 +20,9 @@
 .student-info-card {
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: center;
-  width: 660px;
+  width: 717px;
   height: 225px;
   flex-shrink: 0;
   font-style: normal;
@@ -37,6 +30,7 @@
   text-align: right;
   padding: 20px;
   direction: rtl;
+  box-sizing: border-box;
 }
 .student-info {
   width: 100%;
@@ -99,6 +93,11 @@
   gap: 10px;
 }
 
+.general-info {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
 /* App Card */
 .app-card {
   width: 138px;
@@ -152,9 +151,10 @@
 /* pdfs Card */
 .pdfs-card {
   width: 285px;
-  height: 366px;
+  height: 350px;
   padding-top: 23px;
-  padding-right: 20.38;
+  padding-bottom: 20px;
+  padding-right: 20.38px;
   padding-left: 33px;
   text-align: right;
   font-style: normal;
@@ -210,7 +210,7 @@
 }
 /* Calendar Card */
 .calendar-card {
-  height: 584px;
+  height: 590px;
   width: 294px;
   padding-left: 30px;
   padding-top: 24px;
@@ -235,7 +235,6 @@
   text-align: right;
   font-style: normal;
   line-height: normal;
-
 }
 
 .schedule-title {
@@ -358,7 +357,7 @@
 
 .support-card {
   width: 607px;
-  height: 270px;
+  height: 235px;
   display: flex;
   justify-content: flex-end;
   padding-right: 23px;
@@ -422,4 +421,67 @@
 
 .support-button:hover {
   background: #ccf5ffa2;
+}
+
+@media (max-width: 1440px) {
+  .student-platform-container {
+    gap: 15px;
+  }
+  .student-right-container {
+    gap: 15px;
+  }
+  .student-right-bottom-container {
+    gap: 15px;
+  }
+  .student-info-card {
+    width: 620px;
+    height: 228px;
+  }
+  .general-info {
+    gap: 15px;
+  }
+  .app-card {
+    width: 110px;
+    height: 188px;
+    font-size: 12px;
+  }
+  .app-button {
+    font-size: 12px;
+    padding: 7px 20px;
+  }
+  .pdfs-card {
+    width: 230px;
+    height: 340px;
+  }
+  .pdf-name {
+    font-size: 12px;
+  }
+  .calendar-card {
+    width: 260px;
+  }
+  .student-left-container {
+    gap: 15px;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  .schedule-card {
+    width: 400px;
+    height: 516px;
+    padding-top: 62px;
+    padding-left: 62px;
+    padding-right: 30px;
+    padding-bottom: 20px;
+  }
+  .support-card {
+    width: 470px;
+    height: 250px;
+  }
+}
+
+@media (max-width: 780px) {
+  /* Tablet View */
+}
+
+@media (max-width: 360px) {
+  /* Mobile View */
 }

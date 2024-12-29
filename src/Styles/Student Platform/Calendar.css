@@ -214,5 +214,10 @@ width: 200px;
   height: 59px;
 }
 
+@media (max-width: 1440px) {
+ .custom-calendar {
+  width: 260px;
+ }
+}
   
   

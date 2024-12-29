@@ -4,10 +4,10 @@ import { apiUrl } from "../../API";
 
 import AcadimaLogo from "../../Images/AcadimaLogo.png";
 import activeNotif from "../../Images/active-notification.svg";
-// import language from '../../Images/language.svg';
 
 function Navbar() {
   const [userBriefData, setUserBriefData] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false); // State to track menu toggle
 
   const token = localStorage.getItem("token");
 
@@ -24,7 +24,6 @@ function Navbar() {
       });
 
       const result = await response.json();
-      // console.log(result);
       setUserBriefData(result.data);
     } catch (error) {
       console.log(error);
@@ -35,10 +34,21 @@ function Navbar() {
     fetchUserData();
   }, []);
 
+  const handleMenuToggle = () => {
+    setMenuOpen(!menuOpen);
+  };
+
   return (
     <div className="navbar">
       <img src={AcadimaLogo} alt="AcadimaLogo" className="AcadimaLogo" />
-      <div className="navbar-left">
+
+      <div className="hamburger" onClick={handleMenuToggle}>
+        <span className={menuOpen ? "line open" : "line"}></span>
+        <span className={menuOpen ? "line open" : "line"}></span>
+        <span className={menuOpen ? "line open" : "line"}></span>
+      </div>
+
+      <div className={`navbar-left ${menuOpen ? "open" : ""}`}>
         <p className="language-toggle">En</p>
         <img src={activeNotif} alt="activeNotif" className="activeNotif" />
         <span className="nav-separator"></span>
