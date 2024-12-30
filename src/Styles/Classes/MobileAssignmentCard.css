@@ -1,0 +1,55 @@
+.mobile-program-card {
+  border: 1px solid #141f25;
+  border-right: 10px solid #4AAE68;
+  margin-bottom: 16px;
+  padding: 16px;
+  transition: all 0.3s ease;
+  border-radius: 12px;
+  background: #141f25;
+  color: #ccc;
+}
+
+.mobile-program-header {
+  display: flex;
+  flex-direction: row;
+  direction: rtl;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.mobile-program-details {
+  margin-top: 16px;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  direction: rtl;
+}
+
+.mobile-program-detail-item {
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+width: 100%;
+}
+
+.mobile-button {
+    padding: 40px;
+    padding-right: 0;
+    border-top: 1px solid #5B767C;
+    width: 100%;
+    margin-top: 20px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.mobile-toggle-icon {
+  font-size: 16px;
+  cursor: pointer;
+}

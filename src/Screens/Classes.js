@@ -6,6 +6,7 @@ import "../Styles/Classes/Classes.css";
 import MainPageContainer from "../Components/Main/MainPageContainer";
 import ProgramCard from "../Components/Classes/ProgramCard";
 import AssignmentCard from "../Components/Classes/AssignmentCard";
+import MobileAssignmentCard from "../Components/Classes/MobileAssignmentCard";
 
 import noevents from "../Images/noEvents.svg";
 
@@ -16,7 +17,7 @@ function Classes() {
   }
 
   const [selectedCard, setSelectedCard] = useState(null);
- 
+
   console.log(selectedCard?.courses);
 
   const [classesData, setClassesData] = useState([]);
@@ -86,39 +87,71 @@ function Classes() {
                     {selectedCard?.hours_of_active} ساعة
                   </span>
                 </h3>
-                <div className="assignments-table">
+                <div className="wide-screen-view">
                   {selectedCard?.courses?.length > 0 ? (
                     <>
-                      <div className="assignments-table-header">
-                        <p className="assignments-table-item1">رقم المقرر</p>
-                        <p className="assignments-table-item2">أسم المقرر</p>
-                        <p className="assignments-table-item3">تاريخ البدء</p>
-                        <p className="assignments-table-item3">عدد المهام</p>
-                        <p className="assignments-table-item4">عدد التسليمات</p>
-                        <p className="assignments-table-item2">الإجراءات</p>
-                      </div>
-                      <div className="classes-assignments-container">
-                        {selectedCard.courses.map((course, index) => (
-                          <AssignmentCard
-                            id={index + 1}
-                            course={course}
-                            goToLec={HandlegoToLec}
-                          />
-                        ))}
-                      </div>
-                      <div className="new-classes-info">
-                        <button className="download-schedule">
-                          تحميل جدول المحاضرات
-                        </button>
-                        <p className="new-classes-p">
-                          ترغب بالانضمام إلى برنامج أخر ؟{" "}
-                          <a className="new-classes-link">طلب تسجيل جديد</a>{" "}
-                        </p>
+                      <div className="assignments-table">
+                        <div className="assignments-table-header">
+                          <p className="assignments-table-item1 assignments-table-item">
+                            رقم المقرر
+                          </p>
+                          <p className="assignments-table-item2 assignments-table-item">
+                            أسم المقرر
+                          </p>
+                          <p className="assignments-table-item3 assignments-table-item">
+                            تاريخ البدء
+                          </p>
+                          <p className="assignments-table-item3 assignments-table-item">
+                            عدد المهام
+                          </p>
+                          <p className="assignments-table-item4 assignments-table-item">
+                            عدد التسليمات
+                          </p>
+                          <p className="assignments-table-item2 assignments-table-item">
+                            الإجراءات
+                          </p>
+                        </div>
+                        <div className="classes-assignments-container">
+                          {selectedCard.courses.map((course, index) => (
+                            <AssignmentCard
+                              id={index + 1}
+                              course={course}
+                              goToLec={HandlegoToLec}
+                            />
+                          ))}
+                        </div>
                       </div>
                     </>
                   ) : (
-                    <div className="no-assignments">
-                      <p>لا توجد أي مقررات متاحة حاليًا.</p>
+                    <div className="default-view">
+                      <p className="default-text">
+                        {" "}
+                        قم باختيار أحد البرامج لإظهار جدول المقررات{" "}
+                      </p>
+                        <img
+                          src={noevents}
+                          alt="noEvents"
+                          className="noAssignment-image"
+                        />
+                    </div>
+                  )}
+                </div>
+                <div className="mobile-screen-view">
+                  {selectedCard?.courses?.length > 0 ? (
+                    selectedCard.courses.map((course, index) => (
+                      <MobileAssignmentCard key={index} course={course} />
+                    ))
+                  ) : (
+                    <div className="default-view">
+                      <p className="default-text">
+                        {" "}
+                        قم باختيار أحد البرامج لإظهار جدول المقررات{" "}
+                      </p>
+                        <img
+                          src={noevents}
+                          alt="noEvents"
+                          className="noAssignment-image"
+                        />
                     </div>
                   )}
                 </div>

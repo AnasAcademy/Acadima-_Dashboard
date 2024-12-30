@@ -7,7 +7,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  width: 295px;
+  width: 20%;
   height: fit-content;
   min-height: 130px;
   direction: rtl;
@@ -86,4 +86,25 @@
 }
 .classes-program-card.selected .progress-percentage {
   color: #ffffff; /* Light color for percentage text */
+}
+
+@media(max-width: 1650px) {
+  .classes-program-card {
+    width: 25%;
+  }
+} 
+@media(max-width: 1280px) {
+  .classes-program-card {
+    width: 40%;
+  }
+}
+@media(max-width: 1000px) {
+  .classes-program-card {
+    width: 100%;
+  }
+}
+@media(max-width: 700px) {
+  .classes-program-card {
+    width: 90%;
+  }
 }

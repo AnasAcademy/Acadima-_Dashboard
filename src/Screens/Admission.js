@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { apiUrl } from "../API";
 import { useNavigate } from "react-router-dom";
 
@@ -32,53 +32,39 @@ function Admission() {
     useState(false);
 
   const [data, setData] = useState({ category_id: "", bundle_id: "" });
-  const [error, setError] = useState(null); // For error messages
-
-  const [last_program, setLastProgram] = useState(null);
+  const [error, setError] = useState(null);
+  const [appliedPrograms, setAppliedPrograms] = useState([]);
+  const [paymentStatus, setPaymentStatus] = useState({});
+  const [programStatus, setProgramStatus] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   const token = localStorage.getItem("token");
-
-  const [payment_status, setPaymentStatus] = useState(null); // For error messages
- const [program_status, setProgramStatus] = useState(null);
+  const navigate = useNavigate();
 
   // Fetch program data
   const fetchProgramData = async () => {
     try {
+      const headers = {
+        "Content-Type": "application/json",
+        "x-api-key": "1234",
+        "ngrok-skip-browser-warning": true,
+        Authorization: `Bearer ${token}`,
+      };
+
       const response = await fetch(apiUrl + "/panel/programs/apply", {
         method: "GET",
-        headers: {
-          "x-api-key": "1234",
-          "ngrok-skip-browser-warning": true,
-          Authorization: "Bearer " + token,
-        },
+        headers,
       });
 
       const result = await response.json();
-      console.log(result.data.categories); // Log fetched data
-      setCategories(result.data.categories);
-      setLastProgram(result.data.last_program);
-
-      if(result?.data?.last_program?.payment_type === "cache"){
-        setPaymentStatus("تم الشراء");
-      } else {
-        if (result?.data?.last_program?.installment_complete) {
-          setPaymentStatus("تم الشراء");
-        } else {
-          setPaymentStatus("جارى دفع الأقساط"); 
-        }
-      }
-
-      if (result?.data?.last_program?.status === "active"){
-        setProgramStatus("قيد الدراسة");
-      }else if(result?.data?.last_program?.status === "inactive"){
-        setProgramStatus("لم يبدأ بعد");
-      }else {
-        setProgramStatus("انتهت الدراسة");
-      }
-
+      setCategories(result.data.categories || []);
+      setAppliedPrograms(result.data.applied_programs || []);
 
     } catch (error) {
       console.error("Error fetching program data:", error);
+      setError("حدث خطأ أثناء جلب البيانات. يرجى المحاولة لاحقًا.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -107,76 +93,91 @@ function Admission() {
     selectedProgramName !== "اختر التخصص الذي تود دراسته"
   );
 
-  const navigate = useNavigate();
-
   const applyToProgram = async () => {
     try {
+      const headers = {
+        "Content-Type": "application/json",
+        "x-api-key": "1234",
+        "ngrok-skip-browser-warning": true,
+        Authorization: `Bearer ${token}`,
+      };
+
       const response = await fetch(apiUrl + "/panel/programs/apply", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": "1234",
-          "ngrok-skip-browser-warning": true,
-          Authorization: "Bearer " + token,
-        },
+        headers,
         body: JSON.stringify(data),
       });
       const result = await response.json();
 
-      console.log(result);
       if (result.success === true) {
         navigate("/program");
-        // alert(result.message);
       } else {
+        const errorMessages = [];
         if (result.errors) {
-          const errorMessages = [];
           if (result.errors.category_id) {
             errorMessages.push(`${result.errors.category_id[0]}`);
           }
           if (result.errors.bundle_id) {
             errorMessages.push(`${result.errors.bundle_id[0]}`);
           }
-
-          setError(errorMessages.join(" و "));
         } else {
-          setError("Failed to register. Please try again.");
+          errorMessages.push("Failed to register. Please try again.");
         }
-        return;
+        setError(errorMessages.join(" و "));
       }
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error applying to program:", error);
+      setError("حدث خطأ أثناء التسجيل. يرجى المحاولة لاحقًا.");
+    }
   };
 
   return (
     <MainPageContainer>
       <div className="admission-container">
         {/* Registered Programs Section */}
-        {last_program !== null && (
+        {appliedPrograms.length > 0 ? (
           <div className="registered-admission">
             <h3 className="section-title">البرامج المسجلة</h3>
-            <div className="admission-card">
-              <div className="admission-details">
-                <h4 className="admission-title">دورة تدربيبة مسجلة</h4>
-                <p className="admission-subtitle">
-                {last_program?.title} 
-                </p>
-                <p className="admission-status">حالة البرنامج : {program_status} </p>
-              </div>
-              <div className="admission-actions">
-                {/* if paid تم اكمال عمليات الدفع */}
-                <p className="payment-p">{payment_status}</p>
-                <button className="go-to-program-button">
-                  الذهاب للبرنامج
-                </button>
-              </div>
+            <div className="applied-programs-list">
+              {appliedPrograms.map((program, index) => (
+                <div key={index} className="admission-card">
+                  <div className="admission-details">
+                    <h4 className="admission-title">{program.category}</h4>
+                    <p className="admission-subtitle">{program.title}</p>
+                    <p className="admission-status">
+                      حالة البرنامج:{" "}
+                      {program.status === "active"
+                        ? "قيد الدراسة"
+                        : program.status === "inactive"
+                        ? "لم يبدأ بعد"
+                        : program.status === "expired"
+                        ? "انتهت الدراسة"
+                        : "حالة غير معروفة"}
+                    </p>
+                  </div>
+                  <div className="admission-actions">
+                    <p className="payment-p">
+                      {program.payment_type === "cache" ||
+                      program.installment_complete
+                        ? "تم الشراء"
+                        : "جارى دفع الأقساط"}
+                    </p>
+                    <button className="go-to-program-button">
+                      الذهاب للبرنامج
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
+        ) : (
+          <p>لا يوجد برامج مسجلة حاليا.</p>
         )}
 
         {/* New Admission Request Section */}
         <div className="new-admission-request">
           <h3 className="section-title">التسجيل ببرنامج جديد</h3>
           <form onSubmit={handleFormSubmit} className="admission-form">
-            {/* Program Type Dropdown */}
             <label className="form-label">نوع البرنامج الدراسي:</label>
             <div
               className="custom-dropdown"
@@ -193,7 +194,7 @@ function Admission() {
                       className="dropdown-item"
                       onClick={() => {
                         setSelectedProgramType(category.title);
-                        setSelectedProgramName("اختر التخصص الذي تود دراسته"); // Reset program name
+                        setSelectedProgramName("اختر التخصص الذي تود دراسته");
                         setIsProgramTypeDropdownOpen(false);
                         setData({ ...data, category_id: category.id });
                       }}
@@ -205,8 +206,7 @@ function Admission() {
               )}
             </div>
 
-            {/* Program Name Dropdown */}
-            <label className="form-label">أسم البرنامج / الدورة : </label>
+            <label className="form-label">أسم البرنامج / الدورة :</label>
             <div
               className={`custom-dropdown ${
                 !programNames.length && "disabled"
@@ -236,7 +236,6 @@ function Admission() {
               )}
             </div>
 
-            {/* Terms and Checkboxes */}
             <div className="form-checkbox-group">
               <input
                 type="checkbox"
@@ -245,9 +244,8 @@ function Admission() {
                 onChange={(e) => setIsFirstCheckboxChecked(e.target.checked)}
               />
               <label htmlFor="checkbox1">
-                .أقر بأن لدي خبرة عملية ومعرفة جيدة بالبرامج التي سأتقدم
-                للاختبار بها، وأفهم أن الدورة تؤهل للاختبار فقط ولا تعلم البرامج
-                من الصفر
+                أقر بأن لدي خبرة عملية ومعرفة جيدة بالبرامج التي سأتقدم للاختبار
+                بها، وأفهم أن الدورة تؤهل للاختبار فقط ولا تعلم البرامج من الصفر
               </label>
             </div>
 
@@ -259,8 +257,8 @@ function Admission() {
                 onChange={(e) => setIsSecondCheckboxChecked(e.target.checked)}
               />
               <label htmlFor="checkbox2">
-                .إقرار بعدم تجاوز المتدرب فترة 30 يوم للتقدم للاختبار متضمنة
-                فترة التأهيل
+                إقرار بعدم تجاوز المتدرب فترة 30 يوم للتقدم للاختبار متضمنة فترة
+                التأهيل
               </label>
             </div>
 
@@ -268,19 +266,14 @@ function Admission() {
               type="submit"
               className="form-submit-button"
               disabled={isSubmitDisabled}
-              onClick={applyToProgram} // Navigate on button click
+              onClick={applyToProgram}
             >
               التسجيل
             </button>
           </form>
         </div>
       </div>
-      {error && (
-        <Popup
-          message={error}
-          onClose={() => setError(null)} // Close the popup
-        />
-      )}
+      {error && <Popup message={error} onClose={() => setError(null)} />}
     </MainPageContainer>
   );
 }

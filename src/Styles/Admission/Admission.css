@@ -19,14 +19,39 @@
   width: fit-content;
 }
 
-.registered-admission,
+.registered-admission {
+  border-radius: 12px;
+  /* padding: 20px; */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: flex-end;
+  width: 98%;
+  box-sizing: border-box;
+}
+.applied-programs-list {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 10px;
+  width: 80%;
+  height: 140px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
 .new-admission-request {
   border-radius: 12px;
-  padding: 20px;
+  /* padding: 20px; */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  width: 70%;
+  box-sizing: border-box;
 }
 
 .admission-card {
@@ -34,12 +59,13 @@
   flex-direction: row-reverse;
   justify-content: space-between;
   align-items: center;
-  width: 690px;
-  height: 109px;
+  /* width: 690px; */
+  width: 44%;
+  height: 130px;
   flex-shrink: 0;
   border-radius: 8px;
   background: #141f25;
-  gap: 80px;
+  gap: 2%;
   padding: 16px 24px;
   box-sizing: border-box;
 }
@@ -59,6 +85,7 @@
   flex-direction: column;
   align-items: flex-end;
   justify-content: flex-start;
+  gap: 5px;
 }
 .admission-subtitle {
   color: #fff;
@@ -68,6 +95,7 @@
   font-weight: 600;
   line-height: normal;
   margin: 0;
+  width: 300px;
 }
 
 .admission-status {
@@ -85,11 +113,13 @@
   justify-content: center;
   align-items: center;
   gap: 8px;
+  width: 25%;
 }
 .payment-p {
   margin: 0;
-  padding: 10px 24px;
-  width: 100px;
+  padding: 10px 5px;
+  /* width: 100px; */
+  width: 100%;
   height: fit-content;
   align-self: stretch;
   border-radius: 6px;
@@ -102,11 +132,12 @@
   line-height: normal;
   background-color: transparent;
   font-family: "nf-l", sans-serif !important;
+  box-sizing: border-box;
 }
 
 .go-to-program-button {
   height: fit-content;
-  padding: 10px 24px;
+  padding: 10px 5px;
   align-self: stretch;
   border-radius: 6px;
   background: #599faf;
@@ -119,18 +150,21 @@
   line-height: normal;
   cursor: pointer;
   font-family: "nf-l", sans-serif !important;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .admission-form {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  width: 935px;
-  height: 356px;
-  padding: 27px 43px;
+  width: 100%;
+  height: fit-content;
+  padding: 27px 23px;
   align-items: flex-end;
   border-radius: 8px;
   background: #141f25;
+  box-sizing: border-box;
 }
 
 .form-label {
@@ -150,7 +184,7 @@
   padding: 10px;
   cursor: pointer;
   margin-bottom: 16px;
-  width: 500px;
+  width: 60%;
 }
 
 .dropdown-header {
@@ -192,10 +226,10 @@
 }
 
 .form-checkbox-group {
-  display: flex;
-  align-items: center;
+  direction: rtl;
   gap: 8px;
-  flex-direction: row-reverse;
+  width: 98%;
+  display: flex;
 }
 
 .form-checkbox-group label {
@@ -210,7 +244,7 @@
 input[type="checkbox"] {
   appearance: none; /* Remove default styling */
   -webkit-appearance: none;
-  width: 20px;
+  min-width: 20px;
   height: 20px;
   border: 1px solid #fff;
   border-radius: 4px;
@@ -235,7 +269,7 @@ input[type="checkbox"]:checked::before {
 
 .form-submit-button {
   display: flex;
-  width: 125px;
+  width: 15%;
   height: 36px;
   padding: 8px 38px;
   justify-content: center;
@@ -259,4 +293,85 @@ input[type="checkbox"]:checked::before {
 }
 .form-submit-button:disabled {
   cursor: not-allowed;
+}
+@media (max-width: 1650px) {
+  .admission-actions {
+    width: 30%;
+  }
+}
+@media (max-width: 1510px) {
+  .admission-card {
+    flex-direction: column;
+    height: 224px;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .admission-details {
+    justify-content: center;
+    align-items: center;
+  }
+  .admission-subtitle {
+    text-align: center;
+  }
+  .admission-actions {
+    flex-direction: row;
+    width: 80%;
+  }
+  .applied-programs-list {
+    height: 240px;
+  }
+  .custom-dropdown {
+    width: 80%;
+  }
+}
+@media (max-width: 1221px) {
+  .admission-actions {
+    width: 90%;
+  }
+}
+@media (max-width: 1000px) {
+  .new-admission-request {
+    width: 95%;
+  }
+  .admission-card {
+    width: 70%;
+  }
+  .admission-actions {
+    width: 70%;
+  }
+  .applied-programs-list {
+    width: 95%;
+  }
+}
+@media (max-width: 690px) {
+  .admission-actions {
+    width: 98%;
+  }
+  .custom-dropdown {
+    width: 90%;
+  }
+  .admission-subtitle {
+    width: 240px;
+  }
+}
+@media (max-width: 580px) {
+  .admission-container {
+    padding: 20px;
+  }
+  .new-admission-request {
+    height: fit-content;
+    width: 100%;
+  }
+  .admission-form {
+    padding: 10px;
+    width: 100%;
+  }
+  .admission-card {
+    width: 95%;
+    padding: 10px;
+  }
+  .admission-actions {
+    width: 100%;
+  }
+  
 }

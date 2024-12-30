@@ -8,6 +8,7 @@
   padding: 15px;
   border-right: 10px solid #4AAE68;
   box-sizing: border-box;
+  width: 100%;
 }
 .assignment-data {
   font-size: 14px;
@@ -32,7 +33,6 @@
   width: 50px;
   text-align: left;
   height: fit-content;
-
 }
 
 .assignment-action {
