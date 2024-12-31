@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { apiUrl } from "../../API";
 
 import editLinkimg from "../../Images/editLink.svg";
 import deleteLinkimg from "../../Images/deleteLink.svg";
 
-function PeopleYouKnow({ onNext, references, setReferences }) {
+function PeopleYouKnow({ onNext, references, setReferences, updateProgress }) {
   const [activeReferenceIndex, setActiveReferenceIndex] = useState(null);
   const [isAdding, setIsAdding] = useState(false);
   const [tempReference, setTempReference] = useState({
@@ -114,6 +114,7 @@ function PeopleYouKnow({ onNext, references, setReferences }) {
               : reference
           )
         );
+        calculateProgress(); // Update progress
         alert("تم تحديث المعرف بنجاح.");
       } else {
         const errorData = await response.json();
@@ -160,6 +161,7 @@ function PeopleYouKnow({ onNext, references, setReferences }) {
 
       if (response.ok) {
         setReferences((prev) => prev.filter((_, i) => i !== index));
+        calculateProgress(); // Update progress
         alert("تم حذف المعرف بنجاح.");
       } else {
         const errorData = await response.json();
@@ -171,6 +173,16 @@ function PeopleYouKnow({ onNext, references, setReferences }) {
       alert("حدث خطأ أثناء حذف المعرف.");
     }
   };
+
+  const calculateProgress = () => {
+    const progress = references.length === 0 ? 0 : Math.min(references.length * 20, 100); // 20% per reference, capped at 100%
+    updateProgress(progress);
+  };
+
+  useEffect(() => {
+    calculateProgress();
+  }, [references]);
+
 
   const handleSubmit = (e) => {
     onNext();

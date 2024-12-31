@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { apiUrl } from "../../API";
 
-function Education({ onNext, education, setEducation }) {
+function Education({ onNext, education, setEducation, updateProgress }) {
   const [high_education, setHighEducation] = useState(
     education?.high_education || {}
   );
@@ -46,6 +46,36 @@ function Education({ onNext, education, setEducation }) {
     "موريتانيا",
     "أخرى",
   ];
+
+  const calculateProgress = () => {
+    const requiredFields = [
+      "certificate_type",
+      "educational_qualification_country",
+      "university",
+      "faculty",
+      "education_specialization",
+      "graduation_year",
+      "gpa",
+      "high_certificate_img",
+      "secondary_educational_qualification_country",
+      "educational_area",
+      "secondary_graduation_year",
+      "school",
+      "secondary_school_gpa",
+      "secondary_certificate_img",
+    ];
+
+    const completedFields = requiredFields.filter(
+      (field) => submit_education[field] && submit_education[field] !== ""
+    ).length;
+
+    const progress = Math.round((completedFields / requiredFields.length) * 100);
+    updateProgress(progress); // Update parent with progress percentage
+  };
+
+  useEffect(() => {
+    calculateProgress();
+  }, [submit_education]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -112,10 +142,10 @@ function Education({ onNext, education, setEducation }) {
         }
       }
   
-      // Debugging log to ensure certificate_type is included
-      for (const pair of formData.entries()) {
-        console.log(`${pair[0]}:`, pair[1]);
-      }
+      // // Debugging log to ensure certificate_type is included
+      // for (const pair of formData.entries()) {
+      //   console.log(`${pair[0]}:`, pair[1]);
+      // }
   
       const response = await fetch(apiUrl + `/panel/profile-setting/education`, {
         method: "POST",
@@ -128,7 +158,6 @@ function Education({ onNext, education, setEducation }) {
       });
   
       const result = await response.json();
-      console.log("Response:", result);
   
       if (result.success) {
         onNext();
@@ -136,7 +165,7 @@ function Education({ onNext, education, setEducation }) {
         alert(`حدث خطأ: ${result.message}`);
       }
     } catch (error) {
-      console.error("Error submitting education data:", error);
+      console.log("Error submitting education data:", error);
     }
   };
   

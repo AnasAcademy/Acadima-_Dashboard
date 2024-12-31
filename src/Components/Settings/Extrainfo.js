@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { apiUrl } from "../../API";
 
-function Extrainfo({ onNext, additionalData }) {
+function Extrainfo({ onNext, additionalData, updateProgress }) {
   const token = localStorage.getItem("token");
 
   const [employmentStatus, setEmploymentStatus] = useState(
@@ -17,6 +17,36 @@ function Extrainfo({ onNext, additionalData }) {
     ...additionalData?.referral,
   });
 
+  const calculateProgress = () => {
+    const requiredFields = [
+      "referral_person",
+      "relation",
+      "referral_phone",
+      "healthy",
+      "disabled",
+      "deaf",
+    ];
+
+    if (employmentStatus) {
+      requiredFields.push("job", "job_type");
+    }
+
+    if (hasHealthIssue) {
+      requiredFields.push("healthy_problem");
+    }
+
+    const completedFields = requiredFields.filter(
+      (field) => submit_formdata[field] && submit_formdata[field] !== ""
+    ).length;
+
+    const progress = Math.round((completedFields / requiredFields.length) * 100);
+    updateProgress(progress); // Notify parent component
+  };
+
+  useEffect(() => {
+    calculateProgress();
+  }, [submit_formdata, employmentStatus, hasHealthIssue]);
+
   const handleInputChange = (e) => {
     const { name, value, type } = e.target;
 
@@ -29,7 +59,6 @@ function Extrainfo({ onNext, additionalData }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Payload being sent:", submit_formdata); // Add this for debugging
 
     try {
       const response = await fetch(
@@ -47,15 +76,14 @@ function Extrainfo({ onNext, additionalData }) {
       );
 
       const result = await response.json();
-      console.log("Response:", result);
 
       if (result.success) {
         onNext();
       } else {
-        console.error("Error response:", result);
+        console.log("Error response:", result);
       }
     } catch (error) {
-      console.error("Error saving data:", error);
+      console.log("Error saving data:", error);
     }
   };
 

@@ -16,6 +16,28 @@ import PeopleYouKnow from "../Components/Settings/PeopleYouKnow";
 
 function Settings() {
   const [activeSection, setActiveSection] = useState(1); // Active section state
+  const [progressData, setProgressData] = useState({
+    basicData: 0,
+    personalData: 0,
+    education: 0,
+    experience: 0,
+    additionalInfo: 0,
+    workLinks: 0,
+    references: 0,
+  });
+
+  const updateTabProgress = (tabName, progress) => {
+    setProgressData((prev) => ({ ...prev, [tabName]: progress }));
+  };
+
+  const calculateOverallProgress = () => {
+    const totalTabs = Object.keys(progressData).length;
+    const totalProgress = Object.values(progressData).reduce(
+      (sum, progress) => sum + progress,
+      0
+    );
+    return Math.round(totalProgress / totalTabs);
+  };
 
   const handleNextStep = () => {
     setActiveSection((prevSection) => prevSection + 1); // Move to the next section
@@ -49,8 +71,19 @@ function Settings() {
       setAdditionalData(result.data.additional_details);
       setLinks(result.data.links);
       setReferences(result.data.references);
-      console.log(additionalData);
+
       
+      setProgressData(
+        {
+          basicData: 0,
+          personalData: 0,
+          education: 0,
+          experience: 0,
+          additionalInfo: 0,
+          workLinks: 0,
+          references: 0,
+        }
+      );
     } catch (error) {
       console.log(error);
     }
@@ -70,6 +103,9 @@ function Settings() {
             onNext={handleNextStep}
             allUserData={allUserData}
             setAllUserData={setAllUserData}
+            updateProgress={(progress) =>
+              updateTabProgress("basicData", progress)
+            }
           />
         );
       case 2:
@@ -78,20 +114,63 @@ function Settings() {
             onNext={handleNextStep}
             allUserData={allUserData}
             setAllUserData={setAllUserData}
+            updateProgress={(progress) =>
+              updateTabProgress("personalData", progress)
+            }
           />
         );
       case 3:
-        return <Education onNext={handleNextStep} education={education} setEducation={setEducation}/>;
+        return (
+          <Education
+            onNext={handleNextStep}
+            education={education}
+            setEducation={setEducation}
+            updateProgress={(progress) =>
+              updateTabProgress("education", progress)
+            }
+          />
+        );
       case 4:
-        return <Experience onNext={handleNextStep} experience={experience} userId={allUserData.id}/>;
+        return (
+          <Experience
+            onNext={handleNextStep}
+            experience={experience}
+            userId={allUserData.id}
+            updateProgress={(progress) =>
+              updateTabProgress("experience", progress)
+            }
+          />
+        );
       case 5:
-        return <Extrainfo onNext={handleNextStep} additionalData={additionalData}/>;
+        return (
+          <Extrainfo
+            onNext={handleNextStep}
+            additionalData={additionalData}
+            updateProgress={(progress) =>
+              updateTabProgress("additionalInfo", progress)
+            }
+          />
+        );
       case 6:
-        return <WorkLinks onNext={handleNextStep} links={links} setLinks={setLinks}/>;
+        return (
+          <WorkLinks
+            onNext={handleNextStep}
+            links={links}
+            setLinks={setLinks}
+            updateProgress={(progress) => updateTabProgress("workLinks", progress)}
+          />
+        );
       case 7:
-        return <PeopleYouKnow onNext={handleNextStep} references={references} setReferences={setReferences}/>;
+        return (
+          <PeopleYouKnow
+            onNext={handleNextStep}
+            references={references}
+            setReferences={setReferences}
+            updateProgress={(progress) => updateTabProgress("references", progress)}
+          />
+        );
       default:
-        return navigate('/');
+        return navigate("/");
     }
   };
 
@@ -101,6 +180,7 @@ function Settings() {
         <SettingsSidebar
           activeSection={activeSection}
           setActiveSection={setActiveSection}
+          progress={calculateOverallProgress()} // Pass the overall progress
         />
         <div className="settings-content">{renderSectionContent()}</div>
       </div>

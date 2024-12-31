@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { apiUrl } from "../../API";
 
-function Experience({ onNext, experience, id }) {
+function Experience({ onNext, experience, id, updateProgress }) {
   // Ensure experience is an array before parsing
   const parsedExperience = Array.isArray(experience)
     ? experience.map((exp) => {
@@ -44,9 +44,10 @@ function Experience({ onNext, experience, id }) {
     const newExperience = { id: null, ...tempExperience };
     setExperienceForms((prev) => [...prev, newExperience]);
     setIsAdding(false);
-    
 
-    const formattedExperience = `title: ${newExperience.name || ""}, year: ${newExperience.value || ""}`;
+    const formattedExperience = `title: ${newExperience.name || ""}, year: ${
+      newExperience.value || ""
+    }`;
 
     try {
       const response = await fetch(apiUrl + `/panel/profile-setting/metas`, {
@@ -64,7 +65,6 @@ function Experience({ onNext, experience, id }) {
       });
 
       const result = await response.json();
-      console.log("Experience submitted successfully:", result);
 
       if (response.ok) {
         // Update the experience with the server-assigned ID
@@ -74,11 +74,12 @@ function Experience({ onNext, experience, id }) {
           )
         );
         alert("Experience added successfully");
+        calculateProgress(); // Recalculate progress
       } else {
         alert("Error adding experience: " + result.message);
       }
     } catch (error) {
-      console.error("Error submitting education data:", error);
+      console.log("Error submitting education data:", error);
       alert("Error adding experience. Please try again.");
     }
   };
@@ -90,12 +91,18 @@ function Experience({ onNext, experience, id }) {
   };
 
   const handleUpdateExperience = async () => {
-    const updatedExperience = { ...experienceForms[activeFormIndex], ...tempExperience };
-    const formattedExperience = `title: ${updatedExperience.name || ""}, year: ${updatedExperience.value || ""}`;
+    const updatedExperience = {
+      ...experienceForms[activeFormIndex],
+      ...tempExperience,
+    };
+    const formattedExperience = `title: ${
+      updatedExperience.name || ""
+    }, year: ${updatedExperience.value || ""}`;
     console.log(updatedExperience);
     try {
       const response = await fetch(
-        apiUrl + `/panel/profile-setting/metas/${experienceForms[activeFormIndex].id}/update`,
+        apiUrl +
+          `/panel/profile-setting/metas/${experienceForms[activeFormIndex].id}/update`,
         {
           method: "PUT",
           headers: {
@@ -112,10 +119,9 @@ function Experience({ onNext, experience, id }) {
           }),
         }
       );
-  
+
       const result = await response.json();
-      console.log("Experience updated successfully:", result);
-  
+
       if (response.ok) {
         // Update the local state to reflect the changes
         setExperienceForms((prev) =>
@@ -124,27 +130,28 @@ function Experience({ onNext, experience, id }) {
           )
         );
         alert("Experience updated successfully");
+        calculateProgress(); // Recalculate progress
       } else {
         alert("Error updating experience: " + result.message);
       }
     } catch (error) {
-      console.error("Error updating experience:", error);
+      console.log("Error updating experience:", error);
       alert("Error updating experience. Please try again.");
     } finally {
       setActiveFormIndex(null); // Reset the active form index
     }
   };
-  
 
   const handleDeleteExperience = async (index) => {
     const experienceToDelete = experienceForms[index];
-  
+
     if (!experienceToDelete.id) {
       // If the experience has no ID (not saved to the server), just remove it locally
       setExperienceForms((prev) => prev.filter((_, i) => i !== index));
+      calculateProgress(); // Recalculate progress
       return;
     }
-  
+
     try {
       const response = await fetch(
         apiUrl + `/panel/profile-setting/metas/${experienceToDelete.id}/delete`,
@@ -158,11 +165,12 @@ function Experience({ onNext, experience, id }) {
           },
         }
       );
-  
+
       if (response.ok) {
         alert("Experience deleted successfully");
         // Remove the experience locally after a successful API response
         setExperienceForms((prev) => prev.filter((_, i) => i !== index));
+        calculateProgress(); // Recalculate progress
       } else {
         const result = await response.json();
         alert("Error deleting experience: " + result.message);
@@ -172,7 +180,6 @@ function Experience({ onNext, experience, id }) {
       alert("Error deleting experience. Please try again.");
     }
   };
-  
 
   const handleCancel = () => {
     setActiveFormIndex(null);
@@ -183,8 +190,26 @@ function Experience({ onNext, experience, id }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     onNext();
-    console.log(experienceForms);
   };
+
+  const calculateProgress = () => {
+    if (experienceForms.length === 0) {
+      updateProgress(100); // If no experience is added, consider it 100% complete
+      return;
+    }
+
+    const completedFields = experienceForms.filter(
+      (exp) => exp.name && exp.value
+    ).length;
+    const progress = Math.round(
+      (completedFields / (experienceForms.length || 1)) * 100
+    );
+    updateProgress(progress);
+  };
+
+  useEffect(() => {
+    calculateProgress();
+  }, [experienceForms]);
 
   return (
     <div className="user-profile-container">

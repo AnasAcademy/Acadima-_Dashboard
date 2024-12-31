@@ -19,19 +19,19 @@ import activeothers from "../../Images/SettingsSidebar/Activeothers.svg";
 import others2 from "../../Images/SettingsSidebar/others2.svg";
 import activeothers2 from "../../Images/SettingsSidebar/Activeothers2.svg";
 
-function SettingsSidebar({ activeSection, setActiveSection }) {
+function SettingsSidebar({ activeSection, setActiveSection, progress }) {
   const sections = [
     {
       id: 1,
       title: "البيانات الأساسية",
       icon: user,
-      activeIcon: activeuser, 
+      activeIcon: activeuser,
     },
     {
       id: 2,
       title: "البيانات الشخصية",
       icon: personalinfo,
-      activeIcon:activepersonalinfo,
+      activeIcon: activepersonalinfo,
     },
     {
       id: 3,
@@ -69,13 +69,13 @@ function SettingsSidebar({ activeSection, setActiveSection }) {
     <div className="settings-sidebar-container">
       <h2 className="settings-title">جميع الإعدادات</h2>
 
-     
-      {/* <div className="progress-container">
-        <div className="progress-bar-container">
-          <div className="progress-bar" style={{ width: `${progress}%` }}></div>
+      {/* Progress Bar */}
+      <div className="progress-container">
+        <div className="progress-bar-container" style={{background: "#316F7D"}}>
+          <div className="progress-bar" style={{ width: `${progress ?? 0}%`, background: "white" }}></div>
         </div>
-        <div className="progress-percentage">{progress}%</div>
-      </div> */}
+        <div className="progress-percentage" style={{color: "white"}}>{progress ?? 0}%</div>
+      </div>
 
       <p className="settings-description">
         عزيزنا الطالب، يرجى التأكد من ملء جميع الحقول المطلوبة (المشار إليها
@@ -92,8 +92,11 @@ function SettingsSidebar({ activeSection, setActiveSection }) {
             }`}
             onClick={() => setActiveSection(section.id)}
           >
-            <img className="settings-icon"
-              src={activeSection === section.id ? section.activeIcon : section.icon}
+            <img
+              className="settings-icon"
+              src={
+                activeSection === section.id ? section.activeIcon : section.icon
+              }
               alt="activeSection"
             />
             <span className="settings-text">{section.title}</span>

@@ -101,11 +101,11 @@ function RegistrationScreen() {
 
       const token = data.data.token;
       localStorage.setItem('token', token);
-      navigate("/");
+      navigate("/admission");
       // Navigate to login or home page on successful registration
       // navigate("/login");
     }  catch (err) {
-      console.error(err);
+      console.log(err);
       setError("An unknown error occurred.");
     } finally {
       setLoading(false);

@@ -40,25 +40,22 @@ function LoginScreen() {
     e.preventDefault();
     setLoading(true);
     setError(null);
-  
+
     const loginData = {
       email,
       password,
     };
-  
+
     try {
-      const response = await fetch(
-        apiUrl + "/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            'x-api-key': '1234',
-          },
-          body: JSON.stringify(loginData),
-        }
-      );
-  
+      const response = await fetch(apiUrl + "/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": "1234",
+        },
+        body: JSON.stringify(loginData),
+      });
+
       const data = await response.json();
       console.log(data);
       console.log(response);
@@ -69,16 +66,20 @@ function LoginScreen() {
         } else {
           setError("Failed to login. Please try again."); // Fallback error
         }
-  
-        console.log(data); // Debugging
         return;
       }
-  
 
       const token = data.data.token;
 
       localStorage.setItem("token", token); // Example: saving token
-      navigate("/"); // Redirect to a dashboard or home page
+
+      if (data?.data?.user?.role === "user") {
+        navigate("/");
+      } else if (data?.data?.user?.user_code) {
+        navigate("/program");
+      } else {
+        navigate("/admission");
+      }
     } catch (err) {
       console.error(err);
       setError("An unknown error occurred.");
@@ -139,9 +140,7 @@ function LoginScreen() {
 
           <div className="buttons-container">
             <button className="login-button" type="submit" disabled={loading}>
-              <span className="login-button-text">
-              تسجيل دخول
-              </span>
+              <span className="login-button-text">تسجيل دخول</span>
             </button>
           </div>
         </form>

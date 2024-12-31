@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 
+import ProtectedRoute from './Components/ProtectedRoute';
+import PublicRoute from './Components/PublicRoute';
 import StudentPlatform from './Screens/StudentPlatform';
 import Admission from './Screens/Admission';
 import Classes from './Screens/Classes';
@@ -23,20 +25,20 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-          <Route index element={<StudentPlatform />} /> 
-          <Route path="/admission" element={<Admission />} /> 
-          <Route path="/program" element={<Program />} />
-          <Route path="/classes" element={<Classes />} /> 
-          <Route path="/course" element={<Course />} />
-          <Route path="/certificates" element={<Certificates />} /> 
-          <Route path="/installments" element={<Installments />} /> 
-          <Route path="/conditions" element={<InstallmentConditions />} />
-          <Route path="/payment/:order_id" element={<Payment />} /> 
-          <Route path="/notifications" element={<Notifications />} /> 
-          <Route path="/services" element={<Services />} /> 
-          <Route path="/settings" element={<Settings />} /> 
-          <Route path="/login" element={<LoginScreen />} /> 
-          <Route path="/register" element={<RegistrationScreen />} /> 
+          <Route index element={<ProtectedRoute><StudentPlatform /></ProtectedRoute>} /> 
+          <Route path="/admission" element={<ProtectedRoute><Admission /></ProtectedRoute>} /> 
+          <Route path="/program" element={<ProtectedRoute><Program /></ProtectedRoute>} />
+          <Route path="/classes" element={<ProtectedRoute><Classes /></ProtectedRoute>} /> 
+          <Route path="/course" element={<ProtectedRoute><Course /></ProtectedRoute>} />
+          <Route path="/certificates" element={<ProtectedRoute><Certificates /></ProtectedRoute>} /> 
+          <Route path="/installments" element={<ProtectedRoute><Installments /></ProtectedRoute>} /> 
+          <Route path="/conditions" element={<ProtectedRoute><InstallmentConditions /></ProtectedRoute>} />
+          <Route path="/payment/:order_id" element={<ProtectedRoute><Payment /></ProtectedRoute>} /> 
+          <Route path="/notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} /> 
+          <Route path="/services" element={<ProtectedRoute><Services /></ProtectedRoute>} /> 
+          <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} /> 
+          <Route path="/login" element={<PublicRoute><LoginScreen /></PublicRoute>} /> 
+          <Route path="/register" element={<PublicRoute><RegistrationScreen /></PublicRoute>} /> 
         </Routes>
       </div>
     </Router>

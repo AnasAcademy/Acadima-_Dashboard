@@ -1,21 +1,27 @@
 .settings-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: flex-start;
-    direction: rtl;
-    margin-right: 60px;
-    margin-left: auto;
-    margin-top: 70px;
-    gap:40px;
-    height: fit-content;
-    padding-bottom: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  direction: rtl;
+  margin-right: 60px;
+  margin-left: auto;
+  margin-top: 70px;
+  gap: 40px;
+  height: fit-content;
+  padding-bottom: 50px;
 }
 
-
 .settings-content {
-    width: 990px;
-    /* margin-left: auto; */
-    color: #fff;
-    height: fit-content;
-  }
+  width: 73%;
+  /* margin-left: auto; */
+  color: #fff;
+  height: fit-content;
+}
+.popup-dark {
+  background-color: #141f25;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}

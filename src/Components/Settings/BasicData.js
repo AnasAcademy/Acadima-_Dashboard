@@ -6,11 +6,23 @@ import ln from "../../Images/ln.png";
 import ig from "../../Images/ig.png";
 import edit from "../../Images/edit.svg";
 
-function BasicData({ onNext, allUserData, setAllUserData }) {
+const Popup = ({ message, onClose }) => {
+  return (
+    <div className="popup-container">
+      <div className="popup-dark">
+        <p>{message}</p>
+        <button className="save-button" onClick={onClose}>إغلاق</button>
+      </div>
+    </div>
+  );
+};
+
+function BasicData({ onNext, allUserData, setAllUserData, updateProgress }) {
   const [timezone, setTimezone] = useState([]);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [newAvatar, setNewAvatar] = useState(null);
   const token = localStorage.getItem("token");
+  const [errors, setErrors] = useState(null);
 
   // Fetch timezones
   const fetchTimezone = async () => {
@@ -26,23 +38,35 @@ function BasicData({ onNext, allUserData, setAllUserData }) {
       const result = await response.json();
       setTimezone(result.data || []);
     } catch (error) {
-      console.error("Error fetching timezones:", error);
+      console.log("Error fetching timezones:", error);
     }
+  };
+
+  const calculateProgress = () => {
+    const fields = Object.values(allUserData);
+    const completedFields = fields.filter(
+      (field) => field && field!= ""
+    ).length;
+    const progress = Math.round((completedFields / fields.length) * 100) ;
+    updateProgress(progress);
   };
 
   useEffect(() => {
     fetchTimezone();
-  }, []);
+    calculateProgress();
+  }, [allUserData]);
 
   // Handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setAllUserData((prev) => ({ ...prev, [name]: value || "" }));
+    setTimeout(calculateProgress, 0); // Recalculate after the state updates
   };
 
   // Handle checkbox toggle
   const handleToggleChange = (name) => {
     setAllUserData((prev) => ({ ...prev, [name]: !prev[name] }));
+    setTimeout(calculateProgress, 0); // Recalculate after the state updates
   };
 
   // Show or hide the popup for updating avatar
@@ -70,38 +94,35 @@ function BasicData({ onNext, allUserData, setAllUserData }) {
       return;
     }
     console.log(newAvatar);
-    
+
     const formData = new FormData();
     formData.append("profile_image", newAvatar);
 
     try {
-      const response = await fetch(
-        apiUrl + "/panel/profile-setting/images",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "ngrok-skip-browser-warning": true,
-            "x-api-key": "1234",
-          },
-          body: formData,
-        }
-      );
-      
+      const response = await fetch(apiUrl + "/panel/profile-setting/images", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": true,
+          "x-api-key": "1234",
+        },
+        body: formData,
+      });
+
       const result = await response.json();
       console.log(result);
 
       if (response.ok && result.success) {
         alert("تم تحديث الصورة الشخصية بنجاح.");
-        setAllUserData((prev) => ({ ...prev, avatar: result.data.avatar }));
+        setAllUserData((prev) => ({ ...prev, avatar: result?.data?.avatar }));
         hidePopUp();
         console.log(allUserData);
-        
       } else {
-        alert(result.message || "فشل في تحديث الصورة الشخصية.");
+        setErrors(result.errors);
+        console.log(result.errors);
       }
     } catch (error) {
-      console.error("Error updating avatar:", error);
+      console.log("Error updating avatar:", error);
       alert("حدث خطأ أثناء تحديث الصورة الشخصية.");
     }
   };
@@ -109,13 +130,14 @@ function BasicData({ onNext, allUserData, setAllUserData }) {
   // Submit updated data to the API
   const handleSubmitInfo = async (e) => {
     e.preventDefault();
+    setErrors(null); // Reset errors before submission
 
     if (
       allUserData.new_password &&
       allUserData.confirm_password &&
       allUserData.new_password !== allUserData.confirm_password
     ) {
-      alert("كلمات المرور غير متطابقة. الرجاء التأكد من تطابقهما.");
+      setErrors("كلمات المرور غير متطابقة. الرجاء التأكد من تطابقهما.")
       return;
     }
 
@@ -140,14 +162,26 @@ function BasicData({ onNext, allUserData, setAllUserData }) {
       );
 
       const result = await response.json();
-      if (result.success === true) {
+
+      if (result.success) {
         onNext();
       } else {
-        alert(result.message || "حدث خطأ أثناء التحديث.");
+        if (result.errors) {
+          const errorMessages = [];
+          if (result.errors.email) {
+            errorMessages.push(result.errors.email[0]);
+          }
+          if (result.errors.full_name) {
+            errorMessages.push(result.errors.full_name[0]);
+          }
+          setErrors(errorMessages.join(" و "));
+        } else {
+          setErrors("حدث خطأ أثناء التحديث. الرجاء المحاولة لاحقاً.");
+        }
       }
     } catch (error) {
-      console.error("Error updating data:", error);
-      alert("حدث خطأ أثناء التحديث. الرجاء المحاولة لاحقاً.");
+      // console.log("Error:", error);
+      setErrors("حدث خطأ غير معروف.");
     }
   };
 
@@ -156,7 +190,12 @@ function BasicData({ onNext, allUserData, setAllUserData }) {
       <div className="profile-header">
         <div className="profile-header-right">
           <span className="picture-frame">
-            <img src={allUserData.avatar} className="basicdatalogo" alt="avatar" value={allUserData.avatar}/>
+            <img
+              src={allUserData?.avatar}
+              className="basicdatalogo"
+              alt="avatar"
+              value={allUserData?.avatar}
+            />
           </span>
           <div className="profile-info">
             <h3 className="student-name">{allUserData.full_name || ""}</h3>
@@ -179,8 +218,11 @@ function BasicData({ onNext, allUserData, setAllUserData }) {
           <div className="popup-content">
             <h2>تحديث الصورة الشخصية</h2>
             <input type="file" accept="image/*" onChange={handleImageChange} />
-            <div className="popup-buttons" >
-              <button className="save-button margin-0" onClick={handleSaveAvatar}>
+            <div className="popup-buttons">
+              <button
+                className="save-button margin-0"
+                onClick={handleSaveAvatar}
+              >
                 حفظ
               </button>
               <button className="save-button  margin-0" onClick={hidePopUp}>
@@ -317,6 +359,12 @@ function BasicData({ onNext, allUserData, setAllUserData }) {
           حفظ
         </button>
       </form>
+      {errors && (
+        <Popup
+          message={errors}
+          onClose={() => setErrors(null)} // Close the popup
+        />
+      )}
     </div>
   );
 }

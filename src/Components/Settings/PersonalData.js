@@ -1,8 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { apiUrl } from "../../API";
 
-function PersonalData({ onNext, allUserData, setAllUserData }) {
+const Popup = ({ message, onClose }) => {
+  return (
+    <div className="popup-container">
+      <div className="popup-dark">
+        <p>{message}</p>
+        <button className="save-button" onClick={onClose}>إغلاق</button>
+      </div>
+    </div>
+  );
+};
+
+function PersonalData({ onNext, allUserData, setAllUserData, updateProgress }) {
   const [fileName, setFileName] = useState("لم يتم إرفاق ملف");
+    const [errors, setErrors] = useState(null);
 
   const countries = [
     "السعودية",
@@ -51,10 +63,37 @@ function PersonalData({ onNext, allUserData, setAllUserData }) {
     "قطري/ة",
   ];
 
+  const calculateProgress = () => {
+    const requiredFields = [
+      "ar_name",
+      "en_name",
+      "birthdate",
+      "identifier_num",
+      "nationality",
+      "gender",
+      "country",
+      "town",
+      "identity_img",
+    ];
+
+    const completedFields = requiredFields.filter(
+      (field) => allUserData[field] && allUserData[field] !== ""
+    ).length;
+
+    const progress = Math.round((completedFields / requiredFields.length) * 100);
+    updateProgress(progress); // Update parent with progress percentage
+  };
+
+  useEffect(() => {
+    calculateProgress();
+  }, [allUserData]);
+
   // Handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setAllUserData((prev) => ({ ...prev, [name]: value || "" }));
+    setTimeout(calculateProgress, 0); // Recalculate progress
+
   };
 
   // Handle file changes
@@ -67,6 +106,8 @@ function PersonalData({ onNext, allUserData, setAllUserData }) {
       setFileName("لم يتم إرفاق ملف");
       setAllUserData((prev) => ({ ...prev, identity_img: null }));
     }
+    setTimeout(calculateProgress, 0); // Recalculate progress
+
   };
 
   // Submit updated data to the API
@@ -99,13 +140,44 @@ function PersonalData({ onNext, allUserData, setAllUserData }) {
       });
   
       const result = await response.json();
-      console.log("Form submitted successfully:", result);
 
-      if(result.success === true){
+      if (result.success) {
         onNext();
-      }     
+      } else {
+        if (result.errors) {
+          const errorMessages = [];
+          if (result.errors.ar_name) {
+            errorMessages.push(result.errors.ar_name[0]);
+          }
+          if (result.errors.en_name) {
+            errorMessages.push(result.errors.en_name[0]);
+          }
+          if (result.errors.birthdate) {
+            errorMessages.push(result.errors.birthdate[0]);
+          }
+          if (result.errors.identifier_num) {
+            errorMessages.push(result.errors.identifier_num[0]);
+          }
+          if (result.errors.nationality) {
+            errorMessages.push(result.errors.nationality[0]);
+          }
+          if (result.errors.gender) {
+            errorMessages.push(result.errors.gender[0]);
+          }
+          if (result.errors.country) {
+            errorMessages.push(result.errors.country[0]);
+          }
+          if (result.errors.town) {
+            errorMessages.push(result.errors.town[0]);
+          }
+          setErrors(errorMessages.join(" و "));
+        } else {
+          setErrors("حدث خطأ أثناء التحديث. الرجاء المحاولة لاحقاً.");
+        }
+      }    
     } catch (error) {
-      console.error("Error submitting form:", error);
+      // console.error("Error submitting form:", error);
+      setErrors("حدث خطأ غير معروف.");
       
     }
   };

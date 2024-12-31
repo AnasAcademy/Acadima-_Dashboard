@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { apiUrl } from "../../API";
 
 import editLinkimg from "../../Images/editLink.svg";
 import deleteLinkimg from "../../Images/deleteLink.svg";
 
-function WorkLinks({ onNext, links, setLinks }) {
+function WorkLinks({ onNext, links, setLinks, updateProgress }) {
   const [activeLinkIndex, setActiveLinkIndex] = useState(null);
   const [isAdding, setIsAdding] = useState(false);
   const [tempLink, setTempLink] = useState(""); // Only handles the URL field
@@ -50,7 +50,7 @@ function WorkLinks({ onNext, links, setLinks }) {
         };
 
         setLinks((prev) => [...prev, newLink || savedLink.value]); // Append the new link to the list
-        console.log("Link added:", newLink);
+        calculateProgress(); // Update progress
       }
     } catch (error) {
       console.error("Error adding link:", error);
@@ -97,6 +97,7 @@ function WorkLinks({ onNext, links, setLinks }) {
             i === activeLinkIndex ? { ...link, value: tempLink.trim() } : link
           )
         );
+        calculateProgress(); // Update progress
       }
     } catch (error) {
       console.error("Error updating link:", error);
@@ -130,6 +131,7 @@ function WorkLinks({ onNext, links, setLinks }) {
 
       if (response.ok) {
         setLinks((prev) => prev.filter((_, i) => i !== index));
+        calculateProgress(); // Update progress
       }
     } catch (error) {
       console.error("Error deleting link:", error);
@@ -140,6 +142,16 @@ function WorkLinks({ onNext, links, setLinks }) {
     e.preventDefault();
     onNext();
   };
+
+  const calculateProgress = () => {
+    const progress =
+      links.length === 0 ? 0 : 100;
+    updateProgress(progress > 100 ? 100 : progress); // Cap progress at 100%
+  };
+
+  useEffect(() => {
+    calculateProgress();
+  }, [links]);
 
   return (
     <div className="user-profile-container">

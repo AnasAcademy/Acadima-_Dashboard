@@ -45,9 +45,6 @@ function StudentPlatform() {
       // console.log(result);
       setUserData(result.data);
 
-      if (result?.status === 403) {
-        navigate("/admission");
-      }
     } catch (error) {
       console.log(error);
     }
