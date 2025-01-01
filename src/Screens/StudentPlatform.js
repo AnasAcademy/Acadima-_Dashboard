@@ -73,41 +73,6 @@ function StudentPlatform() {
         type: "recorded",
         courseName: "تصميم تجربة المستخدم",
       },
-      {
-        order: "المحاضرة الخامسة",
-        type: "recorded",
-        courseName: "تصميم واجهات المستخدم",
-      },
-      {
-        order: "المحاضرة الخامسة",
-        type: "recorded",
-        courseName: "إدارة الأعمال",
-      },
-      {
-        order: "المحاضرة الخامسة",
-        type: "recorded",
-        courseName: "تحليل البيانات",
-      },
-      {
-        order: "المحاضرة الخامسة",
-        type: "recorded",
-        courseName: "تحليل البيانات",
-      },
-      {
-        order: "المحاضرة الخامسة",
-        type: "recorded",
-        courseName: "تحليل البيانات",
-      },
-      {
-        order: "المحاضرة الخامسة",
-        type: "recorded",
-        courseName: "تحليل البيانات",
-      },
-      {
-        order: "المحاضرة الخامسة",
-        type: "recorded",
-        courseName: "تحليل البيانات",
-      },
     ],
     "المحاضرات المباشرة": [
       {

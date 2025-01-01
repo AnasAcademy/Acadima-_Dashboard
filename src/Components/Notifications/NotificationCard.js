@@ -7,10 +7,10 @@ function NotificationCard({ title, date, description, onClick, selected }) {
       className={`notification-card ${selected ? "notification-card-active" : ""}`}
     >
       <div className="notification-header">
-        <h4 className="notification-title">{title}</h4>
+        <h4 className="notification-title"><span className="dot"></span>{title}</h4>
         <span className="notification-date">{date}</span>
       </div>
-      <p className="notification-description">{description}</p>
+      {/* <p className="notification-description">{description}</p> */}
       <button className="notification-button" onClick={onClick}>معاينة الرسالة</button>
     </div>
   );

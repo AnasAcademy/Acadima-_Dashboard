@@ -139,11 +139,7 @@
 }
 
 .app-button {
-  display: flex;
   padding: 3px 20px;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
   color: #000;
   font-size: 16px;
   border-radius: 6px;
@@ -434,9 +430,21 @@
 .support-button:hover {
   background: #ccf5ffa2;
 }
-
+@media (max-width: 1860px) {
+  .student-platform-container {
+    width: 95%;
+  }
+  .app-button {
+    padding: 3px 10px;
+    width: 100%;
+  }
+  .app-name {
+    font-size: 10px;
+  }
+}
 @media (max-width: 1440px) {
   .student-platform-container {
+    width: 70%;
     gap: 15px;
   }
   .student-right-container {
@@ -463,7 +471,7 @@
     padding: 7px 10px;
   }
   .pdf-name {
-    font-size: 12px;
+    font-size: 14px;
   }
   .calendar-card {
     /* width: 260px; */
@@ -559,10 +567,9 @@
     justify-content: space-around;
     margin-left: auto;
   }
-  
 }
 @media (max-width: 580px) {
-  .student-right-bottom-container{
+  .student-right-bottom-container {
     flex-direction: column;
     gap: 25px;
   }

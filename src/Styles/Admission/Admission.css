@@ -367,7 +367,7 @@ input[type="checkbox"]:checked::before {
     width: 100%;
   }
   .admission-card {
-    width: 95%;
+    width: 93%;
     padding: 10px;
   }
   .admission-actions {

@@ -14,6 +14,7 @@
   justify-content: flex-start;
   align-items: flex-end;
   gap: 41px;
+  height: 600px;
 }
 .notifications-title {
   color: #ccf5ff;
@@ -100,19 +101,26 @@
   font-family: "nf-l", sans-serif !important;
   cursor: pointer;
 }
+.dot {
+  height: 30px;
+  width: 30px;
+  background-color: #F74949;
+}
 .notification-button:hover {
   background-color: #ccf5ffa2;
 }
 
 .notification-card-active {
-  background: #ccf5ff;
+  background: #ffffff;
 }
 
 .notification-card-active .notification-button {
   background-color: #599FAF;
   color: #fff;
 }
-
+.notification-card-active .dot {
+  background-color: black;
+}
 .notification-card-active .notification-title,
 .notification-card-active .notification-date,
 .notification-card-active .notification-description {
@@ -171,7 +179,7 @@
   width: 498px;
   height: fit-content;
   flex-shrink: 0;
-  background-color: #ccf5ff;
+  background-color: #ffffff;
   color: #000;
   text-align: right;
   font-size: 14px;

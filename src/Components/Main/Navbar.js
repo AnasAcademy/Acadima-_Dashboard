@@ -48,7 +48,7 @@ function Navbar() {
         <span className={menuOpen ? "line open" : "line"}></span>
       </div>
 
-      <div className={`navbar-left ${menuOpen ? "open" : ""}`}>
+      <div className={`navbar-left`}>
         <p className="language-toggle">En</p>
         <img src={activeNotif} alt="activeNotif" className="activeNotif" />
         <span className="nav-separator"></span>
@@ -58,6 +58,7 @@ function Navbar() {
         </div>
         <img src={userBriefData?.avatar} alt="logo" className="logo" />
       </div>
+
     </div>
   );
 }

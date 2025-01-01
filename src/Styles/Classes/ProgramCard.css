@@ -72,7 +72,7 @@
 }
 
 .classes-program-card.selected {
-  background-color: #152f35;
+  background-color: #141F25;
 }
 
 .classes-program-card.selected .program-title {
@@ -105,6 +105,6 @@
 }
 @media(max-width: 700px) {
   .classes-program-card {
-    width: 90%;
+    width: 100%;
   }
 }

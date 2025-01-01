@@ -41,6 +41,7 @@ function Sidebar() {
         <NavigationMenu />
       </div>
       <span className="sidebar-separator"></span>
+      
     </>
   );
 }

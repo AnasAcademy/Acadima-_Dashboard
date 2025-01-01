@@ -213,6 +213,11 @@ width: 200px;
   width: 64px;
   height: 59px;
 }
+@media (max-width: 1600px) {
+  .custom-calendar {
+    width: 100%;
+  }
+ }
 
 @media (max-width: 1440px) {
  .calendar-day-name {
@@ -221,8 +226,30 @@ width: 200px;
  .calendar-days {
   gap: 5px;
  }
+ .custom-calendar {
+  width: 80%;
+}
 }
 
-/* @media (max-width: 780px) {
-  
-} */
+@media (max-width: 1000px) {
+  .calendar-day-name {
+   font-size: 12px;
+  }
+  .calendar-days {
+   gap: 0;
+  }
+  .custom-calendar {
+    width: 100%;
+  }
+ }
+
+@media (max-width: 600px) {
+  .custom-calendar {
+    width: 80%;
+  }
+}
+@media (max-width: 380px) {
+  .custom-calendar {
+    width: 90%;
+  }
+}

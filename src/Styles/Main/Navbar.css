@@ -131,6 +131,8 @@
 @media (max-width: 1000px) { /* Tablet View */
   .navbar {
     padding: 24px 40px;
+    flex-direction: row;
+    position: relative;
   }
 
   .AcadimaLogo {
@@ -144,14 +146,7 @@
   }
   .navbar-left {
     display: none;
-    /* position: absolute;
-    top: 70px;
-    right: 20px;
-    background-color: #141f25;
-    padding: 20px;
-    box-shadow: 0px 2px 8px rgba(57, 65, 72, 0.12);
-    border-radius: 8px;
-    flex-direction: column; */
+
   }
 }
 
