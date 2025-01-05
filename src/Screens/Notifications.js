@@ -30,6 +30,8 @@ function Notifications() {
 
       const result = await response.json();
       setNotifications(result?.data?.notifications || []);
+      console.log(result?.data?.notifications);
+      
     } catch (error) {
       console.error("Error fetching notifications:", error);
     }
@@ -69,7 +71,7 @@ function Notifications() {
   }, []);
 
   return (
-    <MainPageContainer>
+    <>
       <div className="notifications-container">
         <div className="notifications-content">
           <h2 className="notifications-title">الإشعارات</h2>
@@ -111,7 +113,7 @@ function Notifications() {
           )}
         </div>
       </div>
-    </MainPageContainer>
+    </>
   );
 }
 

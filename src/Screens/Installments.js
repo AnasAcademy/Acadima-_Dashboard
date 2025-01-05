@@ -150,7 +150,7 @@ function Installments() {
   },[]);
 
   return (
-    <MainPageContainer>
+    <>
       <div className="installments-page">
         <h2 className="all-programs-title">جميع البرامج</h2>
 
@@ -200,7 +200,7 @@ function Installments() {
           </div>
         )}
       </div>
-    </MainPageContainer>
+    </>
   );
 }
 

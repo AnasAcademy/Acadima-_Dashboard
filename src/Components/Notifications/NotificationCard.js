@@ -1,7 +1,10 @@
 import React from "react";
 import "../../Styles/Notifications/Notifications.css";
+import { da } from "date-fns/locale";
 
 function NotificationCard({ title, date, description, onClick, selected }) {
+  console.log(date);
+  
   return (
     <div
       className={`notification-card ${selected ? "notification-card-active" : ""}`}

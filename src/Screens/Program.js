@@ -42,7 +42,7 @@ function Program() {
   }, []);
 
   return (
-    <MainPageContainer>
+    <>
       <div className="programs-container">
         <div className="programs-top">
           <div className="section">
@@ -65,7 +65,7 @@ function Program() {
           )}
         </div>
       </div>
-    </MainPageContainer>
+    </>
   );
 }
 

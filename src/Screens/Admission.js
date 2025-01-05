@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { apiUrl } from "../API";
 import { useNavigate } from "react-router-dom";
 
-import MainPageContainer from "../Components/Main/MainPageContainer";
 import "../Styles/Admission/Admission.css";
 
 const Popup = ({ message, onClose }) => {
@@ -59,9 +58,8 @@ function Admission() {
       const result = await response.json();
       setCategories(result.data.categories || []);
       setAppliedPrograms(result.data.applied_programs || []);
-
     } catch (error) {
-      console.error("Error fetching program data:", error);
+      // console.error("Error fetching program data:", error);
       setError("حدث خطأ أثناء جلب البيانات. يرجى المحاولة لاحقًا.");
     } finally {
       setIsLoading(false);
@@ -131,8 +129,12 @@ function Admission() {
     }
   };
 
+  const goToPrpgram = (id) => {
+    navigate(`/classes/${id}`); // Navigate to the specific program page
+  };
+
   return (
-    <MainPageContainer>
+    <>
       <div className="admission-container">
         {/* Registered Programs Section */}
         {appliedPrograms.length > 0 ? (
@@ -162,7 +164,11 @@ function Admission() {
                         ? "تم الشراء"
                         : "جارى دفع الأقساط"}
                     </p>
-                    <button className="go-to-program-button">
+                    <button
+                      className="go-to-program-button"
+                      onClick={() => { goToPrpgram(program.id); // Only navigate if `id` exists 
+                      }}
+                    >
                       الذهاب للبرنامج
                     </button>
                   </div>
@@ -274,7 +280,7 @@ function Admission() {
         </div>
       </div>
       {error && <Popup message={error} onClose={() => setError(null)} />}
-    </MainPageContainer>
+    </>
   );
 }
 

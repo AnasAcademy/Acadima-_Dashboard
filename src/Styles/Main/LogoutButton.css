@@ -1,16 +1,22 @@
 .logout-button {
-    display: flex;
-    flex-direction: row-reverse;
-    gap: 12px;
-    cursor: pointer;
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 12px;
+  cursor: pointer;
 }
 
 .logout-button-text {
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    margin: 0;
-    color: #CE2F13;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+  color: #ce2f13;
 }
 
+@media (max-width: 1000px) {
+    .logout-button {
+        border-top:  1px solid white;
+        padding-top: 26px;
+    }
+}

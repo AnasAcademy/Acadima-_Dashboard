@@ -17,7 +17,7 @@
   direction: rtl;
 }
 .hero-content {
-  width: 1300px;
+  width: 67.8%;
   text-align: right;
   margin: auto;
   font-family: "nf-l", sans-serif !important;
@@ -43,7 +43,7 @@
   display: none;
 }
 .payment-main-container {
-  width: 1300px;
+  width: 67.8%;
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -58,7 +58,7 @@
 .container {
   border-radius: 8px;
   background: #141f25;
-  width: 1300px;
+  width: 100%;
   min-height: 120px;
   height: fit-content;
   padding: 40px;
@@ -70,6 +70,7 @@
   justify-content: flex-start;
   align-items: flex-start;
   gap: 20px;
+  width: 100%;
 }
 .payment-details-title {
   text-align: right;
@@ -81,7 +82,7 @@
 .payment-channel {
   display: flex;
   flex-direction: row;
-  width: 1300px;
+  width: 100%;
   height: 200px;
 }
 .payment-channel input {
@@ -108,6 +109,7 @@
   justify-content: flex-start;
   align-items: center;
   gap: 50px;
+  width: 100%;
 }
 .visa {
   width: 120px;
@@ -119,21 +121,23 @@
   justify-content: flex-start;
   align-items: flex-start;
   gap: 50px;
+  width: 100%;
 }
 
-.charge-section-container {
+/* .charge-section-container {
   display: none;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   gap: 50px;
-}
+} */
 .coupon-section {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   gap: 20px;
+  width: 100%;
 }
 .row {
   display: flex;
@@ -141,6 +145,7 @@
   justify-content: space-between;
   align-items: center;
   height: 50px;
+  width: 100%;
 }
 .details-title {
   text-align: right;
@@ -155,7 +160,7 @@
   align-items: center;
   justify-content: flex-start;
   gap: 4px;
-direction: rtl;
+  direction: rtl;
 }
 .couponMsg {
   display: flex;
@@ -177,11 +182,12 @@ direction: rtl;
 .coupon-row {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
+  /* gap: 10px; */
   margin-top: 20px;
   padding-bottom: 50px;
   border-bottom: 1px solid #599faf;
   height: 80px;
+  width: 100%;
 }
 
 .charge-row {
@@ -192,6 +198,7 @@ direction: rtl;
   justify-content: space-between;
   align-items: center;
   height: 50px;
+  width: 100%;
 }
 .charge-row span {
   cursor: not-allowed;
@@ -203,7 +210,7 @@ direction: rtl;
   padding: 8px 12px;
   border-radius: 8px;
   width: 100%;
-  max-width: 1300px;
+  /* max-width: 1300px; */
   height: 30px;
 }
 
@@ -249,10 +256,11 @@ direction: rtl;
 .wallet-row {
   display: flex;
   align-items: center;
-  gap: 10px;
+  /* gap: 10px; */
   margin-top: 20px;
   padding-bottom: 50px;
   border-bottom: 1px solid #599faf;
+  width: 100%;
 }
 
 .wallet-input {
@@ -261,7 +269,7 @@ direction: rtl;
   color: #ccf5ff;
   padding: 8px 12px;
   border-radius: 8px;
-  width: 100%;
+  width: 80%;
   max-width: 1000px;
   height: 60%;
 }
@@ -292,7 +300,8 @@ direction: rtl;
 }
 .action-buttons-container {
   margin-right: auto;
-  text-align: center;  font-style: normal;
+  text-align: center;
+  font-style: normal;
   font-weight: 400;
   line-height: normal;
   display: flex;
@@ -300,9 +309,10 @@ direction: rtl;
   justify-content: flex-end;
   align-items: center;
   gap: 20px;
+  width: 25%;
 }
 .prev-button {
-  width: 123px;
+  width: 80%;
   padding: 8px 20px;
   border-radius: 6px;
   border: 1px solid #ccf5ff;
@@ -313,7 +323,7 @@ direction: rtl;
   text-align: center;
 }
 .next-button {
-  width: 123px;
+  width: 80%;
   padding: 8px 20px;
   border-radius: 6px;
   background: #ccf5ff;
@@ -322,5 +332,86 @@ direction: rtl;
   height: 40px;
   cursor: pointer;
   text-align: center;
+}
 
+@media (max-width: 1440px) {
+  .action-buttons-container {
+    width: 30%;
+  }
+  .wallet-input {
+    width: 72%;
+  }
+}
+
+@media (max-width: 1100px) {
+  .action-buttons-container {
+    width: 40%;
+  }
+  .coupon-input {
+    width: 90%;
+  }
+  .wallet-input {
+    width: 62%;
+  }
+  .wallet-button {
+    width: 30%;
+  }
+}
+@media (max-width: 700px) {
+  .action-buttons-container {
+    width: 100%;
+  }
+  .couponMsg {
+    width: 93%;
+  }
+  .coupon-input {
+    width: 100%;
+  }
+  .coupon-row {
+    flex-direction: column;
+  }
+  .wallet-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .wallet-input {
+    width: 100%;
+  }
+  .wallet-button {
+    font-size: 12px;
+    width: 40%;
+  }
+  .payment-details-container-two {
+    gap: 10px;
+    font-size: 14px;
+  }
+}
+@media (max-width: 480px) {
+  .container {
+    padding: 20px;
+  }
+  .payment-details-container-two {
+    gap: 10px;
+    flex-direction: column;
+    padding: 20px;
+    padding-right: 20px;
+  }
+  .payment-channel label {
+    padding-right: 20px;
+  }
+  .coupon-input {
+    width: 97%;
+  }
+  .verify-button {
+    width: 100%;
+    font-size: 16px;
+  }
+  .wallet-input {
+    width: 91%;
+  }
+  .wallet-button {
+    width: 100%;
+    font-size: 16px;
+  }
 }

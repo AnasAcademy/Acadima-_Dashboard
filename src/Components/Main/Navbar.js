@@ -1,52 +1,23 @@
 import React, { useState, useEffect } from "react";
 import "../../Styles/Main/Navbar.css";
-import { apiUrl } from "../../API";
 
 import AcadimaLogo from "../../Images/AcadimaLogo.png";
 import activeNotif from "../../Images/active-notification.svg";
+import NavbarSidebar from './Sidebar/NavbarSidebar';
 
-function Navbar() {
-  const [userBriefData, setUserBriefData] = useState(null);
-  const [menuOpen, setMenuOpen] = useState(false); // State to track menu toggle
-
-  const token = localStorage.getItem("token");
-
-  const fetchUserData = async () => {
-    try {
-      const response = await fetch(apiUrl + "/profile/brief", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": "1234",
-          "ngrok-skip-browser-warning": true,
-          Authorization: "Bearer " + token,
-        },
-      });
-
-      const result = await response.json();
-      setUserBriefData(result.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchUserData();
-  }, []);
-
-  const handleMenuToggle = () => {
-    setMenuOpen(!menuOpen);
-  };
-
+function Navbar({ menuOpen, onMenuToggle, userBriefData }) {
+  
   return (
     <div className="navbar">
       <img src={AcadimaLogo} alt="AcadimaLogo" className="AcadimaLogo" />
 
-      <div className="hamburger" onClick={handleMenuToggle}>
+      <div className="hamburger" onClick={onMenuToggle}>
         <span className={menuOpen ? "line open" : "line"}></span>
         <span className={menuOpen ? "line open" : "line"}></span>
         <span className={menuOpen ? "line open" : "line"}></span>
       </div>
+
+      <NavbarSidebar menuOpen={menuOpen} full_name={userBriefData?.full_name} user_code={userBriefData?.user_code} avatar={userBriefData?.avatar}/>
 
       <div className={`navbar-left`}>
         <p className="language-toggle">En</p>
@@ -58,7 +29,6 @@ function Navbar() {
         </div>
         <img src={userBriefData?.avatar} alt="logo" className="logo" />
       </div>
-
     </div>
   );
 }

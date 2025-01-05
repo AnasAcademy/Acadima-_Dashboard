@@ -2,9 +2,8 @@
   display: flex;
   flex-direction: row-reverse;
   align-items: flex-end;
-  width: 1350px;
+  width: 90%;
   margin: auto;
-  margin-right: 95px;
   padding-top: 80px;
   gap: 41px;
 }
@@ -15,6 +14,7 @@
   align-items: flex-end;
   gap: 41px;
   height: 600px;
+  width: 21%;
 }
 .notifications-title {
   color: #ccf5ff;
@@ -37,7 +37,7 @@
 
 .notification-card {
   display: flex;
-  width: 297px;
+  width: 100%;
   height: fit-content;
   padding: 9px 16px;
   flex-direction: column;
@@ -87,7 +87,7 @@
 }
 
 .notification-button {
-  width: 125px;
+  width: 40%;
   padding: 8px 20px;
   color: #141f25;
   text-align: center;
@@ -128,7 +128,7 @@
 }
 
 .chosen-notification-container {
-  width: 974px;
+  width: 65.8%;
   height: 596px;
   flex-shrink: 0;
   border-radius: 20px;
@@ -139,9 +139,12 @@
   color: #fff;
   box-sizing: border-box;
 }
+.chosen-notification-details {
+  width: 100%;
+}
 .chosen-notification-top {
   border-bottom: 1px solid #395868;
-  width: 970px;
+  width: 100%;
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;

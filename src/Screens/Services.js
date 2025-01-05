@@ -39,7 +39,7 @@ function Services() {
   ];
 
   return (
-    <MainPageContainer>
+    <>
     <div className="services-container">
       <h3 className="services-title">الخدمات الإلكترونية :</h3>
       <div className="services-grid">
@@ -53,7 +53,7 @@ function Services() {
         ))}
       </div>
     </div>
-  </MainPageContainer>
+  </>
 );
 }
 

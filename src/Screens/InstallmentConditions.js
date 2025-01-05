@@ -60,7 +60,7 @@ function InstallmentConditions() {
       {/* Selected Installment Brief */}
       <div className="installment-brief">
         <h3 className="brief-title">نظرة عامة على القسط</h3>
-        <p className="brief-program-name"> اسم البرنامج : {program?.title}</p>
+        <p className="brief-program-name"> اسم البرنامج : <span>{program?.title}</span></p>
         <div className="brief-details">
           <div className="brief-details-part">
             <img src={payment} alt="payment" className="payment-icon" />

@@ -175,7 +175,7 @@ function Settings() {
   };
 
   return (
-    <MainPageContainer>
+    <>
       <div className="settings-container">
         <SettingsSidebar
           activeSection={activeSection}
@@ -184,7 +184,7 @@ function Settings() {
         />
         <div className="settings-content">{renderSectionContent()}</div>
       </div>
-    </MainPageContainer>
+    </>
   );
 }
 

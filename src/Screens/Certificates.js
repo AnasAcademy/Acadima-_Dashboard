@@ -60,7 +60,7 @@ function Certificates() {
   };
 
   return (
-    <MainPageContainer>
+    <>
       <div className="certificates-container">
         <div className="certificate-section">
           <h3 className="section-title">شهادات اتمام البرامج</h3>
@@ -78,7 +78,7 @@ function Certificates() {
           </div>
         </div>
       </div>
-    </MainPageContainer>
+    </>
   );
 }
 

@@ -95,7 +95,7 @@ function StudentPlatform() {
 
   return (
     <>
-      <MainPageContainer>
+     
         <div className="student-platform-container">
           <div className="student-right-container"> 
             {/* Student Card */}
@@ -331,7 +331,6 @@ function StudentPlatform() {
             </ContentCard>
           </div>
         </div>
-      </MainPageContainer>
     </>
   );
 }
