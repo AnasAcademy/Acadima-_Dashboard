@@ -20,32 +20,40 @@ import RegistrationScreen from './Screens/RegistrationScreen';
 import Certificates from './Screens/Certificates';
 import Program from './Screens/Program';
 import MainPageContainer from './Components/Main/MainPageContainer';
+import { UserProvider } from './Context/UserContext';
+import Test from './Screens/Test';
 
 function App() {
   return (
+    <UserProvider >
     <Router>
-      <div className="App">
-        <MainPageContainer>
-        <Routes>
-          <Route index element={<ProtectedRoute><StudentPlatform /></ProtectedRoute>} /> 
-          <Route path="/admission" element={<ProtectedRoute><Admission /></ProtectedRoute>} /> 
-          <Route path="/finances/program" element={<ProtectedRoute><Program /></ProtectedRoute>} />
-          <Route path="/classes" element={<ProtectedRoute><Classes /></ProtectedRoute>} /> 
-          <Route path="/classes/:id" element={<ProtectedRoute><Classes /></ProtectedRoute>} /> 
-          <Route path="/classes/:classId/course/:courseId" element={<ProtectedRoute><Course /></ProtectedRoute>} />
-          <Route path="/certificates" element={<ProtectedRoute><Certificates /></ProtectedRoute>} /> 
-          <Route path="/finances/installments" element={<ProtectedRoute><Installments /></ProtectedRoute>} /> 
-          <Route path="/conditions" element={<ProtectedRoute><InstallmentConditions /></ProtectedRoute>} />
-          <Route path="/payment/:order_id" element={<ProtectedRoute><Payment /></ProtectedRoute>} /> 
-          <Route path="/notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} /> 
-          <Route path="/services" element={<ProtectedRoute><Services /></ProtectedRoute>} /> 
-          <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
-          <Route path="/login" element={<PublicRoute><LoginScreen /></PublicRoute>} /> 
-          <Route path="/register" element={<PublicRoute><RegistrationScreen /></PublicRoute>} />  
-        </Routes>
-        </MainPageContainer>
-      </div>
+    <div className="App">
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/login" element={<PublicRoute><LoginScreen /></PublicRoute>} />
+            <Route path="/register" element={<PublicRoute><RegistrationScreen /></PublicRoute>} />
+
+            {/* Routes wrapped with MainPageContainer */}
+            <Route element={<MainPageContainer />}>
+              <Route index element={<ProtectedRoute><StudentPlatform /></ProtectedRoute>} />
+              <Route path="/admission" element={<ProtectedRoute><Admission /></ProtectedRoute>} />
+              <Route path="/finances/program" element={<ProtectedRoute><Program /></ProtectedRoute>} />
+              <Route path="/classes" element={<ProtectedRoute><Classes /></ProtectedRoute>} />
+              <Route path="/classes/:id" element={<ProtectedRoute><Classes /></ProtectedRoute>} />
+              <Route path="/classes/:classId/course/:courseId" element={<ProtectedRoute><Course /></ProtectedRoute>} />
+              <Route path="/certificates" element={<ProtectedRoute><Certificates /></ProtectedRoute>} />
+              <Route path="/finances/installments" element={<ProtectedRoute><Installments /></ProtectedRoute>} />
+              <Route path="/conditions" element={<ProtectedRoute><InstallmentConditions /></ProtectedRoute>} />
+              <Route path="/payment/:order_id" element={<ProtectedRoute><Payment /></ProtectedRoute>} />
+              <Route path="/notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
+              <Route path="/services" element={<ProtectedRoute><Services /></ProtectedRoute>} />
+              <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
+              <Route path="/test" element={<ProtectedRoute><Test /></ProtectedRoute>} />
+            </Route>
+          </Routes>
+        </div>
     </Router>
+    </UserProvider>
   );
 }
 

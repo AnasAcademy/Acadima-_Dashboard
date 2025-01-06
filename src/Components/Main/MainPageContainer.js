@@ -1,50 +1,38 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import "../../Styles/Main/MainPageContainer.css";
-import { apiUrl } from "../../API";
 
+import { UserContext } from "../../Context/UserContext"; // Import UserContext
 import Navbar from "../Main/Navbar";
 import Sidebar from "../Main/Sidebar/Sidebar";
+import { Outlet } from "react-router-dom";
 
-function MainPageContainer({ children }) {
-  const [menuOpen, setMenuOpen] = useState(false); // State for sidebar visibility
+function MainPageContainer() {
+  const [menuOpen, setMenuOpen] = useState(false); // Sidebar toggle state
+  const { userBriefData } = useContext(UserContext); // Consume userBriefData from context
 
+  // Function to toggle the sidebar
   const handleMenuToggle = () => {
-    setMenuOpen(!menuOpen); // Toggle the sidebar
+    setMenuOpen((prev) => !prev);
   };
-
-  const [userBriefData, setUserBriefData] = useState(null);
-
-  const token = localStorage.getItem("token");
-
-  const fetchUserData = async () => {
-    try {
-      const response = await fetch(apiUrl + "/profile/brief", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": "1234",
-          "ngrok-skip-browser-warning": true,
-          Authorization: "Bearer " + token,
-        },
-      });
-
-      const result = await response.json();
-      setUserBriefData(result.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchUserData();
-  }, []);
 
   return (
     <div className="main-page">
-      <Navbar menuOpen={menuOpen} onMenuToggle={handleMenuToggle} userBriefData={userBriefData}/>
+      {/* Navbar */}
+      <Navbar
+        menuOpen={menuOpen}
+        onMenuToggle={handleMenuToggle}
+        userBriefData={userBriefData} // Pass user brief data to Navbar
+      />
+
+      {/* Main container for sidebar and content */}
       <div className="main-container">
-        <Sidebar menuOpen={menuOpen} userBriefData={userBriefData}/>
-        <div className="main-content">{children}</div>
+        <Sidebar
+          menuOpen={menuOpen}
+          userBriefData={userBriefData} // Pass user brief data to Sidebar
+        />
+        <div className="main-content">
+          <Outlet /> {/* Renders child components */}
+        </div>
       </div>
     </div>
   );
