@@ -4,7 +4,7 @@ import "../Styles/Registration/RegistartionScreen.css";
 import "../Styles/Registration/LoginScreen.css";
 import { apiUrl } from "../API";
 
-import anasAcadlogo from "../Images/Registration/acadimaLogo.png";
+import anasAcadlogo from "../Images/AcadimaLogo.png";
 import user from "../Images/Registration/User_01.svg";
 import lock2 from "../Images/Registration/Lock.svg";
 import mail from "../Images/Registration/Mail.svg";
@@ -205,7 +205,7 @@ function RegistrationScreen() {
         <div className="social-login">
           <div className="social-login-divider">
             <span className="line"></span>
-            <span className="text">أو أنشئ الحساب عبر</span>
+            <span className="text" style={{color: "white"}}>أو أنشئ الحساب عبر</span>
             <span className="line"></span>
           </div>
 
@@ -220,7 +220,7 @@ function RegistrationScreen() {
               <img src={facebookLogo} alt="Facebook Login" />
             </a>
           </div>
-          <p className="register-link">
+          <p className="register-link" style={{color: "white"}}>
             لديك حساب بالفعل؟{" "}
             <a href="#" onClick={() => navigate("/login")}>
               تسجيل دخول

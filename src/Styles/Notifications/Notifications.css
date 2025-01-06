@@ -87,7 +87,7 @@
 }
 
 .notification-button {
-  width: 40%;
+  width: 60%;
   padding: 8px 20px;
   color: #141f25;
   text-align: center;
@@ -104,7 +104,7 @@
 .dot {
   height: 30px;
   width: 30px;
-  background-color: #F74949;
+  background-color: #f74949;
 }
 .notification-button:hover {
   background-color: #ccf5ffa2;
@@ -115,7 +115,7 @@
 }
 
 .notification-card-active .notification-button {
-  background-color: #599FAF;
+  background-color: #599faf;
   color: #fff;
 }
 .notification-card-active .dot {
@@ -179,7 +179,7 @@
   align-items: flex-start;
 }
 .chosen-notification-description {
-  width: 498px;
+  width: 70%;
   height: fit-content;
   flex-shrink: 0;
   background-color: #ffffff;
@@ -190,7 +190,7 @@
   font-weight: 400;
   line-height: normal;
   align-items: center;
-  padding:25px 10px;
+  padding: 25px 10px;
   border-radius: 8px;
   border-bottom-right-radius: 0;
 }
@@ -234,4 +234,92 @@
   font-size: 16px;
   color: #fff;
   line-height: 1.5;
+}
+.wide-screen-view {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  align-items: flex-end;
+  gap: 50px;
+}
+
+.mobile-notification-card {
+  display: flex;
+  width: 100%;
+  height: fit-content;
+  padding: 9px 16px;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 20px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: #141f25;
+  box-sizing: border-box;
+}
+.mobile-chosen-notification-description {
+  width: 70%;
+  height: fit-content;
+  flex-shrink: 0;
+  background-color: #ffffff;
+  color: #000;
+  text-align: right;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  align-items: center;
+  padding:  10px;
+  border-radius: 8px;
+  border-bottom-right-radius: 0;
+}
+
+.mobile-screen-view {
+  width: 100%;
+  height: fit-content;
+  display: none;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  gap: 20px;
+}
+
+@media (max-width: 1440px) {
+  .chosen-notification-container {
+    width: 70%;
+  }
+  .notification-button {
+    width: 100%;
+  }
+  .chosen-notification-description {
+    width: 100%;
+  }
+  .notification-header {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 770px) {
+  .wide-screen-view {
+    display: none;
+  }
+  .notification-card-active {
+    height: fit-content;
+  }
+  .mobile-screen-view {
+    display: flex;
+  }
+  .notifications-list {
+    width: 100%;
+  }
+  .notification-button {
+    width: 30%;
+  }
+}
+@media (max-width: 500px) {
+  .mobile-chosen-notification-description {
+    width: 90%;
+  }
+  .notification-button {
+    width: 50%;
+  }
 }

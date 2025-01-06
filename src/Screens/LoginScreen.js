@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../Styles/Registration/LoginScreen.css";
 import { apiUrl } from "../API";
 
-import anasAcadlogo from "../Images/Registration/acadimaLogo.png";
+import anasAcadlogo from "../Images/AcadimaLogo.png";
 import lock from "../Images/Registration/Lock.svg";
 import mail from "../Images/Registration/Mail.svg";
 import hide from "../Images/Registration/Hide.svg";
@@ -76,7 +76,7 @@ function LoginScreen() {
       if (data?.data?.user?.role === "user") {
         navigate("/");
       } else if (data?.data?.user?.user_code) {
-        navigate("/program");
+        navigate("/finances/program");
       } else {
         navigate("/admission");
       }
@@ -148,7 +148,7 @@ function LoginScreen() {
         <div className="social-login">
           <div className="social-login-divider">
             <span className="line"></span>
-            <span className="text">سجل الدخول عبر</span>
+            <span className="text" style={{color: "white"}}>سجل الدخول عبر</span>
             <span className="line"></span>
           </div>
 
@@ -164,7 +164,7 @@ function LoginScreen() {
             </a>
           </div>
           <p className="register-link">
-            ليس لديك حساب؟{" "}
+            <span style={{color: "white"}}>ليس لديك حساب؟ </span> {" "}
             <a href="#" onClick={() => navigate("/register")}>
               إنشاء حساب
             </a>

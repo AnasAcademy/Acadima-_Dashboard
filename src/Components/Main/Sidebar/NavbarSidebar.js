@@ -17,7 +17,7 @@ function NavbarSidebar({ menuOpen, full_name, user_code, avatar }) {
         />
         <div className="sidebarinfo">
           <span className="sidebarinfo-text">{full_name}</span>
-          <span className="sidebarinfo-text">{user_code}</span>
+          <span className="sidebarinfo-code">{user_code}</span>
         </div>
       </div>
       <NavigationMenu />

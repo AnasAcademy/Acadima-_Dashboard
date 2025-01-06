@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../../Styles/Classes/MobileAssignmentCard.css";
 
-function ProgramCard({ course, goToLec }) {
+function MobileAssignmentCard({ course, goToLec }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
@@ -44,4 +44,4 @@ function ProgramCard({ course, goToLec }) {
   );
 }
 
-export default ProgramCard;
+export default MobileAssignmentCard;

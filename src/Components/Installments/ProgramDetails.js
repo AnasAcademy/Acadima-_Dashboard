@@ -17,13 +17,13 @@ function ProgramDetails({selectedProgram}) {
           حالة الدفع: <span className="payment-status">{selectedProgram?.orderIsCompleted ? "تم تسديد الأقساط" :  "جارى تسديد الأقساط" }</span>
         </p>
       </div>
-      <div className="program-details-half">
+      <div className="program-details-half-two">
         <div className="program-details-title-div">
           <img src={payment} alt="payment" className="paymentimg" />
           <h2 className="program-details-title">تفاصيل أقساط البرنامج</h2>
         </div>
         <div className="program-details-payment-info-div">
-          <p className="program-details-payment-info">
+          <p className="program-details-payment-info" style={{color: "#CCF5FF"}}>
             رسوم البرنامج: {selectedProgram?.total_installments_amount} ريال سعودي
           </p>
           <p className="program-details-payment-info">

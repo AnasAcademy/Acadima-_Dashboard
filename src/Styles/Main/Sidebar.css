@@ -92,6 +92,7 @@
 .navbar-sidebar.open {
   transform: scaleY(1);
   opacity: 1;
+  gap: 60px;
 }
 
 .navbar-sidebar_logo {
@@ -127,7 +128,8 @@
 }
 
 .dropdown-menu .menu-item:hover {
-  color: #ccf5ff;}
+  color: #ccf5ff;
+}
 
 .menu-item {
   cursor: pointer;
@@ -137,6 +139,12 @@
   color: #ccf5ff; /* Highlighted text color */
 }
 
+.sidebarinfo-text {
+  color: #ccf5ff;
+  font-size: 30px;
+  font-weight: 600;
+  margin: 0;
+}
 
 @media (max-width: 1500px) {
   .sidebar {

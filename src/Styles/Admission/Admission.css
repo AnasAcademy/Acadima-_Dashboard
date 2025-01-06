@@ -294,9 +294,15 @@ input[type="checkbox"]:checked::before {
 .form-submit-button:disabled {
   cursor: not-allowed;
 }
-@media (max-width: 1650px) {
+@media (max-width: 1700px) {
   .admission-actions {
     width: 30%;
+  }
+  .applied-programs-list {
+    width: 90%;
+  }
+  .admission-card {
+    width: 50%;
   }
 }
 @media (max-width: 1510px) {
@@ -305,6 +311,7 @@ input[type="checkbox"]:checked::before {
     height: 224px;
     justify-content: space-between;
     align-items: center;
+    width: 50%;
   }
   .admission-details {
     justify-content: center;
@@ -319,9 +326,13 @@ input[type="checkbox"]:checked::before {
   }
   .applied-programs-list {
     height: 240px;
+    width: 100%;
   }
   .custom-dropdown {
     width: 80%;
+  }
+  .new-admission-request {
+    width: 98%;
   }
 }
 @media (max-width: 1221px) {

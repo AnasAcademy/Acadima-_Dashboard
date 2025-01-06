@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useContext } from "react";
 import { apiUrl } from "../API";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../Context/UserContext";
 
 import "../Styles/Admission/Admission.css";
 
@@ -16,7 +17,8 @@ const Popup = ({ message, onClose }) => {
 };
 
 function Admission() {
-  const [categories, setCategories] = useState([]);
+    const { categories, setCategories, appliedPrograms, setAppliedPrograms } = useContext(UserContext); // Access userData from context
+  
   const [selectedProgramType, setSelectedProgramType] = useState(
     "اختر نوع البرنامج الذي تود دراسته"
   );
@@ -32,48 +34,14 @@ function Admission() {
 
   const [data, setData] = useState({ category_id: "", bundle_id: "" });
   const [error, setError] = useState(null);
-  const [appliedPrograms, setAppliedPrograms] = useState([]);
-  const [paymentStatus, setPaymentStatus] = useState({});
-  const [programStatus, setProgramStatus] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
 
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
-
-  // Fetch program data
-  const fetchProgramData = async () => {
-    try {
-      const headers = {
-        "Content-Type": "application/json",
-        "x-api-key": "1234",
-        "ngrok-skip-browser-warning": true,
-        Authorization: `Bearer ${token}`,
-      };
-
-      const response = await fetch(apiUrl + "/panel/programs/apply", {
-        method: "GET",
-        headers,
-      });
-
-      const result = await response.json();
-      setCategories(result.data.categories || []);
-      setAppliedPrograms(result.data.applied_programs || []);
-    } catch (error) {
-      // console.error("Error fetching program data:", error);
-      setError("حدث خطأ أثناء جلب البيانات. يرجى المحاولة لاحقًا.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchProgramData();
-  }, []);
-
+  
   // Get program names based on the selected type
-  const selectedCategory =
-    categories.find((category) => category.title === selectedProgramType) || {};
-  const programNames = selectedCategory.activeBundles || [];
+    const selectedCategory =
+      categories.find((category) => category.title === selectedProgramType) || {};
+    const programNames = selectedCategory.activeBundles || [];
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -108,7 +76,7 @@ function Admission() {
       const result = await response.json();
 
       if (result.success === true) {
-        navigate("/program");
+        navigate("/finances/program");
       } else {
         const errorMessages = [];
         if (result.errors) {
@@ -128,6 +96,7 @@ function Admission() {
       setError("حدث خطأ أثناء التسجيل. يرجى المحاولة لاحقًا.");
     }
   };
+
 
   const goToPrpgram = (id) => {
     navigate(`/classes/${id}`); // Navigate to the specific program page
