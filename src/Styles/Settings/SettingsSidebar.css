@@ -1,6 +1,6 @@
 /* Container */
 .settings-sidebar-container {
-  max-width: 275px;
+  width: 20%;
   text-align: center;
   color: #fff;
   border-radius: 8px;
@@ -22,35 +22,14 @@
   margin-top: 0;
 }
 
-/* Progress Bar
-.progress-bar-container {
+.progress-container-settings {
+  width: 100%;
   display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
   align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 20px;
+  gap: 5px;
 }
-
-.progress-bar {
-  width: 80%;
-  height: 8px;
-  background-color: #333;
-  border-radius: 4px;
-  overflow: hidden;
-  position: relative;
-}
-
-.progress-bar-fill {
-  height: 100%;
-  background-color: #599faf;
-  border-radius: 4px 0 0 4px;
-  transition: width 0.3s ease-in-out;
-}
-
-.progress-percentage {
-  font-size: 14px;
-  color: #ccf5ff;
-} */
 
 /* Description */
 .settings-description {
@@ -73,6 +52,7 @@
   flex-direction: column;
   justify-content: flex-start;
   gap: 36px;
+  flex-wrap: wrap;
 }
 
 .settings-button {
@@ -116,9 +96,56 @@
   text-align: right;
 }
 
+.progress-bar-container-settings {
+    border-radius: 10px;
+    width: 95%;
+    height: 10px;
+    overflow: hidden;
+    position: relative;
+    border: none;
+}
+
 .section-content {
   font-size: 18px;
   background-color: #1b2a34;
   padding: 20px;
   border-radius: 8px;
+}
+@media(max-width:1200px) {
+  .settings-button.active {
+    width: 170px;
+    padding-right: 5px;
+  }
+  .settings-sidebar-container {
+    width: 100%;
+  }
+  .progress-container-settings {
+    width: 90%;
+  }
+  .progress-bar-container-settings {
+    width: 50%;
+  }
+  .settings-sections {
+    width: 90%;
+    flex-direction: row;
+  }
+}
+
+@media(max-width:1000px) {
+  .settings-title {
+    margin: 0;
+  }
+  .settings-button.active {
+    width: 200px;
+    padding-right: 5px;
+  }
+  .progress-bar-container-settings {
+    width: 80%;
+  }
+}
+
+@media(max-width:860px) {
+  .progress-bar-container-settings {
+    width: 70%;
+  }
 }

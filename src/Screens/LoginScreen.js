@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "../Styles/Registration/LoginScreen.css";
+import { UserContext } from "../Context/UserContext";
 import { apiUrl } from "../API";
 
 import anasAcadlogo from "../Images/AcadimaLogo.png";
@@ -17,7 +18,7 @@ const Popup = ({ message, onClose }) => {
   return (
     <div className="popup-container">
       <div className="popup">
-        <p>{message}</p>
+        <p>Wrong email or password</p>
         <button onClick={onClose}>إغلاق</button>
       </div>
     </div>
@@ -25,6 +26,8 @@ const Popup = ({ message, onClose }) => {
 };
 
 function LoginScreen() {
+  const {refreshUserData} = useContext(UserContext); // Access userData from context
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -57,12 +60,10 @@ function LoginScreen() {
       });
 
       const data = await response.json();
-      console.log(data);
-      console.log(response);
       if (!response.ok || data.success === false) {
         // Check if there is a message in the response
         if (data.message) {
-          setError(data.message); // Display the message from the API
+          setError("Wrong email or password"); // Display the message from the API
         } else {
           setError("Failed to login. Please try again."); // Fallback error
         }
@@ -70,8 +71,9 @@ function LoginScreen() {
       }
 
       const token = data.data.token;
-
       localStorage.setItem("token", token); // Example: saving token
+
+      await refreshUserData();
 
       if (data?.data?.user?.role === "user") {
         navigate("/");
@@ -81,7 +83,6 @@ function LoginScreen() {
         navigate("/admission");
       }
     } catch (err) {
-      console.error(err);
       setError("An unknown error occurred.");
     } finally {
       setLoading(false);
@@ -148,7 +149,9 @@ function LoginScreen() {
         <div className="social-login">
           <div className="social-login-divider">
             <span className="line"></span>
-            <span className="text" style={{color: "white"}}>سجل الدخول عبر</span>
+            <span className="text" style={{ color: "white" }}>
+              سجل الدخول عبر
+            </span>
             <span className="line"></span>
           </div>
 
@@ -164,7 +167,7 @@ function LoginScreen() {
             </a>
           </div>
           <p className="register-link">
-            <span style={{color: "white"}}>ليس لديك حساب؟ </span> {" "}
+            <span style={{ color: "white" }}>ليس لديك حساب؟ </span>{" "}
             <a href="#" onClick={() => navigate("/register")}>
               إنشاء حساب
             </a>

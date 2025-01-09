@@ -4,16 +4,16 @@
   justify-content: flex-start;
   align-items: flex-start;
   direction: rtl;
-  margin-right: 60px;
-  margin-left: auto;
+  margin: auto;
   margin-top: 70px;
   gap: 56px;
   height: fit-content;
   padding-bottom: 50px;
+  width: 95%;
 }
 
 .settings-content {
-  width: 73%;
+  width: 90%;
   /* margin-left: auto; */
   color: #fff;
   height: fit-content;
@@ -24,4 +24,31 @@
   border-radius: 8px;
   text-align: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+@media (max-width:1200px) {
+  .settings-container {
+    gap: 40px;
+    flex-direction: column; 
+    width: 90%;
+  }
+  .settings-content {
+    width: 100%;
+  }
+}
+@media (max-width:1000px) {
+  .settings-container {
+    gap: 80px;
+    width: 80%;
+  }
+  
+}
+@media (max-width: 950px) {
+  .settings-container {
+    width: 90%;
+  } 
+}
+@media (max-width: 550px) {
+  .settings-container {
+    width: 85%;
+  } 
 }

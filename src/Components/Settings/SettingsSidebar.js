@@ -70,8 +70,8 @@ function SettingsSidebar({ activeSection, setActiveSection, progress }) {
       <h2 className="settings-title">جميع الإعدادات</h2>
 
       {/* Progress Bar */}
-      <div className="progress-container">
-        <div className="progress-bar-container" style={{background: "#316F7D"}}>
+      <div className="progress-container-settings">
+        <div className="progress-bar-container-settings" style={{background: "#316F7D"}}>
           <div className="progress-bar" style={{ width: `${progress ?? 0}%`, background: "white" }}></div>
         </div>
         <div className="progress-percentage" style={{color: "white"}}>{progress ?? 0}%</div>

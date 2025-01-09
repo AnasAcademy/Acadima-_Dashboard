@@ -183,7 +183,7 @@ function WorkLinks({ onNext, links, setLinks, updateProgress }) {
             <div className="link-actions">
               <button
                 type="button"
-                className="save-button"
+                className="save-button mobile-view"
                 onClick={handleAddLink}
               >
                 إضافة

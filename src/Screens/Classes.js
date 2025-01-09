@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { apiUrl } from "../API";
+import { UserContext } from "../Context/UserContext";
 import "../Styles/Classes/Classes.css";
 
 import ProgramCard from "../Components/Classes/ProgramCard";
@@ -13,47 +13,26 @@ function Classes() {
   const navigate = useNavigate();
   const { id } = useParams(); // Get the `id` from the URL if it exists
 
+  const { classesData } = useContext(UserContext); // Fetch data from UserContext
+
   const [selectedCard, setSelectedCard] = useState(null);
-  const [classesData, setClassesData] = useState([]);
-  const token = localStorage.getItem("token");
-
-  const fetchClassesData = async () => {
-    try {
-      const response = await fetch(apiUrl + "/panel/programs/purchases", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": "1234",
-          "ngrok-skip-browser-warning": true,
-          Authorization: "Bearer " + token,
-        },
-      });
-
-      const result = await response.json();
-      setClassesData(result?.data?.bundles);
-
-      // Auto-select a card if an `id` exists in the URL
-      if (id) {
-        const selectedProgram = result?.data?.bundles?.find(
-          (bundle) => bundle.id === id
-        );
-        setSelectedCard(selectedProgram || null);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   useEffect(() => {
-    fetchClassesData();
-  }, [id]); // Refetch when the `id` changes
+    if (id) {
+      const selectedProgram = classesData.find(
+        (bundle) => bundle.id === Number(id) // Match `id` as a number
+      );      
+      
+      if (selectedProgram) {
+        setSelectedCard(selectedProgram); // Select the matching program
+      }
+    }
+  }, [id, classesData]); // Run this effect whenever `id` or `classesData` changes
 
   const handleCardSelect = (program) => {
     setSelectedCard(program); // Update the selected program
     navigate(`/classes/${program.id}`); // Change the route dynamically
   };
-
-  
 
   return (
     <div className="classes-container">
@@ -62,10 +41,10 @@ function Classes() {
         <div className="classes-programs-container">
           {classesData.map((item) => (
             <ProgramCard
-              key={item?.id}
+              key={item.id}
               item={item}
-              isSelected={selectedCard?.id === item?.id}
-              onClick={() => handleCardSelect(item)} // Handle selection and route update
+              isSelected={selectedCard?.id === item.id} // Highlight if selected
+              onClick={() => handleCardSelect(item)} // Handle card click
             />
           ))}
         </div>
@@ -74,11 +53,7 @@ function Classes() {
         <div className="classes-bottom">
           {selectedCard === null ? (
             <div className="default-view">
-              <img
-                src={noevents}
-                alt="noevents"
-                className="icon-placeholder"
-              />
+              <img src={noevents} alt="noevents" className="icon-placeholder" />
               <p className="default-text">
                 قم باختيار أحد البرامج لإظهار جدول المقررات
               </p>
@@ -89,7 +64,13 @@ function Classes() {
               <h3 className="classes-top-title">
                 عدد الساعات للبرنامج:{" "}
                 <span className="hours-span">
-                  {selectedCard?.hours_of_active} ساعة
+                  {selectedCard?.hours_of_active === 0
+                    ? "0 ساعة"
+                    : selectedCard?.hours_of_active === 1
+                    ? ` ${selectedCard?.hours_of_active} ساعة`
+                    : selectedCard?.hours_of_active > 1
+                    ? `${selectedCard?.hours_of_active} ساعات `
+                    : "بيانات غير متوفرة"}
                 </span>
               </h3>
               <div className="wide-screen-view">
@@ -121,7 +102,11 @@ function Classes() {
                           key={index}
                           id={index + 1}
                           course={course}
-                          goToLec={() => navigate(`/classes/${selectedCard.id}/course/${course.id}`)}
+                          goToLec={() =>
+                            navigate(
+                              `/classes/${selectedCard.id}/course/${course.id}`
+                            )
+                          }
                         />
                       ))}
                     </div>

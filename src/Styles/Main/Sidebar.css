@@ -77,7 +77,8 @@
   width: 50%; /* Full width for dropdown */
   height: 90vh;
   background-color: #141f25;
-  border-left: 1px solid #316f7d;
+  border: 1px solid #316f7d;
+  border-right: none;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transform: scaleY(0);
   transform-origin: top;
@@ -93,6 +94,8 @@
   transform: scaleY(1);
   opacity: 1;
   gap: 60px;
+  z-index: 1000;
+  height: fit-content;
 }
 
 .navbar-sidebar_logo {

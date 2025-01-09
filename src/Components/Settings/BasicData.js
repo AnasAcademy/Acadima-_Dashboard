@@ -5,6 +5,7 @@ import x from "../../Images/x.png";
 import ln from "../../Images/ln.png";
 import ig from "../../Images/ig.png";
 import edit from "../../Images/edit.svg";
+import editx from "../../Images/SettingsSidebar/editx.svg";
 
 const Popup = ({ message, onClose }) => {
   return (
@@ -207,10 +208,16 @@ function BasicData({ onNext, allUserData, setAllUserData, updateProgress }) {
             </div>
           </div>
         </div>
+
         <button className="edit-button" onClick={showPopUp}>
           تعديل
           <img src={edit} alt="edit" className="edit-button-icon" />
         </button>
+
+        <button className="mobile-edit-button" onClick={showPopUp}>
+          <img src={editx} alt="editx" className="edit-button-icon" />
+        </button>
+
       </div>
 
       {isPopupVisible && (
@@ -346,7 +353,7 @@ function BasicData({ onNext, allUserData, setAllUserData, updateProgress }) {
           />
         </div>
 
-        <div className="toggle-group">
+        <div className="toggle-group" style={{marginTop: "0"}}>
           <label>تفعيل رسائل الملف الشخصي</label>
           <input
             type="checkbox"

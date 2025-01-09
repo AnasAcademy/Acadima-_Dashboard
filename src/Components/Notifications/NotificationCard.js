@@ -1,18 +1,36 @@
 import React from "react";
 import "../../Styles/Notifications/Notifications.css";
-import { da } from "date-fns/locale";
 
-function NotificationCard({ title, date, description, onClick, selected }) {  
+function NotificationCard({ title, date, status, onClick, selected }) {
   return (
     <div
-      className={`notification-card ${selected ? "notification-card-active" : ""}`}
+      className={`notification-card ${
+        selected ? "notification-card-active" : ""
+      }`}
     >
       <div className="notification-header">
-        <h4 className="notification-title"><span className="dot"></span>{title}</h4>
-        <span className="notification-date">{date}</span>
+        {/* Status circle indicating read/unread */}
+        <span
+          className={`status-circle ${
+            selected
+              ? "black" // Black when selected
+              : status === "unread"
+              ? "red" // Red when unread
+              : "white" // White when read and not selected
+          }`}
+        ></span>
+        
+        {/* Notification title */}
+        <h4 className="notification-title">{title}</h4>
       </div>
-      {/* <p className="notification-description">{description}</p> */}
-      <button className="notification-button" onClick={onClick}>معاينة الرسالة</button>
+      
+      {/* Notification date */}
+      <span className="notification-date">{date}</span>
+      
+      {/* Button to mark as seen */}
+      <button className="notification-button" onClick={onClick}>
+        معاينة الرسالة
+      </button>
     </div>
   );
 }

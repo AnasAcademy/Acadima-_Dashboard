@@ -1,7 +1,13 @@
 .user-profile-container {
   color: #fff;
   height: fit-content;
-  font-family: 'nf-l', sans-serif !important;
+  font-family: "nf-l", sans-serif !important;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px;
 }
 
 .profile-header {
@@ -16,12 +22,14 @@
   padding-right: 60px;
   padding-bottom: 20px;
   box-sizing: border-box;
+  width: 100%;
 }
 .profile-header-right {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  gap: 20px;
+  gap: 40px;
+  width: 90%;
 }
 .picture-frame {
   width: 111px;
@@ -95,10 +103,12 @@
   line-height: normal;
   font-family: "nf-l", sans-serif !important;
 }
-
+.mobile-edit-button {
+  display: none;
+  background-color: transparent;
+  border: none;
+}
 .user-form {
-  margin-top: 20px;
-  padding-top: 20px;
   /* padding-right: 86px;
   padding-left: 100px; */
   width: 100%;
@@ -166,6 +176,10 @@
   border: 1px solid #599faf;
 }
 
+.form-group option {
+  width: 80%;
+}
+
 .toggle-group {
   margin-top: 20px;
   display: flex;
@@ -176,7 +190,6 @@
 
 .toggle-group label {
   font-size: 14px;
-
 }
 
 .toggle-group input {
@@ -195,8 +208,7 @@
 }
 
 .toggle-group input:checked {
-  background-color: #CCF5FF;
-
+  background-color: #ccf5ff;
 }
 
 .toggle-group input::before {
@@ -205,7 +217,7 @@
   width: 16px;
   height: 16px;
   background-color: #496064;
-  color: #599FAF;
+  color: #599faf;
   border-radius: 50%;
   top: 2px;
   left: 2px;
@@ -214,11 +226,9 @@
 
 .toggle-group input:checked::before {
   transform: translateX(12px);
-  color: #599FAF;
-  background-color: #599FAF;
-
+  color: #599faf;
+  background-color: #599faf;
 }
-
 
 .save-button {
   border-radius: 6px;
@@ -284,10 +294,9 @@
 }
 .add-experience:hover {
   background: rgba(179, 230, 255, 0.651);
-
 }
 .add {
- font-size: 20px;
+  font-size: 20px;
 }
 .form-grid1 {
   margin-bottom: 20px;
@@ -310,7 +319,7 @@
   appearance: none;
   width: 18px;
   height: 18px;
-  border: 2px solid #5B767C;
+  border: 2px solid #5b767c;
   border-radius: 50%;
   background-color: transparent;
   position: relative;
@@ -319,8 +328,8 @@
   transition: background-color 0.3s, border-color 0.3s;
 }
 .radio-label input[type="radio"]:checked {
-  background-color: #CCF5FF;
-  border-color: #5B767C;
+  background-color: #ccf5ff;
+  border-color: #5b767c;
 }
 .custom-file-upload {
   position: relative;
@@ -361,16 +370,16 @@
 }
 
 .custom-file-upload label::before {
-  content: url('../../Images/file-upload.svg');
+  content: url("../../Images/file-upload.svg");
   font-size: 16px;
 }
-.link-card{
+.link-card {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   border-radius: 8px;
-  background: #141F25;
+  background: #141f25;
   padding: 17px 30px;
   width: 100%;
   gap: 10px;
@@ -402,7 +411,7 @@
   gap: 20px;
 }
 .actions {
-display: flex;
+  display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
@@ -422,8 +431,8 @@ display: flex;
   border: none;
 }
 .link-submit {
-width: 100%;
-margin-right: auto;
+  width: 100%;
+  margin-right: auto;
 }
 .experience-button {
   margin-left: auto;
@@ -439,7 +448,7 @@ margin-right: auto;
   margin: auto;
   margin-top: 0;
 }
-.full-width{
+.full-width {
   width: 100%;
 }
 .popup-overlay {
@@ -477,4 +486,69 @@ margin-right: auto;
 }
 .margin-0 {
   margin-right: 0;
+}
+@media (max-width: 1200px) {
+  .profile-header-right {
+    gap: 10px;
+  }
+  .profile-header {
+    margin-top: 50px;
+  }
+  .link-actions {
+    width: 20%;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 1000px) {
+  .edit-button {
+    display: none;
+  }
+  .mobile-edit-button {
+    display: block;
+  }
+  .link-card {
+    width: 97%;
+  }
+}
+@media (max-width: 650px) {
+  .profile-header {
+    padding: 10px;
+    gap: 3px;
+  }
+  .picture-frame {
+    width: 72px;
+    height: 72px;
+  }
+  .toggle-group {
+    width: 100%;
+  }
+  .form-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .radio-group {
+    gap: 20px;
+  }
+  .experience-button {
+    margin-bottom: 0;
+  }
+  .mobile-view {
+    padding: 9px 10px;
+    width: 77px;
+    height: 40px;
+  }
+  .link-card input {
+    width: 50%;
+  }
+  
+}
+@media (max-width: 400px) {
+  .radio-group {
+    gap: 10px;
+  }
+}
+@media (max-width: 350px) {
+  .radio-group {
+    gap: 5px;
+  }
 }

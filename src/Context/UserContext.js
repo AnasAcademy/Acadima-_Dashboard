@@ -8,37 +8,31 @@ export const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [userData, setUserData] = useState(null); // Full user data
   const [userBriefData, setUserBriefData] = useState(null); // Brief user data
+  const [classesData, setClassesData] = useState([]); // Classes data
   const [categories, setCategories] = useState([]);
   const [appliedPrograms, setAppliedPrograms] = useState([]);
+  const [notifications, setNotifications] = useState([]); // Add notifications state
   const [error, setError] = useState(null);
 
   const token = localStorage.getItem("token");
-  const [isFetching, setIsFetching] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const headers = {
+    "Content-Type": "application/json",
+    "x-api-key": "1234",
+    "ngrok-skip-browser-warning": true,
+    Authorization: `Bearer ${token}`,
+  };
 
   const fetchUserData = async () => {
-    if (isFetching) return; // Prevent duplicate calls
-    setIsFetching(true);
+    if (!token) return;
 
     try {
-      const response = await axios.get(`${apiUrl}/panel`, {
-        headers: {
-          "Cache-Control": "no-cache",
-          "Content-Type": "application/json",
-          "x-api-key": "1234",
-          "ngrok-skip-browser-warning": true,
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(`${apiUrl}/panel`, { headers });
 
       const result = response.data.data;
       setUserData(result);
-      console.log(result);
     } catch (error) {
-      console.error("Error fetching user data:", error);
-    } finally {
-      setIsFetching(false);
-    }
+      console.log("Error fetching user data:", error);
+    } 
   };
 
   // Fetch full user data
@@ -62,16 +56,12 @@ export const UserProvider = ({ children }) => {
   // };
 
   const fetchUserBriefData = async () => {
+    if (!token) return;
+
     try {
       const response = await fetch(`${apiUrl}/profile/brief`, {
         method: "GET",
-        headers: {
-          "Cache-Control": "no-cache",
-          "Content-Type": "application/json",
-          "x-api-key": "1234",
-          "ngrok-skip-browser-warning": true,
-          Authorization: `Bearer ${token}`,
-        },
+        headers,
       });
 
       if (!response.ok) {
@@ -82,21 +72,14 @@ export const UserProvider = ({ children }) => {
       const result = await response.json();
       setUserBriefData(result.data);
     } catch (error) {
-      console.error("Error fetching user brief data:", error);
+      console.log("Error fetching user brief data:", error);
     }
   };
 
   // Fetch program data
   const fetchProgramData = async () => {
     try {
-      const headers = {
-        "Content-Type": "application/json",
-        "x-api-key": "1234",
-        "ngrok-skip-browser-warning": true,
-        Authorization: `Bearer ${token}`,
-      };
-
-      const response = await fetch(apiUrl + "/panel/programs/apply", {
+        const response = await fetch(apiUrl + "/panel/programs/apply", {
         method: "GET",
         headers,
       });
@@ -107,33 +90,64 @@ export const UserProvider = ({ children }) => {
     } catch (error) {
       // console.error("Error fetching program data:", error);
       setError("حدث خطأ أثناء جلب البيانات. يرجى المحاولة لاحقًا.");
-    } finally {
-      setIsLoading(false);
     }
+  };
+
+  const fetchClassesData = async () => {
+    try {
+      const response = await fetch(apiUrl + "/panel/programs/purchases", {
+        method: "GET",
+        headers,
+      });
+
+      const result = await response.json();
+      setClassesData(result?.data?.bundles || []);
+    } catch (error) {
+      console.error("Error fetching classes data:", error);
+      setError("حدث خطأ أثناء جلب البيانات. يرجى المحاولة لاحقًا.");
+    }
+  };
+
+  const fetchNotifications = async () => {
+    try {
+      const response = await fetch(`${apiUrl}/panel/notifications`, {
+        method: "GET",
+        headers,
+      });
+
+      const result = await response.json();
+      setNotifications(result?.data?.notifications || []);
+    } catch (error) {
+      console.error("Error fetching notifications:", error);
+    }
+  };
+
+  const refreshUserData = async () => {
+    await fetchUserData();
+    await fetchUserBriefData();
+    await fetchProgramData();
+    await fetchClassesData();
+    await fetchNotifications();
   };
 
   // Fetch data on mount
   useEffect(() => {
     if (token) {
-      // Fetch necessary data when the token is available
-      fetchUserData();
-      fetchUserBriefData();
-      fetchProgramData();
+      refreshUserData();
     }
-  }, []); // Use `token` as the dependency
+  }, [token]);
   
-
-
   return (
     <UserContext.Provider
       value={{
         userData,
         userBriefData,
-        setUserData,
         categories,
-        setCategories,
         appliedPrograms,
-        setAppliedPrograms,
+        classesData,
+        notifications,
+        fetchNotifications, 
+        refreshUserData,
         error
       }}
     >

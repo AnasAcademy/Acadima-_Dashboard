@@ -17,8 +17,9 @@ const Popup = ({ message, onClose }) => {
 };
 
 function Admission() {
-    const { categories, setCategories, appliedPrograms, setAppliedPrograms } = useContext(UserContext); // Access userData from context
-  
+  const { categories, appliedPrograms, setAppliedPrograms } =
+    useContext(UserContext); // Access userData from context
+
   const [selectedProgramType, setSelectedProgramType] = useState(
     "اختر نوع البرنامج الذي تود دراسته"
   );
@@ -37,11 +38,11 @@ function Admission() {
 
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
-  
+
   // Get program names based on the selected type
-    const selectedCategory =
-      categories.find((category) => category.title === selectedProgramType) || {};
-    const programNames = selectedCategory.activeBundles || [];
+  const selectedCategory =
+    categories.find((category) => category.title === selectedProgramType) || {};
+  const programNames = selectedCategory.activeBundles || [];
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -97,9 +98,9 @@ function Admission() {
     }
   };
 
-
-  const goToPrpgram = (id) => {
+  const goToProgram = (id) => {
     navigate(`/classes/${id}`); // Navigate to the specific program page
+    
   };
 
   return (
@@ -135,7 +136,8 @@ function Admission() {
                     </p>
                     <button
                       className="go-to-program-button"
-                      onClick={() => { goToPrpgram(program.id); // Only navigate if `id` exists 
+                      onClick={() => {
+                        goToProgram(program.id); // Navigate to the specific program page
                       }}
                     >
                       الذهاب للبرنامج

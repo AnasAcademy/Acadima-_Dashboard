@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { UserContext } from "../Context/UserContext";
 import { apiUrl } from "../API";
 import "../Styles/Notifications/Notifications.css";
 
@@ -9,7 +10,7 @@ import msg from "../Images/msg.svg";
 import MobileNotificationCard from "../Components/Notifications/MobileNotificationCard";
 
 function Notifications() {
-  const [notifications, setNotifications] = useState([]);
+  const { notifications, fetchNotifications } = useContext(UserContext);
   const [selectedNotificationId, setSelectedNotificationId] = useState(null);
 
   const selectedNotification = notifications.find(
@@ -17,24 +18,6 @@ function Notifications() {
   );
 
   const token = localStorage.getItem("token");
-
-  const fetchNotifications = async () => {
-    try {
-      const response = await fetch(apiUrl + "/panel/notifications", {
-        method: "GET",
-        headers: {
-          "x-api-key": "1234",
-          "ngrok-skip-browser-warning": true,
-          Authorization: "Bearer " + token,
-        },
-      });
-
-      const result = await response.json();
-      setNotifications(result?.data?.notifications || []);
-    } catch (error) {
-      console.error("Error fetching notifications:", error);
-    }
-  };
 
   const markAsSeen = async (notificationId) => {
     try {
@@ -53,21 +36,11 @@ function Notifications() {
       setSelectedNotificationId(notificationId);
 
       // Update the notification's status in the UI
-      setNotifications((prevNotifications) =>
-        prevNotifications.map((notification) =>
-          notification.id === notificationId
-            ? { ...notification, status: "read" }
-            : notification
-        )
-      );
+      fetchNotifications();
     } catch (error) {
       console.error("Error marking notification as seen:", error);
     }
   };
-
-  useEffect(() => {
-    fetchNotifications();
-  }, []);
 
   return (
     <>
@@ -80,9 +53,10 @@ function Notifications() {
                 <NotificationCard
                   key={notification.id}
                   title={notification.title}
-                  date={notification.created_at} // Use `created_at` for date
-                  description={notification.message} // Use `message` for description
-                  onClick={() => markAsSeen(notification.id)} // Pass the ID to `markAsSeen`
+                  date={notification.created_at}
+                  description={notification.message}
+                  status={notification.status} // Pass status to NotificationCard
+                  onClick={() => markAsSeen(notification.id)}
                   selected={selectedNotificationId === notification.id}
                 />
               ))}
@@ -114,16 +88,16 @@ function Notifications() {
           </div>
         </div>
         <div className="mobile-screen-view">
-        <h2 className="notifications-title">الإشعارات</h2>
-        <div className="notifications-list">
-              {notifications.map((notification) => (
-                <MobileNotificationCard
-                  notification={notification} // Use `message` for description
-                  onClick={() => markAsSeen(notification.id)} // Pass the ID to `markAsSeen`
-                  selected={selectedNotificationId === notification.id}
-                />
-              ))}
-            </div>
+          <h2 className="notifications-title">الإشعارات</h2>
+          <div className="notifications-list">
+            {notifications.map((notification) => (
+              <MobileNotificationCard
+                notification={notification} // Use `message` for description
+                onClick={() => markAsSeen(notification.id)} // Pass the ID to `markAsSeen`
+                selected={selectedNotificationId === notification.id}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </>

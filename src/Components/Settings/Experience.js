@@ -73,14 +73,11 @@ function Experience({ onNext, experience, id, updateProgress }) {
             exp === newExperience ? { ...exp, id: result.id } : exp
           )
         );
-        alert("Experience added successfully");
         calculateProgress(); // Recalculate progress
       } else {
-        alert("Error adding experience: " + result.message);
       }
     } catch (error) {
       console.log("Error submitting education data:", error);
-      alert("Error adding experience. Please try again.");
     }
   };
 
@@ -129,14 +126,11 @@ function Experience({ onNext, experience, id, updateProgress }) {
             index === activeFormIndex ? updatedExperience : item
           )
         );
-        alert("Experience updated successfully");
         calculateProgress(); // Recalculate progress
       } else {
-        alert("Error updating experience: " + result.message);
       }
     } catch (error) {
       console.log("Error updating experience:", error);
-      alert("Error updating experience. Please try again.");
     } finally {
       setActiveFormIndex(null); // Reset the active form index
     }
@@ -167,17 +161,14 @@ function Experience({ onNext, experience, id, updateProgress }) {
       );
 
       if (response.ok) {
-        alert("Experience deleted successfully");
         // Remove the experience locally after a successful API response
         setExperienceForms((prev) => prev.filter((_, i) => i !== index));
         calculateProgress(); // Recalculate progress
       } else {
         const result = await response.json();
-        alert("Error deleting experience: " + result.message);
       }
     } catch (error) {
       console.error("Error deleting experience:", error);
-      alert("Error deleting experience. Please try again.");
     }
   };
 
