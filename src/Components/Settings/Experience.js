@@ -244,18 +244,34 @@ function Experience({ onNext, experience, id, updateProgress }) {
             </div>
             <button
               type="button"
-              className="save-button experience-button"
+              className="save-button experience-button wide-screen-button"
               onClick={handleAddExperience}
             >
               إضافة
             </button>
             <button
               type="button"
-              className="save-button experience-button"
+              className="save-button experience-button wide-screen-button"
               onClick={handleCancel}
             >
               إلغاء
             </button>
+            <div className="experience-buttons-container">
+              <button
+                type="button"
+                className="save-button experience-button mobile-view"
+                onClick={handleAddExperience}
+              >
+                إضافة
+              </button>
+              <button
+                type="button"
+                className="save-button experience-button mobile-view"
+                onClick={handleCancel}
+              >
+                إلغاء
+              </button>
+            </div>
           </div>
         )}
 
@@ -282,18 +298,34 @@ function Experience({ onNext, experience, id, updateProgress }) {
                 </div>
                 <button
                   type="button"
-                  className="save-button experience-button"
+                  className="save-button experience-button wide-screen-button"
                   onClick={handleUpdateExperience}
                 >
                   حفظ
                 </button>
                 <button
                   type="button"
-                  className="save-button experience-button"
+                  className="save-button experience-button wide-screen-button"
                   onClick={handleCancel}
                 >
                   إلغاء
                 </button>
+                <div className="experience-buttons-container">
+                  <button
+                    type="button"
+                    className="save-button experience-button mobile-view"
+                    onClick={handleUpdateExperience}
+                  >
+                    حفظ
+                  </button>
+                  <button
+                    type="button"
+                    className="save-button experience-button mobile-view"
+                    onClick={handleCancel}
+                  >
+                    إلغاء
+                  </button>
+                </div>
               </>
             ) : (
               <>
@@ -307,18 +339,34 @@ function Experience({ onNext, experience, id, updateProgress }) {
                 </div>
                 <button
                   type="button"
-                  className="save-button experience-button"
+                  className="save-button experience-button wide-screen-button"
                   onClick={() => handleEditExperience(index)}
                 >
                   تعديل
                 </button>
                 <button
                   type="button"
-                  className="save-button experience-button"
+                  className="save-button experience-button wide-screen-button"
                   onClick={() => handleDeleteExperience(index)}
                 >
                   حذف
                 </button>
+                <div className="experience-buttons-container">
+                  <button
+                    type="button"
+                    className="save-button experience-button mobile-view"
+                    onClick={() => handleEditExperience(index)}
+                  >
+                    تعديل
+                  </button>
+                  <button
+                    type="button"
+                    className="save-button experience-button mobile-view"
+                    onClick={() => handleDeleteExperience(index)}
+                  >
+                    حذف
+                  </button>
+                </div>
               </>
             )}
           </div>

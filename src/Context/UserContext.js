@@ -12,6 +12,20 @@ export const UserProvider = ({ children }) => {
   const [categories, setCategories] = useState([]);
   const [appliedPrograms, setAppliedPrograms] = useState([]);
   const [notifications, setNotifications] = useState([]); // Add notifications state
+  const [allUserSettingsData, setAllUserSettingsData] = useState({});
+  const [progressData, setProgressData] = useState({
+    basicData: 0,
+    personalData: 0,
+    education: 0,
+    experience: 0,
+    additionalInfo: 0,
+    workLinks: 0,
+    references: 0,
+  });
+  const [certificates, setCertificates] = useState([]); // New state for certificates
+  const [programs, setPrograms] = useState([]);
+  const [ProgramsInstallmentData, setProgramsInstallmentData] = useState([]);
+
   const [error, setError] = useState(null);
 
   const token = localStorage.getItem("token");
@@ -122,12 +136,112 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const fetchAllUserSettingsData = async () => {
+    try {
+      const response = await fetch(apiUrl + "/profile", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": "1234",
+          "ngrok-skip-browser-warning": true,
+          Authorization: "Bearer " + token,
+        },
+      });
+
+      const result = await response.json();
+      // console.log(result);
+      setAllUserSettingsData(result.data);
+
+      setProgressData(
+        {
+          basicData: 0,
+          personalData: 0,
+          education: 0,
+          experience: 0,
+          additionalInfo: 0,
+          workLinks: 0,
+          references: 0,
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchCertificates = async () => {
+    try {
+      const response = await fetch(
+        `${apiUrl}/panel/certificates/achievements`,
+        { method: "GET", 
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key": "1234",
+            "ngrok-skip-browser-warning": true,
+            Authorization: "Bearer " + token,
+          },
+         }
+      );
+      const result = await response.json();
+      setCertificates(result?.data?.bundleCertificates || []);
+    } catch (error) {
+      console.error("Error fetching certificates:", error);
+      setError("حدث خطأ أثناء جلب الشهادات.");
+    }
+  };
+
+  const fetchAppliedProgramsData = async () => {
+    try {
+      const response = await fetch(apiUrl + "/panel/programs/applieds", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": "1234",
+          "ngrok-skip-browser-warning": true,
+          Authorization: "Bearer " + token,
+          accept: "application/json",
+        },
+      });
+
+      const result = await response.json();
+      // console.log(result);
+      setPrograms(result.data);
+      // console.log(result.data);
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchProgramsInstallmentData = async () => {
+    try {
+      const response = await fetch(apiUrl + "/panel/financial/installments", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": "1234",
+          "ngrok-skip-browser-warning": true,
+          Authorization: "Bearer " + token,
+        },
+      });
+
+      const result = await response.json();
+      console.log(result);
+      setProgramsInstallmentData(result?.data?.ordersList);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const refreshUserData = async () => {
     await fetchUserData();
     await fetchUserBriefData();
     await fetchProgramData();
     await fetchClassesData();
     await fetchNotifications();
+    await fetchCertificates(); // Fetch certificates
+    await fetchAllUserSettingsData();
+    await fetchAppliedProgramsData();
+    await fetchProgramsInstallmentData();
   };
 
   // Fetch data on mount
@@ -148,6 +262,13 @@ export const UserProvider = ({ children }) => {
         notifications,
         fetchNotifications, 
         refreshUserData,
+        progressData,
+        allUserSettingsData,
+        setAllUserSettingsData,
+        setProgressData,
+        certificates,
+        programs,
+        ProgramsInstallmentData,
         error
       }}
     >

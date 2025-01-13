@@ -79,10 +79,10 @@ function Education({ onNext, education, setEducation, updateProgress }) {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    // setEducation((prev) => ({
-    //   ...prev,
-    //   [name]: value,
-    // }))
+    setEducation((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
     setSubmitEducation((prev) => ({
       ...prev,
       [name]: value,

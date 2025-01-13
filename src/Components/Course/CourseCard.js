@@ -5,11 +5,10 @@ import courseicon from "../../Images/lecture.svg";
 import dropdown from "../../Images/dropdownarrow.svg";
 import lectureIcon from "../../Images/lecture-icon.svg";
 
-function CourseCard({ courses }) {
+function CourseCard({ courses, setActiveLecture }) {
   const [expandedCard, setExpandedCard] = useState(null); // Track which card is expanded
 
   const toggleCard = (index) => {
-    // Toggle between opening and closing a card
     setExpandedCard(expandedCard === index ? null : index);
   };
 
@@ -18,7 +17,6 @@ function CourseCard({ courses }) {
       {courses.map((course, index) => (
         <div key={index} className="course-item">
           <div className="card-header" onClick={() => toggleCard(index)}>
-            {/* Card Header */}
             <div className="course-item-right">
               <div className="courseiconcont">
                 <img src={courseicon} alt="courseicon" className="courseicon" />
@@ -41,13 +39,16 @@ function CourseCard({ courses }) {
             />
           </div>
 
-          {/* Card Content */}
           {expandedCard === index && (
             <div className="course-content">
               {course.lectures ? (
                 <div className="lectures-list">
                   {course.lectures.map((lecture, idx) => (
-                    <div key={idx} className="lecture-item">
+                    <div
+                      key={idx}
+                      className="lecture-item"
+                      onClick={() => setActiveLecture(lecture)}
+                    >
                       <img
                         src={lectureIcon}
                         alt="lectureIcon"
@@ -77,3 +78,4 @@ function CourseCard({ courses }) {
 }
 
 export default CourseCard;
+

@@ -8,7 +8,12 @@ import { Outlet } from "react-router-dom";
 
 function MainPageContainer() {
   const [menuOpen, setMenuOpen] = useState(false); // Sidebar toggle state
-  const { userBriefData } = useContext(UserContext); // Consume userBriefData from context
+  const { userBriefData, notifications } = useContext(UserContext); // Consume userBriefData from context
+
+  const hasUnreadNotifications = notifications?.notifications?.some(
+    (notification) => notification.status !== "read"
+  ) || false;
+   
 
   // Function to toggle the sidebar
   const handleMenuToggle = () => {
@@ -22,6 +27,7 @@ function MainPageContainer() {
         menuOpen={menuOpen}
         onMenuToggle={handleMenuToggle}
         userBriefData={userBriefData} // Pass user brief data to Navbar
+        hasUnreadNotifications={hasUnreadNotifications} // Pass unread notification status
       />
 
       {/* Main container for sidebar and content */}

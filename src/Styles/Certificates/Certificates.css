@@ -4,9 +4,9 @@
   justify-content: flex-start;
   align-items: flex-end;
   gap: 138px;
-  padding: 20px;
+  width: 90%;
   color: #fff;
-  padding: 40px;
+  margin: auto;
 }
 
 .certificate-section {

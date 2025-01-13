@@ -19,8 +19,10 @@ import Activecertificates from "../../../Images/Sidebar icons/activeIcons/Active
 import payment from "../../../Images/Sidebar icons/payment.svg";
 import Activepayment from "../../../Images/Sidebar icons/activeIcons/Activepayment.svg";
 
+import ActiveInstallments from '../../../Images/Sidebar icons/activeIcons/ActiveInstallments.svg';
 import installments from "../../../Images/Sidebar icons/installments.svg";
 
+import ActivePay from '../../../Images/Sidebar icons/activeIcons/ActivePay.svg';
 import pay from "../../../Images/Sidebar icons/pay.svg";
 
 import notifications from "../../../Images/Sidebar icons/notifications.png";
@@ -67,8 +69,8 @@ function NavigationMenu() {
       hasDropdown: true,
       route: '/finances',
       children: [
-        { defaultIcon: installments, activeIcon: Activepayment, label: "دفع رسوم البرنامج", route: "/finances/program" },
-        { defaultIcon: pay, activeIcon: Activepayment, label: "الأقساط", route: "/finances/installments" },
+        { defaultIcon: installments, activeIcon: ActiveInstallments, label: "دفع رسوم البرنامج", route: "/finances/program" },
+        { defaultIcon: pay, activeIcon: ActivePay, label: "الأقساط", route: "/finances/installments" },
       ],
     },
     { defaultIcon: certificates, activeIcon: Activecertificates, label: "الشهادات", route: "/certificates" },

@@ -1,0 +1,29 @@
+.notfound-container {
+  width: 100%;
+}
+.notfound-nav {
+  width: 60%;
+  margin: auto;
+  margin-top: 40px;
+  text-align: left;
+}
+.notfound-content {
+  width: 60%;
+  margin: auto;
+  text-align: center;
+  color: white;
+  margin-top: 150px;
+}
+.disconnect {
+  width: 600px;
+  height: 200px;
+}
+.notfound-content h1 {
+  font-size: 48px;
+  font-weight: 900;
+}
+
+.notfound-content p {
+  font-size: 24px;
+  margin: 0;
+}

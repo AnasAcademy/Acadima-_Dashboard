@@ -65,15 +65,12 @@ function PeopleYouKnow({ onNext, references, setReferences, updateProgress }) {
           job_title: "",
         }); // Clear the form
         setIsAdding(false);
-        alert("تمت إضافة المعرف بنجاح.");
       } else {
         const errorData = await response.json();
-        console.error("Error adding reference:", errorData);
-        alert("فشل في إضافة المعرف. حاول مرة أخرى.");
+        console.log("Error adding reference:", errorData);
       }
     } catch (error) {
-      console.error("Error adding reference:", error);
-      alert("حدث خطأ أثناء إضافة المعرف.");
+      console.log("Error adding reference:", error);
     }
   };
 
@@ -115,15 +112,12 @@ function PeopleYouKnow({ onNext, references, setReferences, updateProgress }) {
           )
         );
         calculateProgress(); // Update progress
-        alert("تم تحديث المعرف بنجاح.");
       } else {
         const errorData = await response.json();
-        console.error("Error updating reference:", errorData);
-        alert("فشل في تحديث المعرف. حاول مرة أخرى.");
+        console.log("Error updating reference:", errorData);
       }
     } catch (error) {
-      console.error("Error updating reference:", error);
-      alert("حدث خطأ أثناء تحديث المعرف.");
+      console.log("Error updating reference:", error);
     }
 
     setActiveReferenceIndex(null);
@@ -162,27 +156,24 @@ function PeopleYouKnow({ onNext, references, setReferences, updateProgress }) {
       if (response.ok) {
         setReferences((prev) => prev.filter((_, i) => i !== index));
         calculateProgress(); // Update progress
-        alert("تم حذف المعرف بنجاح.");
       } else {
         const errorData = await response.json();
-        console.error("Error deleting reference:", errorData);
-        alert("فشل في حذف المعرف. حاول مرة أخرى.");
+        console.log("Error deleting reference:", errorData);
       }
     } catch (error) {
-      console.error("Error deleting reference:", error);
-      alert("حدث خطأ أثناء حذف المعرف.");
+      console.log("Error deleting reference:", error);
     }
   };
 
   const calculateProgress = () => {
-    const progress = references.length === 0 ? 0 : Math.min(references.length * 20, 100); // 20% per reference, capped at 100%
+    const progress =
+      references.length === 0 ? 0 : Math.min(references.length * 20, 100); // 20% per reference, capped at 100%
     updateProgress(progress);
   };
 
   useEffect(() => {
     calculateProgress();
   }, [references]);
-
 
   const handleSubmit = (e) => {
     onNext();
@@ -206,7 +197,7 @@ function PeopleYouKnow({ onNext, references, setReferences, updateProgress }) {
 
         {/* Add Reference Form */}
         {isAdding && (
-          <div className="link-card">
+          <div className="link-card is-adding">
             <input
               type="text"
               placeholder="اسم المعرف"
@@ -241,7 +232,7 @@ function PeopleYouKnow({ onNext, references, setReferences, updateProgress }) {
             />
             <button
               type="button"
-              className="save-button"
+              className="save-button mobile-view"
               onClick={handleAddReference}
             >
               إضافة
@@ -252,45 +243,72 @@ function PeopleYouKnow({ onNext, references, setReferences, updateProgress }) {
         {/* Existing References */}
         {references.length > 0 ? (
           references.map((reference, index) => (
-            <div key={reference.id || index} className="full-width">
-              <div className="link-card">
+            <div key={reference.id || index} className="link-card-cont">
+              <div
+                className={`link-card ${
+                  activeReferenceIndex === index ? "is-editing" : "is-viewing"
+                }`}
+              >
                 {activeReferenceIndex === index ? (
                   <>
-                    <input
-                      type="text"
-                      value={tempReference.name}
-                      onChange={(e) =>
-                        handleInputChange("name", e.target.value)
-                      }
-                    />
-                    <input
-                      type="email"
-                      value={tempReference.email}
-                      onChange={(e) =>
-                        handleInputChange("email", e.target.value)
-                      }
-                    />
-                    <input
-                      type="text"
-                      value={tempReference.workplace}
-                      onChange={(e) =>
-                        handleInputChange("workplace", e.target.value)
-                      }
-                    />
-                    <input
-                      type="text"
-                      value={tempReference.relationship}
-                      onChange={(e) =>
-                        handleInputChange("relationship", e.target.value)
-                      }
-                    />
-                    <input
-                      type="text"
-                      value={tempReference.job_title}
-                      onChange={(e) =>
-                        handleInputChange("job_title", e.target.value)
-                      }
-                    />
+                    <div className="form-group">
+                      <label>اسم المعرف</label>
+                      <input
+                        type="text"
+                        value={tempReference.name}
+                        onChange={(e) =>
+                          handleInputChange("name", e.target.value)
+                        }
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label>البريد الإلكتروني</label>
+
+                      <input
+                        type="email"
+                        value={tempReference.email}
+                        onChange={(e) =>
+                          handleInputChange("email", e.target.value)
+                        }
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label>مكان العمل</label>
+
+                      <input
+                        type="text"
+                        value={tempReference.workplace}
+                        onChange={(e) =>
+                          handleInputChange("workplace", e.target.value)
+                        }
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label>العلاقة</label>
+
+                      <input
+                        type="text"
+                        value={tempReference.relationship}
+                        onChange={(e) =>
+                          handleInputChange("relationship", e.target.value)
+                        }
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label>المسمى الوظيفي</label>
+
+                      <input
+                        type="text"
+                        value={tempReference.job_title}
+                        onChange={(e) =>
+                          handleInputChange("job_title", e.target.value)
+                        }
+                      />
+                    </div>
                   </>
                 ) : (
                   <>
@@ -328,14 +346,14 @@ function PeopleYouKnow({ onNext, references, setReferences, updateProgress }) {
                 <div className="actions">
                   <button
                     type="button"
-                    className="save-button"
+                    className="save-button mobile-view"
                     onClick={handleUpdateReference}
                   >
                     حفظ
                   </button>
                   <button
                     type="button"
-                    className="save-button"
+                    className="save-button mobile-view"
                     onClick={handleCancel}
                   >
                     إلغاء

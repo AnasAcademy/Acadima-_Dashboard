@@ -1,45 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
+import { UserContext } from "../Context/UserContext";
 import "../Styles/Program/Program.css";
-import { apiUrl } from "../API";
 
-import MainPageContainer from "../Components/Main/MainPageContainer";
 import ProgramCard from "../Components/Program/ProgramCard";
 
 import payment from "../Images/Sidebar icons/payment.svg";
 
 function Program() {
-  
-
-  const [programs, setPrograms] = useState([]);
-
-  const token = localStorage.getItem("token");
-
-  const fetchProgramsData = async () => {
-    try {
-      const response = await fetch(apiUrl + "/panel/programs/applieds", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": "1234",
-          "ngrok-skip-browser-warning": true,
-          Authorization: "Bearer " + token,
-          accept: "application/json",
-        },
-      });
-
-      const result = await response.json();
-      // console.log(result);
-      setPrograms(result.data);
-      // console.log(result.data);
-
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchProgramsData();
-  }, []);
+  const { programs } = useContext(UserContext);
 
   return (
     <>

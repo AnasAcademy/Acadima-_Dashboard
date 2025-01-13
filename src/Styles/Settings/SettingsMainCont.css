@@ -385,6 +385,22 @@
   gap: 10px;
   margin-bottom: 20px;
   padding: 10px;
+  box-sizing: border-box;
+}
+.link-card.is-viewing {
+  flex-direction: row;
+}
+.link-card.is-viewing label {
+  display: none;
+}
+
+.link-card.is-editing {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 30px;
+}
+.link-card.is-editing input {
+  width: 100%;
 }
 .link-card input {
   padding: 8px;
@@ -448,8 +464,12 @@
   margin: auto;
   margin-top: 0;
 }
-.full-width {
+.link-card-cont {
   width: 100%;
+}
+.is-adding {
+  flex-direction: column;
+  align-items: flex-start;
 }
 .popup-overlay {
   position: fixed;
@@ -486,6 +506,12 @@
 }
 .margin-0 {
   margin-right: 0;
+}
+.experience-buttons-container {
+  display: none;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
 }
 @media (max-width: 1200px) {
   .profile-header-right {
@@ -525,6 +551,14 @@
   }
   .form-grid {
     grid-template-columns: repeat(1, 1fr);
+    gap: 20px
+  }
+  .experience-buttons-container {
+    display: flex;
+    gap: 20px;
+  }
+  .wide-screen-button {
+    display: none;
   }
   .radio-group {
     gap: 20px;
@@ -536,19 +570,47 @@
     padding: 9px 10px;
     width: 77px;
     height: 40px;
+    margin: 0;
   }
   .link-card input {
     width: 50%;
   }
-  
+  .link-card label {
+    display: none;
+  }
+  .link-card.is-editing label {
+    display: block;
+  }
+  .link-card.is-viewing {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
-@media (max-width: 400px) {
+@media (max-width: 450px) {
   .radio-group {
     gap: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .save-button {
+    margin: 0;
+    margin-top: 20px;
+  }
+  .link-card {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .link-actions {
+    width: 80%;
+    justify-content: flex-start;
+    align-items: flex-start;
   }
 }
 @media (max-width: 350px) {
   .radio-group {
     gap: 5px;
   }
+  
 }

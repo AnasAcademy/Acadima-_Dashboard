@@ -22,6 +22,7 @@ import Program from './Screens/Program';
 import MainPageContainer from './Components/Main/MainPageContainer';
 import { UserProvider } from './Context/UserContext';
 import Test from './Screens/Test';
+import NotFound from './Screens/NotFound';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             {/* Public Routes */}
             <Route path="/login" element={<PublicRoute><LoginScreen /></PublicRoute>} />
             <Route path="/register" element={<PublicRoute><RegistrationScreen /></PublicRoute>} />
+            <Route path="*" element={<NotFound />} />
 
             {/* Routes wrapped with MainPageContainer */}
             <Route element={<MainPageContainer />}>

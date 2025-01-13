@@ -3,7 +3,8 @@
   flex-direction: column;
   align-items: flex-end;
   gap: 40px;
-  padding: 40px;
+  width: 90%;
+  margin: auto;
   padding-top: 0;
   text-align: right;
   font-family: "nf-l", sans-serif !important;

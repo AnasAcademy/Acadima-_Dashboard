@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { apiUrl } from "../API";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../Context/UserContext";
 import "../Styles/Settings/Settings.css";
 
-import MainPageContainer from "../Components/Main/MainPageContainer";
 import SettingsSidebar from "../Components/Settings/SettingsSidebar";
 
 import BasicData from "../Components/Settings/BasicData";
@@ -15,16 +14,9 @@ import WorkLinks from "../Components/Settings/WorkLinks";
 import PeopleYouKnow from "../Components/Settings/PeopleYouKnow";
 
 function Settings() {
+  const { progressData, allUserSettingsData, setProgressData, setAllUserSettingsData } = useContext(UserContext);
   const [activeSection, setActiveSection] = useState(1); // Active section state
-  const [progressData, setProgressData] = useState({
-    basicData: 0,
-    personalData: 0,
-    education: 0,
-    experience: 0,
-    additionalInfo: 0,
-    workLinks: 0,
-    references: 0,
-  });
+  
 
   const updateTabProgress = (tabName, progress) => {
     setProgressData((prev) => ({ ...prev, [tabName]: progress }));
@@ -43,56 +35,23 @@ function Settings() {
     setActiveSection((prevSection) => prevSection + 1); // Move to the next section
   };
 
-  const [allUserData, setAllUserData] = useState({});
   const [education, setEducation] = useState({});
   const [experience, setExperience] = useState({});
   const [additionalData, setAdditionalData] = useState({});
   const [links, setLinks] = useState({});
   const [references, setReferences] = useState({});
 
-  const token = localStorage.getItem("token");
-  const fetchAllUserData = async () => {
-    try {
-      const response = await fetch(apiUrl + "/profile", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": "1234",
-          "ngrok-skip-browser-warning": true,
-          Authorization: "Bearer " + token,
-        },
-      });
-
-      const result = await response.json();
-      // console.log(result);
-      setAllUserData(result.data);
-      setEducation(result.data.education);
-      setExperience(result.data.experience);
-      setAdditionalData(result.data.additional_details);
-      setLinks(result.data.links);
-      setReferences(result.data.references);
-
-      
-      setProgressData(
-        {
-          basicData: 0,
-          personalData: 0,
-          education: 0,
-          experience: 0,
-          additionalInfo: 0,
-          workLinks: 0,
-          references: 0,
-        }
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+  
   useEffect(() => {
-    fetchAllUserData();
-  }, []);
-
+    if (allUserSettingsData) {
+      setEducation(allUserSettingsData.education || {});
+      setExperience(allUserSettingsData.experience || {});
+      setAdditionalData(allUserSettingsData.additional_details || {});
+      setLinks(allUserSettingsData.links || {});
+      setReferences(allUserSettingsData.references || {});
+    }
+  }, [allUserSettingsData]);
+ 
   const navigate = useNavigate();
 
   const renderSectionContent = () => {
@@ -101,8 +60,8 @@ function Settings() {
         return (
           <BasicData
             onNext={handleNextStep}
-            allUserData={allUserData}
-            setAllUserData={setAllUserData}
+            allUserData={allUserSettingsData}
+            setAllUserData={setAllUserSettingsData}
             updateProgress={(progress) =>
               updateTabProgress("basicData", progress)
             }
@@ -112,8 +71,8 @@ function Settings() {
         return (
           <PersonalData
             onNext={handleNextStep}
-            allUserData={allUserData}
-            setAllUserData={setAllUserData}
+            allUserData={allUserSettingsData}
+            setAllUserData={setAllUserSettingsData}
             updateProgress={(progress) =>
               updateTabProgress("personalData", progress)
             }
@@ -135,7 +94,7 @@ function Settings() {
           <Experience
             onNext={handleNextStep}
             experience={experience}
-            userId={allUserData.id}
+            userId={allUserSettingsData.id}
             updateProgress={(progress) =>
               updateTabProgress("experience", progress)
             }

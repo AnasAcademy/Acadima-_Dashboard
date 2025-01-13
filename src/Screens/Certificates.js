@@ -1,38 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { apiUrl } from "../API";
-
+import { UserContext } from "../Context/UserContext";
 import "../Styles/Certificates/Certificates.css";
 
-import MainPageContainer from "../Components/Main/MainPageContainer";
 import CertificateCard from "../Components/Certificates/CertificateCard";
 
 function Certificates() {
   const token = localStorage.getItem("token");
-  const [certificates, setCertificates] = useState([]);
+  const { certificates} = useContext(UserContext);
   const [certpfd, setcertpdf] = useState([]);
   const [certpng, setcertpng] =useState([]);
 
-  const fetchCertificates = async () => {
-    try {
-      const response = await fetch(apiUrl + "/panel/certificates/achievements", {
-        method: "GET",
-        headers: {
-          "x-api-key": "1234",
-          "ngrok-skip-browser-warning": true,
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      const result = await response.json();
-      setCertificates(result?.data?.bundleCertificates || []);
-    } catch (error) {
-      console.log("Error fetching certificates:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchCertificates();
-  }, []);
 
   const handleLinkedIn = (certificateId) => {
     console.log(`Sharing certificate ${certificateId} on LinkedIn.`);

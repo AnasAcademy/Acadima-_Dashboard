@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
+import { UserContext } from "../Context/UserContext";
 import "../Styles/Installments/Installments.css";
-import { apiUrl } from "../API";
 
 import MobileInstallmentTable from '../Components/Installments/MobileInstallmentTable';
 import InstallmentTable from "../Components/Installments/InstallmentTable";
@@ -8,36 +8,9 @@ import ProgramInstallmentCard from "../Components/Installments/ProgramInstallmen
 import InstallmentCard from "../Components/Installments/InstallmentCard";
 
 function Installments() {
+    const { ProgramsInstallmentData } = useContext(UserContext);
+  
   const [selectedProgram, setSelectedProgram] = useState(null);
-
-  const [ProgramsInstallmentData, setProgramsInstallmentData] = useState([]);
-  console.log(selectedProgram);
-
-  const token = localStorage.getItem("token");
-
-  const fetchProgramsInstallmentData = async () => {
-    try {
-      const response = await fetch(apiUrl + "/panel/financial/installments", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": "1234",
-          "ngrok-skip-browser-warning": true,
-          Authorization: "Bearer " + token,
-        },
-      });
-
-      const result = await response.json();
-      console.log(result);
-      setProgramsInstallmentData(result?.data?.ordersList);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchProgramsInstallmentData();
-  }, []);
 
   return (
     <>
