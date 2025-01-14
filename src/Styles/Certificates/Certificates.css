@@ -15,6 +15,7 @@
   justify-content: flex-start;
   align-items: flex-end;
   gap: 33px;
+  width: 60%;
 }
 
 .section-title {
@@ -31,16 +32,17 @@
   justify-content: flex-start;
   align-items: flex-end;
   gap: 20px;
+  width: 100%;
+  height: fit-content;
 }
 .certificate-card {
   box-sizing: border-box;
-  width: 900px;
-  height: 109px;
+  width: 100%;
+  height: 120px;
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;
   align-items: center;
-  gap: 80px;
   background: #141f25;
   padding: 20px;
   border-radius: 8px;
@@ -63,7 +65,7 @@
 .certificate-right {
   display: flex;
   flex-direction: row-reverse;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: 20px;
 }
@@ -92,6 +94,7 @@
   font-weight: 600;
   line-height: normal;
   margin: 0;
+  width: 80%;
 }
 .certificate-id {
   color: #ccf5ff;
@@ -108,6 +111,7 @@
   justify-content: center;
   align-items: center;
   gap: 8px;
+  width: fit-content;
   
 }
 .linkedinicon-container {
@@ -130,7 +134,7 @@
   background: #ccf5ff;
   color: #141f25;
   border: none;
-  padding: 8px 20px;
+  padding: 8px 10px;
   cursor: pointer;
   text-align: right;
   font-size: 12px;
@@ -139,10 +143,87 @@
   line-height: normal;
   height: 33px;
   font-family: 'nf-l', sans-serif !important;
+  width: fit-content;
 
 }
 
 .linkedin-button:hover,
 .download-button:hover {
   opacity: 0.9;
+}
+@media (max-width:1800px) {
+  .certificate-section {
+    width: 70%;
+  }
+}
+@media (max-width:1690px) {
+  .certificate-section {
+    width: 80%;
+  }
+}
+@media (max-width:1280px) {
+  .certificate-section {
+    width: 100%;
+  }
+  .certificate-card {
+    width: 100%;
+  }
+  .certificate-right {
+    width: 50%;
+  }
+  .certificate-info {
+    width: 100%;
+  }
+  .certificate-program {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1000px) {
+  .certificate-card {
+    flex-direction: column;
+    height: fit-content;
+    width: 45%;
+    gap: 20px;
+    padding: 40px 15px;
+  }
+  .certificateimg-container {
+    display: none;
+  }
+  .certificate-right {
+    width: 80%;
+    padding: 10px;
+    border-bottom: 1px solid #5B767C;
+  }
+  .certificate-info {
+    width: fit-content;
+    align-items: center;
+  }
+  .certificate-program {
+    width: 70%;
+    text-align: center;
+  }
+  .certificate-actions {
+    width: 100%;
+    gap: 10px;
+  }
+}
+@media(max-width:720px) {
+  .certificates-list {
+    align-items: center;
+
+  }
+  .certificate-card {
+    width: 80%;
+    padding: 30px 10px;
+  }
+  .certificate-program {
+    width: 90%;
+  }
+  .download-button {
+    padding: 8px 0;
+    width: 40%;
+    text-align: center;
+    font-size: 10px;
+  }
 }

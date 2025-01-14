@@ -47,6 +47,7 @@ function StudentPlatform() {
             <div className="student-info">
               <h1 className="name">أهلاً {userData?.user?.full_name}</h1>
               <h3 className="course-name">{userData?.last_program}</h3>
+              <p className="details-title">البيانات الأكاديمية :</p>
               <ul className="details-list">
                 <li className="details-item">
                   رقم الطالب : {userData?.user?.user_code}
@@ -232,6 +233,10 @@ function StudentPlatform() {
                     (window.location.href =
                       "https://anasacademy.com/new-request")
                   }
+                  // onClick={() =>
+                  //   (window.location.href =
+                  //     "https://support.anasacademy.uk")
+                  // }
                 >
                   تقديم طلب جديد
                 </button>
@@ -240,7 +245,10 @@ function StudentPlatform() {
                   onClick={() =>
                     (window.location.href = "https://anasacademy.com/follow-up")
                   }
-                >
+                //   onClick={() =>
+                //     (window.location.href = "https://support.anasacademy.uk/search")
+                //   }
+                 >
                   متابعة طلب سابق
                 </button>
               </div>

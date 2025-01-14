@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiUrl } from "../../API";
 
@@ -7,11 +7,11 @@ import "../../Styles/Main/LogoutButton.css";
 import logout from "../../Images/Sidebar icons/logout.svg";
 
 function LogoutButton() {
-  const navigate = useNavigate(); // Initialize the navigate hook
+  const [showConfirmation, setShowConfirmation] = useState(false); // State to control modal visibility
+  const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
   const handleLogout = async () => {
-    
     try {
       const response = await fetch(apiUrl + "/logout", {
         method: "POST",
@@ -26,7 +26,7 @@ function LogoutButton() {
       const result = await response.json();
       localStorage.removeItem("token");
       window.location.href = "/login";
-      
+
       if (result?.status === 200) {
         navigate("/login");
       }
@@ -36,10 +36,24 @@ function LogoutButton() {
   };
 
   return (
-    <div className="logout-button" onClick={handleLogout}>
-      <img src={logout} alt="logout" className="logout" />
-      <p className="logout-button-text">تسجيل الخروج</p>
-    </div>
+    <>
+      <div className="logout-button" onClick={() => setShowConfirmation(true)}>
+        <img src={logout} alt="logout" className="logout" />
+        <p className="logout-button-text">تسجيل الخروج</p>
+      </div>
+
+      {showConfirmation && (
+        <div className="popup-container">
+          <div className="popup">
+            <p>هل أنت متأكد من الخروج؟</p>
+            <div className="logout-buttons-container">
+              <button onClick={handleLogout}>نعم</button>
+              <button onClick={() => setShowConfirmation(false)}>لا</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 

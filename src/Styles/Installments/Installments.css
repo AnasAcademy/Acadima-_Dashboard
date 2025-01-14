@@ -267,12 +267,28 @@
 
 .installment-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* Space between items */
   align-items: center;
   padding: 16px;
   background-color: #FFF;
   cursor: pointer;
   border-radius: 8px 8px 0px 0px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.arrow-container {
+  width: 70%;
+  text-align: left;
+}
+.course-dropdownarrow {
+  transform: rotate(0deg); /* Default position */
+  transition: transform 0.3s ease; /* Smooth rotation effect */
+  width: 20px;
+  height: 20px;
+}
+
+.course-dropdownarrow.rotated {
+  transform: rotate(180deg); /* Rotate when expanded */
 }
 
 .installment-status {
@@ -321,8 +337,6 @@ height: 100%;
 .payment-button:hover {
   background-color: #ccf5ffbd;
 }
-
-
 @media (max-width: 1700px) {
   .program-details-payment-info-div {
     flex-direction: column-reverse;

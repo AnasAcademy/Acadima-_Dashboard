@@ -53,7 +53,7 @@
   font-size: 18px;
   font-weight: 400;
   margin-top: 0;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .student-info-card .student-details-title {
@@ -65,7 +65,15 @@
   margin-bottom: 8px;
   direction: rtl;
 }
-
+.details-title {
+  color: #FFF;
+text-align: right;
+font-size: 20px;
+margin-bottom: 10px;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+}
 .details-list {
   list-style: none;
   direction: rtl;
@@ -580,7 +588,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-end;
-    gap: 10px;
+    gap: 20px;
   }
   .lecture-type {
     width: 120px;

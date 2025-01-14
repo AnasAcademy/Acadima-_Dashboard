@@ -80,7 +80,7 @@ function Notifications() {
                 </div>
               </div>
             ) : (
-              <div className="default-view">
+              <div className="notification-default-view">
                 <img src={msg} alt="Message Icon" className="msg-icon" />
                 <p className="default-text">اختر رسالة للمعاينة</p>
               </div>

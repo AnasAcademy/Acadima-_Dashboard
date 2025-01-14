@@ -34,7 +34,7 @@ import Activeschedule from "../../../Images/Sidebar icons/activeIcons/Activesche
 import settings from "../../../Images/Sidebar icons/settings.png";
 import Activesettings from "../../../Images/Sidebar icons/activeIcons/Activesettings.png";
 
-function NavigationMenu() {
+function NavigationMenu({ installmentsCount }) {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -69,13 +69,17 @@ function NavigationMenu() {
       hasDropdown: true,
       route: '/finances',
       children: [
-        { defaultIcon: installments, activeIcon: ActiveInstallments, label: "دفع رسوم البرنامج", route: "/finances/program" },
-        { defaultIcon: pay, activeIcon: ActivePay, label: "الأقساط", route: "/finances/installments" },
+        // Conditionally include this menu item
+        ...(installmentsCount > 0
+          ? [{ defaultIcon: pay, activeIcon: ActivePay, label: "الأقساط", route: "/finances/installments" },]
+          : []),
+          { defaultIcon: installments, activeIcon: ActiveInstallments, label: "دفع رسوم البرنامج", route: "/finances/program" }
+        
       ],
     },
     { defaultIcon: certificates, activeIcon: Activecertificates, label: "الشهادات", route: "/certificates" },
     { defaultIcon: notifications, activeIcon: Activenotifications, label: "الاشعارات", route: "/notifications" },
-    { defaultIcon: schedule, activeIcon: Activeschedule, label: "الخدمات الإلكترونية", route: "/services" },
+    // { defaultIcon: schedule, activeIcon: Activeschedule, label: "الخدمات الإلكترونية", route: "/services" },
     { defaultIcon: settings, activeIcon: Activesettings, label: "الإعدادات", route: "/settings" },
   ];
 

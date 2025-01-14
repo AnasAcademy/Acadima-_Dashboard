@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { apiUrl } from "../../API";
 import "../../Styles/Installments/Installments.css";
 
+import dropdown from "../../Images/Chevron_Down.svg";
+
 function MobileInstallmentTable({ order_id, step }) {
   const navigate = useNavigate();
   const [isExpanded, setIsExpanded] = useState(false); // Track whether the section is expanded
@@ -12,30 +14,26 @@ function MobileInstallmentTable({ order_id, step }) {
   const handlePaymentClick = async () => {
     try {
       const response = await fetch(
-        apiUrl +
-          "/panel/financial/installments/" +
-          order_id +
-          "/steps/" +
-          step?.id +
-          "/pay",
+        `${apiUrl}/panel/financial/installments/${order_id}/steps/${step?.id}/pay`,
         {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
             "x-api-key": "1234",
             "ngrok-skip-browser-warning": true,
-            Authorization: "Bearer " + token,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
 
       const result = await response.json();
-      console.log(result);
-      if (result?.success === true) {
-        navigate("/payment/" + result?.data?.order?.id);
+      if (result?.success) {
+        navigate(`/payment/${result?.data?.order?.id}`);
+      } else {
+        console.error("Failed to process payment:", result.message);
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error during payment:", error);
     }
   };
 
@@ -44,9 +42,16 @@ function MobileInstallmentTable({ order_id, step }) {
       {/* Header for the installment */}
       <div
         className={`installment-header ${isExpanded ? "expanded" : ""}`}
-        onClick={() => setIsExpanded(!isExpanded)} // Toggle expand/collapse
+        onClick={() => setIsExpanded((prev) => !prev)} // Toggle expand/collapse
       >
         <span>{step?.title}</span>
+        <div className="arrow-container">
+          <img
+            src={dropdown}
+            alt="dropdown"
+            className={`course-dropdownarrow ${isExpanded ? "rotated" : ""}`}
+          />
+        </div>
         <span
           className={`installment-status ${
             step?.payment_status === "مدفوع" ? "paid" : "unpaid"
@@ -77,19 +82,16 @@ function MobileInstallmentTable({ order_id, step }) {
           </div>
           <div className="installment-detail-item">
             <span>حالة عملية الدفع:</span>
-            <span
-              className={`installment-status ${
-                step?.payment_status === "مدفوع" ? "paid" : "unpaid"
-              }`}
-            >
-              {step?.payment_status === "مدفوع" ? (
-                "مدفوع"
-              ) : (
-                <button className="installment-payment-button" onClick={handlePaymentClick}>
-                  دفع رسوم القسط
-                </button>
-              )}
-            </span>
+            {step?.payment_status === "مدفوع" ? (
+              <span className="paid">مدفوع</span>
+            ) : (
+              <button
+                className="installment-payment-button"
+                onClick={handlePaymentClick}
+              >
+                دفع رسوم القسط
+              </button>
+            )}
           </div>
         </div>
       )}

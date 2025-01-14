@@ -25,6 +25,7 @@ export const UserProvider = ({ children }) => {
   const [certificates, setCertificates] = useState([]); // New state for certificates
   const [programs, setPrograms] = useState([]);
   const [ProgramsInstallmentData, setProgramsInstallmentData] = useState([]);
+  const [installmentsCount, setInstallmentsCount] = useState(0);
 
   const [error, setError] = useState(null);
 
@@ -227,6 +228,7 @@ export const UserProvider = ({ children }) => {
       const result = await response.json();
       console.log(result);
       setProgramsInstallmentData(result?.data?.ordersList);
+      setInstallmentsCount(result?.data?.overdueInstallmentsCount);
     } catch (error) {
       console.log(error);
     }
@@ -269,6 +271,7 @@ export const UserProvider = ({ children }) => {
         certificates,
         programs,
         ProgramsInstallmentData,
+        installmentsCount,
         error
       }}
     >

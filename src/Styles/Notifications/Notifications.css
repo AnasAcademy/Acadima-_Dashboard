@@ -154,12 +154,14 @@
   border: 1px solid #395868;
   background: #000;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: center;
   color: #fff;
   box-sizing: border-box;
 }
 .chosen-notification-details {
   width: 100%;
+  height: 100%;
 }
 .chosen-notification-top {
   border-bottom: 1px solid #395868;
@@ -220,7 +222,6 @@
 .msg-icon {
   width: 80px;
   height: 80px;
-  margin-bottom: 16px;
 }
 
 .default-text {
@@ -290,6 +291,9 @@
   padding:  10px;
   border-radius: 8px;
   border-bottom-right-radius: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .mobile-screen-view {

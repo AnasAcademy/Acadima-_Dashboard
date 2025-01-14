@@ -11,7 +11,6 @@
   align-items: stretch;
   gap: 40px;
   padding-bottom: 40px;
-  padding-top: 40px;
 }
 
 .course-header {
@@ -528,7 +527,7 @@
     gap: 20px;
   }
   .course-main-container {
-    flex-direction: column-reverse;
+    flex-direction: column;
   }
   .courses-list {
     width: 100%;
