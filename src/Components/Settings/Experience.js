@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { apiUrl } from "../../API";
 
+import editLinkimg from "../../Images/editLink.svg";
+import deleteLinkimg from "../../Images/deleteLink.svg";
+
 function Experience({ onNext, experience, id, updateProgress }) {
-  // Ensure experience is an array before parsing
   const parsedExperience = Array.isArray(experience)
     ? experience.map((exp) => {
-        // Use regex to extract title and year
         const pattern = /title:\s*([^,]+),\s*year:\s*(.+)/;
         const match = exp.value.match(pattern);
 
         if (match) {
-          const name = match[1].trim(); // Extracted title
-          const value = match[2].trim(); // Extracted year
+          const name = match[1].trim();
+          const value = match[2].trim();
           return { id: exp.id, name: name || "", value: value || "" };
         }
 
@@ -20,88 +21,77 @@ function Experience({ onNext, experience, id, updateProgress }) {
     : [];
 
   const [experienceForms, setExperienceForms] = useState(parsedExperience);
-  const [activeFormIndex, setActiveFormIndex] = useState(null); // Tracks the form being edited or added
-  const [isAdding, setIsAdding] = useState(false); // Tracks if we're adding a new experience
-  const [tempExperience, setTempExperience] = useState({
-    name: "",
-    value: "",
-  });
+  const [activeFormIndex, setActiveFormIndex] = useState(null);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [tempExperience, setTempExperience] = useState({ name: "", value: "" });
+  const token = localStorage.getItem("token");
 
   const handleInputChange = (key, value) => {
     setTempExperience((prev) => ({ ...prev, [key]: value }));
   };
 
-  const addExperienceForm = () => {
-    setIsAdding(true);
+  const openPopupForAdd = () => {
+    setIsPopupOpen(true);
     setTempExperience({ name: "", value: "" });
+    setActiveFormIndex(null);
   };
 
-  const token = localStorage.getItem("token");
-
-  const handleAddExperience = async (e) => {
-    e.preventDefault();
-
-    const newExperience = { id: null, ...tempExperience };
-    setExperienceForms((prev) => [...prev, newExperience]);
-    setIsAdding(false);
-
-    const formattedExperience = `title: ${newExperience.name || ""}, year: ${
-      newExperience.value || ""
-    }`;
-
-    try {
-      const response = await fetch(apiUrl + `/panel/profile-setting/metas`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ` + token,
-          "ngrok-skip-browser-warning": true,
-          "x-api-key": "1234",
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({
-          name: "experience",
-          value: formattedExperience,
-        }),
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        // Update the experience with the server-assigned ID
-        setExperienceForms((prev) =>
-          prev.map((exp) =>
-            exp === newExperience ? { ...exp, id: result.id } : exp
-          )
-        );
-        calculateProgress(); // Recalculate progress
-      } else {
-      }
-    } catch (error) {
-      console.log("Error submitting education data:", error);
-    }
-  };
-
-  const handleEditExperience = (index) => {
+  const openPopupForEdit = (index) => {
+    setIsPopupOpen(true);
     setActiveFormIndex(index);
     setTempExperience(experienceForms[index]);
-    console.log(experienceForms);
   };
 
-  const handleUpdateExperience = async () => {
-    const updatedExperience = {
-      ...experienceForms[activeFormIndex],
-      ...tempExperience,
-    };
-    const formattedExperience = `title: ${
-      updatedExperience.name || ""
-    }, year: ${updatedExperience.value || ""}`;
-    console.log(updatedExperience);
-    try {
-      const response = await fetch(
-        apiUrl +
-          `/panel/profile-setting/metas/${experienceForms[activeFormIndex].id}/update`,
-        {
-          method: "PUT",
+  const handleAddOrUpdateExperience = async () => {
+    const { name, value } = tempExperience;
+
+    if (!name || !value) {
+      alert("يرجى تعبئة جميع الحقول.");
+      return;
+    }
+
+    const formattedExperience = `title: ${name || ""}, year: ${value || ""}`;
+
+    if (activeFormIndex !== null) {
+      // Edit mode
+      try {
+        const response = await fetch(
+          `${apiUrl}/panel/profile-setting/metas/${experienceForms[activeFormIndex].id}/update`,
+          {
+            method: "PUT",
+            headers: {
+              Authorization: `Bearer ` + token,
+              "ngrok-skip-browser-warning": true,
+              "x-api-key": "1234",
+              "content-type": "application/json",
+            },
+            body: JSON.stringify({
+              name: "experience",
+              value: formattedExperience,
+            }),
+          }
+        );
+
+        if (response.ok) {
+          const updatedExperience = {
+            ...experienceForms[activeFormIndex],
+            ...tempExperience,
+          };
+          setExperienceForms((prev) =>
+            prev.map((item, index) =>
+              index === activeFormIndex ? updatedExperience : item
+            )
+          );
+          calculateProgress();
+        }
+      } catch (error) {
+        console.error("Error updating experience:", error);
+      }
+    } else {
+      // Add mode
+      try {
+        const response = await fetch(apiUrl + `/panel/profile-setting/metas`, {
+          method: "POST",
           headers: {
             Authorization: `Bearer ` + token,
             "ngrok-skip-browser-warning": true,
@@ -109,40 +99,36 @@ function Experience({ onNext, experience, id, updateProgress }) {
             "content-type": "application/json",
           },
           body: JSON.stringify({
-            id: experienceForms[activeFormIndex],
-            user_id: id,
             name: "experience",
             value: formattedExperience,
           }),
+        });
+
+        if (response.ok) {
+          const savedExperience = await response.json();
+          const newExperience = {
+            id: savedExperience.id,
+            name: name,
+            value: value,
+          };
+          setExperienceForms((prev) => [...prev, newExperience]);
+          calculateProgress();
         }
-      );
-
-      const result = await response.json();
-
-      if (response.ok) {
-        // Update the local state to reflect the changes
-        setExperienceForms((prev) =>
-          prev.map((item, index) =>
-            index === activeFormIndex ? updatedExperience : item
-          )
-        );
-        calculateProgress(); // Recalculate progress
-      } else {
+      } catch (error) {
+        console.error("Error adding experience:", error);
       }
-    } catch (error) {
-      console.log("Error updating experience:", error);
-    } finally {
-      setActiveFormIndex(null); // Reset the active form index
     }
+
+    setIsPopupOpen(false);
+    setTempExperience({ name: "", value: "" });
   };
 
   const handleDeleteExperience = async (index) => {
     const experienceToDelete = experienceForms[index];
 
     if (!experienceToDelete.id) {
-      // If the experience has no ID (not saved to the server), just remove it locally
       setExperienceForms((prev) => prev.filter((_, i) => i !== index));
-      calculateProgress(); // Recalculate progress
+      calculateProgress();
       return;
     }
 
@@ -161,11 +147,8 @@ function Experience({ onNext, experience, id, updateProgress }) {
       );
 
       if (response.ok) {
-        // Remove the experience locally after a successful API response
         setExperienceForms((prev) => prev.filter((_, i) => i !== index));
-        calculateProgress(); // Recalculate progress
-      } else {
-        const result = await response.json();
+        calculateProgress();
       }
     } catch (error) {
       console.error("Error deleting experience:", error);
@@ -173,19 +156,14 @@ function Experience({ onNext, experience, id, updateProgress }) {
   };
 
   const handleCancel = () => {
+    setIsPopupOpen(false);
     setActiveFormIndex(null);
-    setIsAdding(false);
-    console.log(experienceForms);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onNext();
+    setTempExperience({ name: "", value: "" });
   };
 
   const calculateProgress = () => {
     if (experienceForms.length === 0) {
-      updateProgress(100); // If no experience is added, consider it 100% complete
+      updateProgress(100);
       return;
     }
 
@@ -204,7 +182,7 @@ function Experience({ onNext, experience, id, updateProgress }) {
 
   return (
     <div className="user-profile-container">
-      <form className="user-form" onSubmit={handleSubmit}>
+      <form className="user-form">
         <div className="experience-header">
           <h2 className="my-program-title">
             <span>الخبرات</span>
@@ -212,167 +190,89 @@ function Experience({ onNext, experience, id, updateProgress }) {
           <button
             type="button"
             className="add-experience"
-            onClick={(e) => {
-              e.preventDefault();
-              addExperienceForm();
-            }}
+            onClick={openPopupForAdd}
           >
             إضافة خبرة <span className="add">+</span>
           </button>
         </div>
 
-        {/* Add Experience Form */}
-        {isAdding && (
-          <div className="form-grid">
-            <div className="form-group">
-              <label>مجال الخبرة</label>
+        {/* Popup for Add or Edit */}
+        {isPopupOpen && (
+          <div className="popup-overlay">
+            <div className="popup-content">
+              <h3>
+                {activeFormIndex !== null ? "تعديل الخبرة" : "إضافة خبرة جديدة"}
+              </h3>
               <input
                 type="text"
-                placeholder="أدخل مجال الخبرة"
+                placeholder="مجال الخبرة"
                 value={tempExperience.name}
                 onChange={(e) => handleInputChange("name", e.target.value)}
               />
-            </div>
-            <div className="form-group">
-              <label>عدد سنوات الخبرة</label>
               <input
                 type="text"
-                placeholder="أدخل عدد السنوات"
+                placeholder="عدد سنوات الخبرة"
                 value={tempExperience.value}
                 onChange={(e) => handleInputChange("value", e.target.value)}
               />
-            </div>
-            <button
-              type="button"
-              className="save-button experience-button wide-screen-button"
-              onClick={handleAddExperience}
-            >
-              إضافة
-            </button>
-            <button
-              type="button"
-              className="save-button experience-button wide-screen-button"
-              onClick={handleCancel}
-            >
-              إلغاء
-            </button>
-            <div className="experience-buttons-container">
-              <button
-                type="button"
-                className="save-button experience-button mobile-view"
-                onClick={handleAddExperience}
-              >
-                إضافة
-              </button>
-              <button
-                type="button"
-                className="save-button experience-button mobile-view"
-                onClick={handleCancel}
-              >
-                إلغاء
-              </button>
+              <div className="popup-buttons">
+                <button
+                  type="button"
+                  className="save-button margin-0"
+                  onClick={handleAddOrUpdateExperience}
+                >
+                  {activeFormIndex !== null ? "تحديث" : "إضافة"}
+                </button>
+                <button
+                  type="button"
+                  className="save-button margin-0"
+                  onClick={handleCancel}
+                >
+                  إلغاء
+                </button>
+              </div>
             </div>
           </div>
         )}
 
         {/* Existing Experiences */}
         {experienceForms.map((exp, index) => (
-          <div key={index} className="form-grid">
-            {activeFormIndex === index ? (
-              <>
-                <div className="form-group">
-                  <label>مجال الخبرة</label>
-                  <input
-                    type="text"
-                    value={tempExperience.name}
-                    onChange={(e) => handleInputChange("name", e.target.value)}
-                  />
-                </div>
-                <div className="form-group">
-                  <label>عدد سنوات الخبرة</label>
-                  <input
-                    type="text"
-                    value={tempExperience.value}
-                    onChange={(e) => handleInputChange("value", e.target.value)}
-                  />
-                </div>
-                <button
-                  type="button"
-                  className="save-button experience-button wide-screen-button"
-                  onClick={handleUpdateExperience}
-                >
-                  حفظ
-                </button>
-                <button
-                  type="button"
-                  className="save-button experience-button wide-screen-button"
-                  onClick={handleCancel}
-                >
-                  إلغاء
-                </button>
-                <div className="experience-buttons-container">
-                  <button
-                    type="button"
-                    className="save-button experience-button mobile-view"
-                    onClick={handleUpdateExperience}
-                  >
-                    حفظ
-                  </button>
-                  <button
-                    type="button"
-                    className="save-button experience-button mobile-view"
-                    onClick={handleCancel}
-                  >
-                    إلغاء
-                  </button>
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="form-group">
-                  <label>مجال الخبرة</label>
-                  <input type="text" value={exp.name} readOnly />
-                </div>
-                <div className="form-group">
-                  <label>عدد سنوات الخبرة</label>
-                  <input type="text" value={exp.value} readOnly />
-                </div>
-                <button
-                  type="button"
-                  className="save-button experience-button wide-screen-button"
-                  onClick={() => handleEditExperience(index)}
-                >
-                  تعديل
-                </button>
-                <button
-                  type="button"
-                  className="save-button experience-button wide-screen-button"
-                  onClick={() => handleDeleteExperience(index)}
-                >
-                  حذف
-                </button>
-                <div className="experience-buttons-container">
-                  <button
-                    type="button"
-                    className="save-button experience-button mobile-view"
-                    onClick={() => handleEditExperience(index)}
-                  >
-                    تعديل
-                  </button>
-                  <button
-                    type="button"
-                    className="save-button experience-button mobile-view"
-                    onClick={() => handleDeleteExperience(index)}
-                  >
-                    حذف
-                  </button>
-                </div>
-              </>
-            )}
+          <div key={index} className="link-card">
+            <p>{exp.name || "مجال غير متوفر"}</p>
+            <p>
+              {exp.value
+                ? `${exp.value} ${
+                    exp.value === "1"
+                      ? "سنة"
+                      : exp.value === "2"
+                      ? "سنتان"
+                      : exp.value <= 10
+                      ? "سنوات"
+                      : "سنة"
+                  }`
+                : "سنوات غير متوفرة"}
+            </p>
+
+            <div className="link-actions">
+              <button
+                type="button"
+                className="link-button"
+                onClick={() => openPopupForEdit(index)}
+              >
+                <img src={editLinkimg} alt="edit" />
+              </button>
+              <button
+                type="button"
+                className="link-button"
+                onClick={() => handleDeleteExperience(index)}
+              >
+                <img src={deleteLinkimg} alt="delete" />
+              </button>
+            </div>
           </div>
         ))}
-        <button type="submit" className="save-button">
-          حفظ{" "}
+        <button type="submit" className="save-button" onClick={onNext}>
+          حفظ
         </button>
       </form>
     </div>

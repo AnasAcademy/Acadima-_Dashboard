@@ -1,10 +1,23 @@
 import React from "react";
+import { useNavigate, useParams } from "react-router-dom";
+
 import "../../Styles/Course/Course.css";
 
 import logo from "../../Images/AcadimaLogo.png";
 import changelayout from "../../Images/changelayout.svg";
 
 function Header({ toggleLayout }) {
+  const navigate = useNavigate();
+  const { classId } = useParams(); // Use the correct param name: classId
+
+  const goToProgram = () => {
+    if (classId) {
+      navigate(`/classes/${classId}`); // Navigate to `/classes/:classId`
+    } else {
+      console.log("Class ID is missing in the URL");
+    }
+  };
+
   return (
     <div className="course-header">
       <div className="course-header-left">
@@ -15,7 +28,9 @@ function Header({ toggleLayout }) {
           onClick={toggleLayout} // Toggle layout on click
           style={{ cursor: "pointer" }}
         />
-        <button className="schedule-button">جدول المقررات</button>
+        <button className="schedule-button" onClick={goToProgram}>
+          جدول المقررات
+        </button>
       </div>
       <div className="course-header-right">
         <div className="course-progress-details">

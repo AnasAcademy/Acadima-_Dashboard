@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "../../Styles/Main/MainPageContainer.css";
 
 import { UserContext } from "../../Context/UserContext"; // Import UserContext
@@ -9,11 +9,18 @@ import { Outlet } from "react-router-dom";
 function MainPageContainer() {
   const [menuOpen, setMenuOpen] = useState(false); // Sidebar toggle state
   const { userBriefData, notifications } = useContext(UserContext); // Consume userBriefData from context
+  const [hasUnreadNotifications, setHasUnreadNotifications] = useState(false);
 
-  const hasUnreadNotifications = notifications?.notifications?.some(
-    (notification) => notification.status !== "read"
-  ) || false;
-   
+  useEffect(() => {
+    const unreadExists = notifications?.some(
+      (notification) => notification.status === "unread" // Check for unread status
+    ) || false;
+  
+    setHasUnreadNotifications(unreadExists);
+  }, [notifications]);
+  
+  
+  
 
   // Function to toggle the sidebar
   const handleMenuToggle = () => {

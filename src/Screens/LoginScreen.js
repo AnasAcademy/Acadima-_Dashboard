@@ -14,25 +14,56 @@ import appleLogo from "../Images/Registration/apple.svg";
 import googleLogo from "../Images/Registration/google.svg";
 import facebookLogo from "../Images/Registration/fb.svg";
 
-const Popup = ({ message, onClose }) => {
+const Popup = ({ message, onClose }) => (
+  <div className="popup-container">
+    <div className="popup">
+      <p>{message}</p>
+      <button onClick={onClose}>إغلاق</button>
+    </div>
+  </div>
+);
+
+const ForgotPasswordPopup = ({ onClose, onSend }) => {
+  const [email, setEmail] = useState("");
+
+  const handleSend = () => {
+    if (email.trim()) {
+      onSend(email); // Trigger the forgot password API
+    }
+  };
+
   return (
     <div className="popup-container">
       <div className="popup">
-        <p>Wrong email or password</p>
-        <button onClick={onClose}>إغلاق</button>
+        <h3>نسيت كلمة المرور؟</h3>
+        <input
+          type="email"
+          placeholder="أدخل بريدك الإلكتروني"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <div className="popup-buttons">
+          <button className="send-button" onClick={handleSend}>
+            إرسال
+          </button>
+          <button className="cancel-button" onClick={onClose}>
+            إلغاء
+          </button>
+        </div>
       </div>
     </div>
   );
 };
 
 function LoginScreen() {
-  const {refreshUserData} = useContext(UserContext); // Access userData from context
-
+  const { refreshUserData } = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [loading, setLoading] = useState(false); // For loading state
-  const [error, setError] = useState(null); // For error messages
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [showForgotPasswordPopup, setShowForgotPasswordPopup] = useState(false); // New state for popup
   const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
@@ -44,10 +75,7 @@ function LoginScreen() {
     setLoading(true);
     setError(null);
 
-    const loginData = {
-      email,
-      password,
-    };
+    const loginData = { email, password };
 
     try {
       const response = await fetch(apiUrl + "/login", {
@@ -61,17 +89,12 @@ function LoginScreen() {
 
       const data = await response.json();
       if (!response.ok || data.success === false) {
-        // Check if there is a message in the response
-        if (data.message) {
-          setError("Wrong email or password"); // Display the message from the API
-        } else {
-          setError("Failed to login. Please try again."); // Fallback error
-        }
+        setError("Wrong email or password");
         return;
       }
 
       const token = data.data.token;
-      localStorage.setItem("token", token); // Example: saving token
+      localStorage.setItem("token", token);
 
       await refreshUserData();
 
@@ -89,16 +112,40 @@ function LoginScreen() {
     }
   };
 
+  const handleForgotPassword = async (email) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch(`${apiUrl}/forget-password`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": "1234",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+      if (!response.ok || data.success === false) {
+        setError(data.message || "Failed to send password reset email.");
+      } else {
+        setShowForgotPasswordPopup(false); // Close popup on success
+        setError("تم إرسال بريد إلكتروني لاستعادة كلمة المرور");
+      }
+    } catch (err) {
+      setError("An unknown error occurred.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="mainContainer">
       <div className="formContainer">
         <div className="form-one">
           <a className="logo-container" href="https://anasacademy.uk">
-            <img
-              src={anasAcadlogo}
-              alt="anasAcadlogo"
-              className="anasAcadlogo"
-            />
+            <img src={anasAcadlogo} alt="anasAcadlogo" className="anasAcadlogo" />
           </a>
         </div>
         <div className="form-two">
@@ -135,7 +182,7 @@ function LoginScreen() {
             </span>
           </div>
 
-          <a href="" className="forgot-password">
+          <a className="forgot-password" onClick={() => setShowForgotPasswordPopup(true)}>
             نسيت كلمة المرور؟
           </a>
 
@@ -146,6 +193,7 @@ function LoginScreen() {
           </div>
         </form>
 
+        {/* Social Login */}
         <div className="social-login">
           <div className="social-login-divider">
             <span className="line"></span>
@@ -154,7 +202,6 @@ function LoginScreen() {
             </span>
             <span className="line"></span>
           </div>
-
           <div className="social-icons">
             <a href="">
               <img src={appleLogo} alt="Apple Login" />
@@ -175,21 +222,24 @@ function LoginScreen() {
         </div>
       </div>
 
+      {/* Support Links */}
       <div className="post-form">
-        <a
-          href="https://anasacademy.uk/certificate/certificate-check.php"
-          className="post-form-text"
-        >
+        <a href="https://anasacademy.uk/certificate/certificate-check.php" className="post-form-text">
           التحقق من الشهادات
         </a>
         <a href="https://support.anasacademy.uk/" className="post-form-text">
           فريق الدعم والتواصل
         </a>
       </div>
-      {error && (
-        <Popup
-          message={error}
-          onClose={() => setError(null)} // Close the popup
+
+      {/* Error Popup */}
+      {error && <Popup message={error} onClose={() => setError(null)} />}
+
+      {/* Forgot Password Popup */}
+      {showForgotPasswordPopup && (
+        <ForgotPasswordPopup
+          onClose={() => setShowForgotPasswordPopup(false)}
+          onSend={handleForgotPassword}
         />
       )}
     </div>

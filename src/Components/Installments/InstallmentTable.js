@@ -28,7 +28,7 @@ function InstallmentTable({ id, order_id, step }) {
       console.log(result);
       if(result?.success === true) {
         // alert(result.message);
-        navigate("/payment/" + result?.data?.order?.id);
+        navigate("/payment/" + result?.data?.order?.id, { state: { from: "/finances/installments" } });
       }
     } catch (error) {
       console.log(error);

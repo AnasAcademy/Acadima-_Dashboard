@@ -59,6 +59,7 @@
   font-weight: 400;
   line-height: normal;
   font-family: "nf-l", sans-serif !important;
+  cursor: pointer;
 }
 .course-name {
   color: #fff;

@@ -34,7 +34,7 @@ import Activeschedule from "../../../Images/Sidebar icons/activeIcons/Activesche
 import settings from "../../../Images/Sidebar icons/settings.png";
 import Activesettings from "../../../Images/Sidebar icons/activeIcons/Activesettings.png";
 
-function NavigationMenu({ installmentsCount }) {
+function NavigationMenu({ installmentsCount, availableCertificates }) {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -70,14 +70,17 @@ function NavigationMenu({ installmentsCount }) {
       route: '/finances',
       children: [
         // Conditionally include this menu item
+        { defaultIcon: installments, activeIcon: ActiveInstallments, label: "دفع رسوم البرنامج", route: "/finances/program" },
         ...(installmentsCount > 0
           ? [{ defaultIcon: pay, activeIcon: ActivePay, label: "الأقساط", route: "/finances/installments" },]
           : []),
-          { defaultIcon: installments, activeIcon: ActiveInstallments, label: "دفع رسوم البرنامج", route: "/finances/program" }
         
       ],
     },
-    { defaultIcon: certificates, activeIcon: Activecertificates, label: "الشهادات", route: "/certificates" },
+    ...(availableCertificates > 0
+      ? [{ defaultIcon: certificates, activeIcon: Activecertificates, label: "الشهادات", route: "/certificates" },]
+      : []),
+    
     { defaultIcon: notifications, activeIcon: Activenotifications, label: "الاشعارات", route: "/notifications" },
     // { defaultIcon: schedule, activeIcon: Activeschedule, label: "الخدمات الإلكترونية", route: "/services" },
     { defaultIcon: settings, activeIcon: Activesettings, label: "الإعدادات", route: "/settings" },

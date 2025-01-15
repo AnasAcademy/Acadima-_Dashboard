@@ -22,9 +22,6 @@ function Classes() {
       const selectedProgram = classesData.find(
         (bundle) => bundle.id === Number(id) // Match `id` as a number
       );      
-      console.log("classesData:", classesData);
-
-      console.log(id);
       
       if (selectedProgram) {
         setSelectedCard(selectedProgram); // Select the matching program

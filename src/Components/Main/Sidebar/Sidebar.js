@@ -7,13 +7,13 @@ import NavigationMenu from "./NavigationMenu";
 import sidebarlogo from "../../../Images/Sidebar icons/sidebarLogo.png";
 
 function Sidebar({userBriefData}) {
-    const { installmentsCount} = useContext(UserContext);
+    const { installmentsCount, availableCertificates} = useContext(UserContext);
   
   return (
     <>
       <div className="sidebar">
         <img src={userBriefData?.avatar || sidebarlogo} alt="sidebarlogo" className="sidebarlogo" />
-        <NavigationMenu installmentsCount={installmentsCount}/>
+        <NavigationMenu installmentsCount={installmentsCount} availableCertificates={availableCertificates} />
       </div>
       <span className="sidebar-separator"></span>
       

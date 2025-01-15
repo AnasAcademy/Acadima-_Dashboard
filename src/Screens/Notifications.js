@@ -1,46 +1,61 @@
 import React, { useState, useContext, useEffect } from "react";
 import { UserContext } from "../Context/UserContext";
+import { useNavigate, useParams } from "react-router-dom";
 import { apiUrl } from "../API";
 import "../Styles/Notifications/Notifications.css";
 
-import MainPageContainer from "../Components/Main/MainPageContainer";
 import NotificationCard from "../Components/Notifications/NotificationCard";
-
 import msg from "../Images/msg.svg";
 import MobileNotificationCard from "../Components/Notifications/MobileNotificationCard";
 
 function Notifications() {
   const { notifications, fetchNotifications } = useContext(UserContext);
   const [selectedNotificationId, setSelectedNotificationId] = useState(null);
-
-  const selectedNotification = notifications.find(
-    (notification) => notification.id === selectedNotificationId
-  );
+  const { notification_id } = useParams(); // Get notification_id from the URL
+  const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
 
+  // Mark notification as seen
   const markAsSeen = async (notificationId) => {
     try {
-      // Send API request to mark notification as seen
-      await fetch(`${apiUrl}/panel/notifications/${notificationId}/seen`, {
-        method: "POST",
-        headers: {
-          "x-api-key": "1234",
-          "ngrok-skip-browser-warning": true,
-          Authorization: "Bearer " + token,
-          "Content-Type": "application/json",
-        },
-      });
-
-      // Update the selected notification
-      setSelectedNotificationId(notificationId);
-
-      // Update the notification's status in the UI
-      fetchNotifications();
+      const notification = notifications.find((n) => n.id === notificationId);
+  
+      // Check if notification is already marked as seen
+      if (notification && notification.status === "unread") {
+        await fetch(`${apiUrl}/panel/notifications/${notificationId}/seen`, {
+          method: "POST",
+          headers: {
+            "x-api-key": "1234",
+            "ngrok-skip-browser-warning": true,
+            Authorization: "Bearer " + token,
+            "Content-Type": "application/json",
+          },
+        });
+  
+        fetchNotifications(); // Refresh notifications
+      }
+  
+      // Navigate to the selected notification's URL
+      navigate(`/notifications/${notificationId}`);
     } catch (error) {
       console.error("Error marking notification as seen:", error);
     }
   };
+  
+
+  // Automatically mark the notification as seen if notification_id exists in the URL
+  useEffect(() => {
+    if (notification_id) {
+      const id = Number(notification_id);
+      setSelectedNotificationId(id); // Automatically select notification from URL
+      markAsSeen(id); // Mark the notification as seen
+    }
+  }, [notification_id]);
+
+  const selectedNotification = notifications.find(
+    (notification) => notification.id === selectedNotificationId
+  );
 
   return (
     <>
@@ -92,6 +107,7 @@ function Notifications() {
           <div className="notifications-list">
             {notifications.map((notification) => (
               <MobileNotificationCard
+                key={notification.id}
                 notification={notification} // Use `message` for description
                 onClick={() => markAsSeen(notification.id)} // Pass the ID to `markAsSeen`
                 selected={selectedNotificationId === notification.id}

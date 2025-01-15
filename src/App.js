@@ -48,6 +48,7 @@ function App() {
               <Route path="/conditions" element={<ProtectedRoute><InstallmentConditions /></ProtectedRoute>} />
               <Route path="/payment/:order_id" element={<ProtectedRoute><Payment /></ProtectedRoute>} />
               <Route path="/notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
+              <Route path="/notifications/:notification_id" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
               <Route path="/services" element={<ProtectedRoute><Services /></ProtectedRoute>} />
               <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
               <Route path="/test" element={<ProtectedRoute><Test /></ProtectedRoute>} />

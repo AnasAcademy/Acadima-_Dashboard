@@ -1,5 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "../Context/UserContext";
+import { useNavigate } from "react-router-dom";
 import "../Styles/Student Platform/StudentPlatform.css";
 
 import teams from "../Images/teams.svg";
@@ -12,35 +13,76 @@ import ContentCard from "../Components/Main/ContentCard";
 import Calendar from "../Components/Student Platform/Calendar/Calendar";
 
 function StudentPlatform() {
-  const { userData } = useContext(UserContext); // Access userData from context
+  const navigate = useNavigate();
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
+  const { userData, notifications } = useContext(UserContext); // Access userData from context
+
+  useEffect(() => {
+    // Check for new notifications
+    if (notifications?.length > 0) {
+      const unreadNotification = notifications.find(
+        (notification) => notification.status === "unread" // Check for unread status
+      );
+
+      if (unreadNotification) {
+        setPopupMessage(unreadNotification.message || "لديك إشعار جديد!");
+        setShowPopup(true);
+
+        // Optionally store the ID if needed later
+        setUnreadNotificationId(unreadNotification.id);
+      }
+    }
+  }, [notifications]);
+
+  const [unreadNotificationId, setUnreadNotificationId] = useState(null);
+
+  const showNotification = (notificationId) => {
+    navigate(`/notifications/${notificationId}`);
+  };
+
+  const closePopup = () => {
+    setShowPopup(false);
+  };
+
   const [selectedLectureType, setSelectedLectureType] =
     useState("المحاضرات المسجلة");
 
   const lectures = {
     "المحاضرات المسجلة": [
-      {
-        order: "المحاضرة الخامسة",
-        type: "recorded",
-        courseName: "تصميم تجربة المستخدم",
-      },
+      
     ],
     "المحاضرات المباشرة": [
-      {
-        order: "المحاضرة الخامسة",
-        type: "live",
-        courseName: "تصميم الجرافيك",
-      },
-      {
-        order: "المحاضرة الخامسة",
-        type: "live",
-        courseName: "تحليل البيانات",
-      },
+     
     ],
   };
 
   return (
     <div className="student-platform-container">
       <div className="student-right-container">
+        {showPopup && (
+          <div className="popup-overlay">
+            <div className="popup-content-notification">
+              <p>{popupMessage}</p>
+              <div className="popup-buttons">
+                <button
+                  className="save-button margin-0"
+                  style={{ marginTop: "0" }}
+                  onClick={closePopup}
+                >
+                  إغلاق
+                </button>
+                <button
+                  className="save-button margin-0"
+                  style={{ marginTop: "0" }}
+                  onClick={() => showNotification(unreadNotificationId)} // Use an arrow function
+                >
+                  إظهار
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
         {/* Student Card */}
         <ContentCard>
           <div className="student-info-card">
@@ -245,10 +287,10 @@ function StudentPlatform() {
                   onClick={() =>
                     (window.location.href = "https://anasacademy.com/follow-up")
                   }
-                //   onClick={() =>
-                //     (window.location.href = "https://support.anasacademy.uk/search")
-                //   }
-                 >
+                  //   onClick={() =>
+                  //     (window.location.href = "https://support.anasacademy.uk/search")
+                  //   }
+                >
                   متابعة طلب سابق
                 </button>
               </div>

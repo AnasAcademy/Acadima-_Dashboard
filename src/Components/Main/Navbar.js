@@ -3,11 +3,11 @@ import { useLocation } from "react-router-dom";
 import "../../Styles/Main/Navbar.css";
 
 import AcadimaLogo from "../../Images/AcadimaLogo.png";
-import notif from '../../Images/notification.svg';
+import notif from "../../Images/notification.svg";
 import activeNotif from "../../Images/active-notification.svg";
 import NavbarSidebar from "./Sidebar/NavbarSidebar";
 
-function Navbar({ userBriefData, hasUnreadNotifications  }) {
+function Navbar({ userBriefData, hasUnreadNotifications }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation(); // Hook to get the current route
 
@@ -44,7 +44,7 @@ function Navbar({ userBriefData, hasUnreadNotifications  }) {
           alt="Notification Icon"
           className="notification-icon"
         />
-        <span className="nav-separator"></span>
+        ;<span className="nav-separator"></span>
         <div className="navbar-p">
           <p className="student-name">{userBriefData?.full_name}</p>
           <p className="student-code">{userBriefData?.user_code}</p>

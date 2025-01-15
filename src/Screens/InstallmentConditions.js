@@ -29,19 +29,22 @@ function InstallmentConditions() {
         },
         body: JSON.stringify({ item_id: program?.id }),
       });
-
+  
       const result = await response.json();
-
-      console.log(result);
       if (result.success === true) {
         let order_id = result?.data?.order?.id;
-        navigate("/payment/" + order_id);
-        // alert(result.message);
+        console.log("Navigating to payment with state:", {
+          from: "/finances/installments",
+        });
+        navigate("/payment/" + order_id, { state: { from: "/finances/installments" } });
       } else {
-        console.log(result.errors);
+        console.log("API Error:", result.errors);
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log("Error in handleInstallmentPayment:", error);
+    }
   };
+  
 
 
   return (

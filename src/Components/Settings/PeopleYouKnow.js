@@ -6,7 +6,7 @@ import deleteLinkimg from "../../Images/deleteLink.svg";
 
 function PeopleYouKnow({ onNext, references, setReferences, updateProgress }) {
   const [activeReferenceIndex, setActiveReferenceIndex] = useState(null);
-  const [isAdding, setIsAdding] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [tempReference, setTempReference] = useState({
     name: "",
     email: "",
@@ -20,8 +20,8 @@ function PeopleYouKnow({ onNext, references, setReferences, updateProgress }) {
     setTempReference((prev) => ({ ...prev, [key]: value }));
   };
 
-  const addReferenceForm = () => {
-    setIsAdding(true);
+  const openPopupForAdd = () => {
+    setIsPopupOpen(true);
     setTempReference({
       name: "",
       email: "",
@@ -29,103 +29,87 @@ function PeopleYouKnow({ onNext, references, setReferences, updateProgress }) {
       relationship: "",
       job_title: "",
     });
+    setActiveReferenceIndex(null);
   };
 
-  const handleAddReference = async () => {
-    const { name, email, workplace, relationship, job_title } = tempReference;
-
-    if (!name || !email || !workplace || !relationship || !job_title) {
-      alert("يرجى تعبئة جميع الحقول.");
-      return;
-    }
-
-    try {
-      const response = await fetch(
-        apiUrl + "/panel/profile-setting/references",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "ngrok-skip-browser-warning": true,
-            "x-api-key": "1234",
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(tempReference),
-        }
-      );
-
-      if (response.ok) {
-        const savedReference = await response.json();
-        setReferences((prev) => [...prev, savedReference]); // Update references state
-        setTempReference({
-          name: "",
-          email: "",
-          workplace: "",
-          relationship: "",
-          job_title: "",
-        }); // Clear the form
-        setIsAdding(false);
-      } else {
-        const errorData = await response.json();
-        console.log("Error adding reference:", errorData);
-      }
-    } catch (error) {
-      console.log("Error adding reference:", error);
-    }
-  };
-
-  const handleEditReference = (index) => {
+  const openPopupForEdit = (index) => {
+    setIsPopupOpen(true);
     setActiveReferenceIndex(index);
     setTempReference(references[index]);
   };
 
-  const handleUpdateReference = async () => {
+  const handleAddOrUpdateReference = async () => {
     const { name, email, workplace, relationship, job_title } = tempReference;
-
+  
     if (!name || !email || !workplace || !relationship || !job_title) {
       alert("يرجى تعبئة جميع الحقول.");
       return;
     }
-
-    try {
-      const response = await fetch(
-        apiUrl +
-          `/panel/profile-setting/references/${references[activeReferenceIndex]?.id}/update`,
-        {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "ngrok-skip-browser-warning": true,
-            "x-api-key": "1234",
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(tempReference),
-        }
-      );
-
-      if (response.ok) {
-        setReferences((prev) =>
-          prev.map((reference, i) =>
-            i === activeReferenceIndex
-              ? { ...reference, ...tempReference }
-              : reference
-          )
+  
+    if (activeReferenceIndex !== null) {
+      // Edit mode
+      try {
+        const response = await fetch(
+          `${apiUrl}/panel/profile-setting/references/${references[activeReferenceIndex]?.id}/update`,
+          {
+            method: "PUT",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "ngrok-skip-browser-warning": true,
+              "x-api-key": "1234",
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(tempReference),
+          }
         );
-        calculateProgress(); // Update progress
-      } else {
-        const errorData = await response.json();
-        console.log("Error updating reference:", errorData);
+  
+        if (response.ok) {
+          setReferences((prev) =>
+            prev.map((ref, i) =>
+              i === activeReferenceIndex ? { ...ref, ...tempReference } : ref
+            )
+          );
+          calculateProgress();
+        }
+      } catch (error) {
+        console.error("Error updating reference:", error);
       }
-    } catch (error) {
-      console.log("Error updating reference:", error);
+    } else {
+      // Add mode
+      try {
+        const response = await fetch(
+          `${apiUrl}/panel/profile-setting/references`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "ngrok-skip-browser-warning": true,
+              "x-api-key": "1234",
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(tempReference),
+          }
+        );
+  
+        if (response.ok) {
+          const savedReference = await response.json();
+          const newReference = {
+            id: savedReference.id,
+            name: savedReference.name || tempReference.name,
+            email: savedReference.email || tempReference.email,
+            workplace: savedReference.workplace || tempReference.workplace,
+            relationship: savedReference.relationship || tempReference.relationship,
+            job_title: savedReference.job_title || tempReference.job_title,
+          };
+          setReferences((prev) => [...prev, newReference]);
+          calculateProgress();
+        }
+      } catch (error) {
+        console.error("Error adding reference:", error);
+      }
     }
-
-    setActiveReferenceIndex(null);
-  };
-
-  const handleCancel = () => {
-    setActiveReferenceIndex(null);
-    setIsAdding(false);
+  
+    setIsPopupOpen(false);
     setTempReference({
       name: "",
       email: "",
@@ -134,14 +118,35 @@ function PeopleYouKnow({ onNext, references, setReferences, updateProgress }) {
       job_title: "",
     });
   };
+
+  const handleCancel = () => {
+    setIsPopupOpen(false);
+    setActiveReferenceIndex(null);
+    setTempReference({
+      name: "",
+      email: "",
+      workplace: "",
+      relationship: "",
+      job_title: "",
+    });
+  };
+
+  const calculateProgress = () => {
+    const progress =
+      references.length === 0 ? 0 : Math.min(references.length * 20, 100);
+    updateProgress(progress);
+  };
+
+  useEffect(() => {
+    calculateProgress();
+  }, [references]);
 
   const handleDeleteReference = async (index) => {
     const referenceToDelete = references[index];
 
     try {
       const response = await fetch(
-        apiUrl +
-          `/panel/profile-setting/references/${referenceToDelete.id}/delete`,
+        `${apiUrl}/panel/profile-setting/references/${referenceToDelete.id}/delete`,
         {
           method: "DELETE",
           headers: {
@@ -155,33 +160,21 @@ function PeopleYouKnow({ onNext, references, setReferences, updateProgress }) {
 
       if (response.ok) {
         setReferences((prev) => prev.filter((_, i) => i !== index));
-        calculateProgress(); // Update progress
-      } else {
-        const errorData = await response.json();
-        console.log("Error deleting reference:", errorData);
+        calculateProgress();
       }
     } catch (error) {
-      console.log("Error deleting reference:", error);
+      console.error("Error deleting reference:", error);
     }
   };
 
-  const calculateProgress = () => {
-    const progress =
-      references.length === 0 ? 0 : Math.min(references.length * 20, 100); // 20% per reference, capped at 100%
-    updateProgress(progress);
-  };
-
-  useEffect(() => {
-    calculateProgress();
-  }, [references]);
-
   const handleSubmit = (e) => {
+    e.preventDefault();
     onNext();
   };
 
   return (
     <div className="user-profile-container">
-      <form className="user-form">
+      <form className="user-form" onSubmit={handleSubmit}>
         <div className="experience-header">
           <h2 className="my-program-title">
             <span>المعرفون</span>
@@ -189,185 +182,110 @@ function PeopleYouKnow({ onNext, references, setReferences, updateProgress }) {
           <button
             type="button"
             className="add-experience"
-            onClick={addReferenceForm}
+            onClick={openPopupForAdd}
           >
             إضافة معرف <span className="add">+</span>
           </button>
         </div>
 
-        {/* Add Reference Form */}
-        {isAdding && (
-          <div className="link-card is-adding">
-            <input
-              type="text"
-              placeholder="اسم المعرف"
-              value={tempReference.name}
-              onChange={(e) => handleInputChange("name", e.target.value)}
-            />
-            <input
-              type="email"
-              placeholder="البريد الإلكتروني"
-              value={tempReference.email}
-              onChange={(e) => handleInputChange("email", e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="مكان العمل"
-              value={tempReference.workplace}
-              onChange={(e) => handleInputChange("workplace", e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="العلاقة"
-              value={tempReference.relationship}
-              onChange={(e) =>
-                handleInputChange("relationship", e.target.value)
-              }
-            />
-            <input
-              type="text"
-              placeholder="المسمى الوظيفي"
-              value={tempReference.job_title}
-              onChange={(e) => handleInputChange("job_title", e.target.value)}
-            />
-            <button
-              type="button"
-              className="save-button mobile-view"
-              onClick={handleAddReference}
-            >
-              إضافة
-            </button>
+        {/* Popup for Add or Edit */}
+        {isPopupOpen && (
+          <div className="popup-overlay">
+            <div className="popup-content">
+              <h3>
+                {activeReferenceIndex !== null
+                  ? "تعديل المعرف"
+                  : "إضافة معرف جديد"}
+              </h3>
+              <input
+                type="text"
+                placeholder="اسم المعرف"
+                value={tempReference.name}
+                onChange={(e) => handleInputChange("name", e.target.value)}
+              />
+              <input
+                type="email"
+                placeholder="البريد الإلكتروني"
+                value={tempReference.email}
+                onChange={(e) => handleInputChange("email", e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder="مكان العمل"
+                value={tempReference.workplace}
+                onChange={(e) => handleInputChange("workplace", e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder="العلاقة"
+                value={tempReference.relationship}
+                onChange={(e) =>
+                  handleInputChange("relationship", e.target.value)
+                }
+              />
+              <input
+                type="text"
+                placeholder="المسمى الوظيفي"
+                value={tempReference.job_title}
+                onChange={(e) =>
+                  handleInputChange("job_title", e.target.value)
+                }
+              />
+              <div className="popup-buttons">
+                <button
+                  type="button"
+                  className="save-button margin-0"
+                  style={{width:"105px"}}
+                  onClick={handleAddOrUpdateReference}
+                >
+                  {activeReferenceIndex !== null ? "تحديث" : "إضافة"}
+                </button>
+                <button
+                  type="button"
+                  className="save-button margin-0"
+                  style={{width:"105px"}}
+                  onClick={handleCancel}
+                >
+                  إلغاء
+                </button>
+              </div>
+            </div>
           </div>
         )}
 
         {/* Existing References */}
         {references.length > 0 ? (
           references.map((reference, index) => (
-            <div key={reference.id || index} className="link-card-cont">
-              <div
-                className={`link-card ${
-                  activeReferenceIndex === index ? "is-editing" : "is-viewing"
-                }`}
-              >
-                {activeReferenceIndex === index ? (
-                  <>
-                    <div className="form-group">
-                      <label>اسم المعرف</label>
-                      <input
-                        type="text"
-                        value={tempReference.name}
-                        onChange={(e) =>
-                          handleInputChange("name", e.target.value)
-                        }
-                      />
-                    </div>
-
-                    <div className="form-group">
-                      <label>البريد الإلكتروني</label>
-
-                      <input
-                        type="email"
-                        value={tempReference.email}
-                        onChange={(e) =>
-                          handleInputChange("email", e.target.value)
-                        }
-                      />
-                    </div>
-
-                    <div className="form-group">
-                      <label>مكان العمل</label>
-
-                      <input
-                        type="text"
-                        value={tempReference.workplace}
-                        onChange={(e) =>
-                          handleInputChange("workplace", e.target.value)
-                        }
-                      />
-                    </div>
-
-                    <div className="form-group">
-                      <label>العلاقة</label>
-
-                      <input
-                        type="text"
-                        value={tempReference.relationship}
-                        onChange={(e) =>
-                          handleInputChange("relationship", e.target.value)
-                        }
-                      />
-                    </div>
-
-                    <div className="form-group">
-                      <label>المسمى الوظيفي</label>
-
-                      <input
-                        type="text"
-                        value={tempReference.job_title}
-                        onChange={(e) =>
-                          handleInputChange("job_title", e.target.value)
-                        }
-                      />
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <p>{reference.name || "اسم المعرف"}</p>
-                    <p>{reference.email || "البريد الإلكتروني"}</p>
-                    <p>{reference.workplace || "مكان العمل"}</p>
-                    <p>{reference.relationship || "العلاقة"}</p>
-                    <p>{reference.job_title || "المسمى الوظيفي"}</p>
-                  </>
-                )}
-                {/* Buttons with images inside link-card */}
-                <div className="link-actions">
-                  {activeReferenceIndex === index ? null : (
-                    <>
-                      <button
-                        type="button"
-                        className="link-button"
-                        onClick={() => handleEditReference(index)}
-                      >
-                        <img src={editLinkimg} alt="edit" />
-                      </button>
-                      <button
-                        type="button"
-                        className="link-button"
-                        onClick={() => handleDeleteReference(index)}
-                      >
-                        <img src={deleteLinkimg} alt="delete" />
-                      </button>
-                    </>
-                  )}
-                </div>
+            <div key={reference.id || index} className="link-card">
+              <p>{reference.name}</p>
+              <p>{reference.email}</p>
+              <p>{reference.workplace}</p>
+              <p>{reference.relationship}</p>
+              <p>{reference.job_title}</p>
+              <div className="link-actions">
+                <button
+                  type="button"
+                  className="link-button"
+                  onClick={() => openPopupForEdit(index)}
+                >
+                  <img src={editLinkimg} alt="edit" />
+                </button>
+                <button
+                  type="button"
+                  className="link-button"
+                  onClick={() => handleDeleteReference(index)}
+                >
+                  <img src={deleteLinkimg} alt="delete" />
+                </button>
               </div>
-              {/* Save and cancel buttons outside link-card */}
-              {activeReferenceIndex === index && (
-                <div className="actions">
-                  <button
-                    type="button"
-                    className="save-button mobile-view"
-                    onClick={handleUpdateReference}
-                  >
-                    حفظ
-                  </button>
-                  <button
-                    type="button"
-                    className="save-button mobile-view"
-                    onClick={handleCancel}
-                  >
-                    إلغاء
-                  </button>
-                </div>
-              )}
             </div>
           ))
         ) : (
           <p>لا توجد معرفون حالياً.</p>
         )}
 
-        <button className="save-button" onClick={handleSubmit}>
-          حفظ{" "}
+        <button type="submit" className="save-button">
+          حفظ
         </button>
       </form>
     </div>

@@ -12,30 +12,72 @@ function Certificates() {
   const [certpng, setcertpng] =useState([]);
 
 
-  const handleLinkedIn = (certificateId) => {
-    console.log(`Sharing certificate ${certificateId} on LinkedIn.`);
-  };
+  // const handleLinkedIn = (certificateId) => {
+  //   console.log(`Sharing certificate ${certificateId} on LinkedIn.`);
+  // };
 
-  const handleDownloadPDF = async () => {
+  const handleDownloadPDF = async (programId) => {
     try {
-      const response = await fetch(apiUrl + "/panel/program/37/showCertificate/pdf", {
-        method: "GET",
-        headers: {
-          "x-api-key": "1234",
-          "ngrok-skip-browser-warning": true,
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      const result = await response.json();
-      console.log(response);
+      const response = await fetch(
+        `${apiUrl}/panel/program/${programId}/showCertificate/pdf`,
+        {
+          method: "GET",
+          headers: {
+            "x-api-key": "1234",
+            "ngrok-skip-browser-warning": true,
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+  
+      if (response.ok) {
+        const blob = await response.blob(); // Get the binary data as a blob
+        const url = window.URL.createObjectURL(blob); // Create a URL for the blob
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `certificate_${programId}.pdf`; // Specify the file name
+        document.body.appendChild(a);
+        a.click(); // Trigger the download
+        a.remove(); // Remove the anchor element
+      } else {
+        console.error("Failed to download PDF:", response.status);
+      }
     } catch (error) {
-      console.log("Error loading certificates:", error);
-    }  };
-
-  const handleDownloadJPEG = async () => {
-    console.log(`Downloading JPEG for certificate`);
+      console.error("Error loading certificate PDF:", error);
+    }
   };
+  
+  const handleDownloadJPEG = async (programId) => {
+    try {
+      const response = await fetch(
+        `${apiUrl}/panel/program/${programId}/showCertificate/png`,
+        {
+          method: "GET",
+          headers: {
+            "x-api-key": "1234",
+            "ngrok-skip-browser-warning": true,
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+  
+      if (response.ok) {
+        const blob = await response.blob(); // Get the binary data as a blob
+        const url = window.URL.createObjectURL(blob); // Create a URL for the blob
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `certificate_${programId}.png`; // Specify the file name
+        document.body.appendChild(a);
+        a.click(); // Trigger the download
+        a.remove(); // Remove the anchor element
+      } else {
+        console.error("Failed to download JPEG:", response.status);
+      }
+    } catch (error) {
+      console.error("Error loading certificate JPEG:", error);
+    }
+  };
+  
 
   return (
     <>
@@ -48,9 +90,9 @@ function Certificates() {
                 key={certificate.id}
                 programName={certificate.program?.title || "Unknown Program"}
                 certificateId={certificate.code}
-                onLinkedIn={() => handleLinkedIn(certificate.code)}
-                onDownloadPDF={() => handleDownloadPDF(certificate.code)}
-                onDownloadJPEG={() => handleDownloadJPEG(certificate.code)}
+                // onLinkedIn={() => handleLinkedIn(certificate.code)}
+                onDownloadPDF={() => handleDownloadPDF(certificate.program?.id)}
+                onDownloadJPEG={() => handleDownloadJPEG(certificate.program?.id)}
               />
             ))}
           </div>

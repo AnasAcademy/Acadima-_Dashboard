@@ -24,9 +24,9 @@ function CertificateCard({
         </div>
       </div>
       <div className="certificate-actions">
-        <button className="linkedinicon-container" onClick={onLinkedIn}>
+        {/* <button className="linkedinicon-container" onClick={onLinkedIn}>
           <img src={linkedinicon} alt="linkedinicon" className="linkedinicon"/>
-        </button>
+        </button> */}
         <button className="download-button" onClick={onDownloadJPEG}>
           JPEG تحميل الشهادة
         </button>

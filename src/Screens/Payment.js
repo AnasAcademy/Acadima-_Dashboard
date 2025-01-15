@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../Styles/Payment/Payment.css";
 import { apiUrl } from "../API";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 
 import Navbar from "../Components/Main/Navbar";
 import Hero from "../Components/Payment/Hero";
@@ -26,10 +25,12 @@ function Payment() {
   const [data, setData] = useState({ gateway: "27", order_id: order_id });
 
   const navigate = useNavigate();
+  const location = useLocation(); // Use useLocation hook
 
-  // if(!order_id) {
-  //   Navigate("/notfound")
-  // };
+  if(!order_id) {
+    navigate("/notfound")
+  };
+
   const token = localStorage.getItem("token");
 
   const fetchPaymentData = async () => {
@@ -46,7 +47,6 @@ function Payment() {
       });
       // console.log(response);
       const result = await response.json();
-      console.log(result);
       if(result.data.order.status === "paid") {
         navigate("/");
       }
@@ -119,6 +119,7 @@ function Payment() {
     fetchPaymentData();
   }, []);
 
+
   function useCharge(event) {
     event.target.setAttribute("disabled", true);
     setData({ ...data, use_charge: true });
@@ -165,30 +166,33 @@ function Payment() {
 
   const checkout = async () => {
     try {
-      console.log(data);
+      console.log("Location state in checkout:", location.state);
+  
       const response = await fetch(apiUrl + "/checkout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "x-api-key": "1234",
-          Authorization:
-            "Bearer " + token,
+          Authorization: "Bearer " + token,
         },
         body: JSON.stringify(data),
       });
-      console.log(response);
+  
       const result = await response.json();
-      console.log(result);
-      if(result?.data?.order?.status === "paid") {
-        // alert(result.message);
-        navigate("/");
+  
+      if (result?.data?.order?.status === "paid") {
+        navigate("/", { state: { showPopup: true, popupMessage: "تم دفع القسط بنجاح" } });
+      } else {
+        console.log("Order not paid. Displaying error...");
+        navigate("/", { state: { showPopup: true, popupMessage: "فشل الدفع. حاول مرة أخرى." } });
       }
+  
       if (result?.data?.url) {
         window.location.href = result?.data?.url;
-        console.log(result);
       }
     } catch (error) {
-      console.log( error);
+      console.error("Error in checkout:", error);
+      navigate("/", { state: { showPopup: true, popupMessage: "حدث خطأ أثناء معالجة الدفع." } });
     }
   };
 

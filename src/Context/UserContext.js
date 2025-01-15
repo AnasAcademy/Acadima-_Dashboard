@@ -26,6 +26,7 @@ export const UserProvider = ({ children }) => {
   const [programs, setPrograms] = useState([]);
   const [ProgramsInstallmentData, setProgramsInstallmentData] = useState([]);
   const [installmentsCount, setInstallmentsCount] = useState(0);
+  const [availableCertificates, setAvailableCertificates] =  useState(0);
 
   const [error, setError] = useState(null);
 
@@ -49,26 +50,6 @@ export const UserProvider = ({ children }) => {
       console.log("Error fetching user data:", error);
     } 
   };
-
-  // Fetch full user data
-  // const fetchUserData = async () => {
-  //   try {
-  //     const response = await fetch(`${apiUrl}/panel`, {
-  //       method: 'GET',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'x-api-key': '1234',
-  //         'ngrok-skip-browser-warning': true,
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
-
-  //     const result = await response.json();
-  //     setUserData(result.data);
-  //   } catch (error) {
-  //     console.error('Error fetching user data:', error);
-  //   }
-  // };
 
   const fetchUserBriefData = async () => {
     if (!token) return;
@@ -184,6 +165,7 @@ export const UserProvider = ({ children }) => {
       );
       const result = await response.json();
       setCertificates(result?.data?.bundleCertificates || []);
+      setAvailableCertificates(result?.data?.bundleCertificates.length);
     } catch (error) {
       console.error("Error fetching certificates:", error);
       setError("حدث خطأ أثناء جلب الشهادات.");
@@ -226,7 +208,6 @@ export const UserProvider = ({ children }) => {
       });
 
       const result = await response.json();
-      console.log(result);
       setProgramsInstallmentData(result?.data?.ordersList);
       setInstallmentsCount(result?.data?.overdueInstallmentsCount);
     } catch (error) {
@@ -269,6 +250,7 @@ export const UserProvider = ({ children }) => {
         setAllUserSettingsData,
         setProgressData,
         certificates,
+        availableCertificates,
         programs,
         ProgramsInstallmentData,
         installmentsCount,

@@ -488,22 +488,33 @@
   background: #141f25;
   padding: 20px;
   border-radius: 8px;
-  width: 400px;
+  width: 300px;
   text-align: center;
-  height: 200px;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  gap: 10px;
+  gap: 5px;
 }
-.popup-buttons {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
+
+.popup-content input {
+  height: 30px; /* Adjust the height as needed */
+  padding: 10px; /* Optional: Add padding for better spacing */
+  font-size: 16px; /* Optional: Adjust the font size */
+  border: 1px solid #ccc; /* Optional: Add a border for better visuals */
+  border-radius: 5px; /* Optional: Add rounded corners */
+  box-sizing: border-box; /* Ensures padding doesn't affect width */
 }
+.save-button {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  height: fit-content;
+  width: 100px;
+}
+
 .margin-0 {
   margin-right: 0;
 }

@@ -196,12 +196,14 @@
   width: 100%;
   box-sizing: border-box;
 }
+@media(max-width: 1600px) {
+  .classes-bottom {
+    width: 100%;
+  }
+}
 
 @media(max-width: 1200px) {
   .classes-programs-container {
-    width: 90%;
-  }
-  .classes-bottom {
     width: 90%;
   }
 }

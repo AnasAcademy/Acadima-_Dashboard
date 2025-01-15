@@ -291,8 +291,20 @@
     text-align: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     /* direction: rtl; */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
   }
-  
+  .popup h3 {
+    margin-top: 0;
+  }
+  .popup input {
+    width: 90%;
+    height: 20px;
+    text-align:right;
+    padding: 10px;
+  }
   .popup button {
     margin-top: 10px;
     padding: 8px 16px;
