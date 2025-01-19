@@ -34,6 +34,8 @@ function App() {
             <Route path="/login" element={<PublicRoute><LoginScreen /></PublicRoute>} />
             <Route path="/register" element={<PublicRoute><RegistrationScreen /></PublicRoute>} />      
             <Route path="/classes/:classId/course/:courseId" element={<ProtectedRoute><Course /></ProtectedRoute>} />
+            <Route path="/payment/:order_id" element={<ProtectedRoute><Payment /></ProtectedRoute>} />
+
             <Route path="*" element={<NotFound />} />
 
             {/* Routes wrapped with MainPageContainer */}
@@ -46,7 +48,6 @@ function App() {
               <Route path="/certificates" element={<ProtectedRoute><Certificates /></ProtectedRoute>} />
               <Route path="/finances/installments" element={<ProtectedRoute><Installments /></ProtectedRoute>} />
               <Route path="/conditions" element={<ProtectedRoute><InstallmentConditions /></ProtectedRoute>} />
-              <Route path="/payment/:order_id" element={<ProtectedRoute><Payment /></ProtectedRoute>} />
               <Route path="/notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
               <Route path="/notifications/:notification_id" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
               <Route path="/services" element={<ProtectedRoute><Services /></ProtectedRoute>} />

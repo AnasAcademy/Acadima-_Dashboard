@@ -74,9 +74,9 @@ function LoginScreen() {
     e.preventDefault();
     setLoading(true);
     setError(null);
-
+  
     const loginData = { email, password };
-
+  
     try {
       const response = await fetch(apiUrl + "/login", {
         method: "POST",
@@ -86,18 +86,20 @@ function LoginScreen() {
         },
         body: JSON.stringify(loginData),
       });
-
+  
       const data = await response.json();
       if (!response.ok || data.success === false) {
         setError("Wrong email or password");
         return;
       }
-
+  
       const token = data.data.token;
       localStorage.setItem("token", token);
-
+  
+      // Wait for the user data to be refreshed
       await refreshUserData();
-
+  
+      // Navigate to the appropriate route after data is loaded
       if (data?.data?.user?.role === "user") {
         navigate("/");
       } else if (data?.data?.user?.user_code) {
@@ -111,6 +113,7 @@ function LoginScreen() {
       setLoading(false);
     }
   };
+    
 
   const handleForgotPassword = async (email) => {
     setLoading(true);

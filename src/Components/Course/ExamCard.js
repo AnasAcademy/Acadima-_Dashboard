@@ -5,7 +5,7 @@ import courseexams from "../../Images/courseexams.svg";
 import dropdown from "../../Images/dropdownarrow.svg";
 import lectureIcon from "../../Images/lecture-icon.svg";
 
-function ExamCard({ exams, setActiveExam }) {
+function ExamCard({ exams = [], setActiveExam }) {
   const [expandedCard, setExpandedCard] = useState(null);
 
   const toggleCard = (index) => {
@@ -15,59 +15,57 @@ function ExamCard({ exams, setActiveExam }) {
   return (
     <>
       {exams.map((exam, index) => (
-        <div key={index} className="course-item">
+        <div key={exam.id || index} className="course-item">
+          {/* Card Header */}
           <div className="card-header" onClick={() => toggleCard(index)}>
             <div className="course-item-right">
               <div className="courseiconcont">
-                <img src={courseexams} alt="examIcon" className="courseicon" />
+                <img src={courseexams} alt="Exam Icon" className="courseicon" />
               </div>
               <div className="course-details">
-                <div className="course-title">{exam.title}</div>
+                <div className="course-title">
+                  {exam.translations?.[0]?.title || "No Title"}
+                </div>
                 <span className="lecture-number">
-                  {exam.attempts
-                    ? `عدد المحاولات: ${exam.attempts}`
-                    : "وصف الاختبار"}
+                  Attempts Allowed: {exam.attempt || "N/A"}
                 </span>
               </div>
             </div>
             <img
               src={dropdown}
-              alt="dropdown"
+              alt="Dropdown"
               className={`course-dropdownarrow ${
                 expandedCard === index ? "rotated" : ""
               }`}
             />
           </div>
+
+          {/* Expanded Card Content */}
           {expandedCard === index && (
             <div className="course-content">
-              {exam.exam ? (
-                <div className="lectures-list">
-                  {exam.exam.map((item, idx) => (
-                    <div
-                      key={idx}
-                      className="lecture-item"
-                      onClick={() => setActiveExam(item)}
-                    >
-                      <img
-                        src={lectureIcon}
-                        alt="lectureIcon"
-                        className="lectureIcon"
-                      />
-                      <div className="lecture-item-left">
-                        <span className="lecture-title">{item.title}</span>
-                        <span className="lecture-duration">
-                          {item.duration}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
+              <div className="lectures-list">
+                <div
+                  className="lecture-item"
+                  onClick={() => setActiveExam(exam)} // Set the selected exam
+                >
+                  <img
+                    src={lectureIcon}
+                    alt="Lecture Icon"
+                    className="lectureIcon"
+                  />
+                  <div className="lecture-item-left">
+                    <span className="lecture-title">
+                    {exam.translations?.[0]?.title || "No Title"}
+                    </span>
+                    {/* <span className="lecture-duration">
+                      Pass Mark: {exam.pass_mark || "N/A"}%
+                    </span>
+                    <span className="lecture-duration">
+                      Can Try: {exam.can_try ? "Yes" : "No"}
+                    </span> */}
+                  </div>
                 </div>
-              ) : (
-                <div className="course-description">
-                  <h4 className="course-desc-title">تفاصيل الاختبار</h4>
-                  <p className="course-desc">{exam.description}</p>
-                </div>
-              )}
+              </div>
             </div>
           )}
         </div>

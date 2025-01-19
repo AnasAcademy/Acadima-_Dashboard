@@ -44,7 +44,7 @@ function Navbar({ userBriefData, hasUnreadNotifications }) {
           alt="Notification Icon"
           className="notification-icon"
         />
-        ;<span className="nav-separator"></span>
+        <span className="nav-separator"></span>
         <div className="navbar-p">
           <p className="student-name">{userBriefData?.full_name}</p>
           <p className="student-code">{userBriefData?.user_code}</p>

@@ -6,7 +6,7 @@ import "../../Styles/Course/Course.css";
 import logo from "../../Images/AcadimaLogo.png";
 import changelayout from "../../Images/changelayout.svg";
 
-function Header({ toggleLayout }) {
+function Header({ toggleLayout, title }) {
   const navigate = useNavigate();
   const { classId } = useParams(); // Use the correct param name: classId
 
@@ -35,7 +35,7 @@ function Header({ toggleLayout }) {
       <div className="course-header-right">
         <div className="course-progress-details">
           <h2 className="course-name">
-            الذكاء الاصطناعي Open IA للمبتدئين: التوجيه البرمجي
+            {title}
           </h2>
           <div className="course-progress-container">
             <div className="course-progress-bar-container">

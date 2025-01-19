@@ -27,22 +27,38 @@ export const UserProvider = ({ children }) => {
   const [ProgramsInstallmentData, setProgramsInstallmentData] = useState([]);
   const [installmentsCount, setInstallmentsCount] = useState(0);
   const [availableCertificates, setAvailableCertificates] =  useState(0);
+  const [courseData, setCourseData] = useState(null); // Course data
+  const [chapters, setChapters] = useState([]); // Course chapters
+  const [quizzes, setQuizzes] = useState([]);
 
   const [error, setError] = useState(null);
 
-  const token = localStorage.getItem("token");
+  const [token, setToken] = useState(localStorage.getItem("token")); // Track token
   const headers = {
     "Content-Type": "application/json",
     "x-api-key": "1234",
     "ngrok-skip-browser-warning": true,
-    Authorization: `Bearer ${token}`,
+    Authorization: `Bearer ${localStorage.getItem("token")}`, // Use localStorage directly
   };
 
+  // const validateToken = () => {
+  //   const storedToken = localStorage.getItem("token");
+  //   if (storedToken && storedToken !== token) {
+  //     setToken(storedToken);
+  //   }
+  // };
+  
+
   const fetchUserData = async () => {
-    if (!token) return;
+    // if (!token) return;
 
     try {
-      const response = await axios.get(`${apiUrl}/panel`, { headers });
+      const response = await axios.get(`${apiUrl}/panel`, { headers: {
+        "Content-Type": "application/json",
+        "x-api-key": "1234",
+        "ngrok-skip-browser-warning": true,
+        Authorization: `Bearer ${localStorage.getItem("token")}`, // Use localStorage directly
+      }, });
 
       const result = response.data.data;
       setUserData(result);
@@ -52,16 +68,21 @@ export const UserProvider = ({ children }) => {
   };
 
   const fetchUserBriefData = async () => {
-    if (!token) return;
+    // if (!token) return;
 
     try {
       const response = await fetch(`${apiUrl}/profile/brief`, {
         method: "GET",
-        headers,
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": "1234",
+          "ngrok-skip-browser-warning": true,
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // Use localStorage directly
+        },
       });
 
       if (!response.ok) {
-        console.error("Failed to fetch user brief data:", response.statusText);
+        console.log("Failed to fetch user brief data:", response.statusText);
         return;
       }
 
@@ -77,7 +98,12 @@ export const UserProvider = ({ children }) => {
     try {
         const response = await fetch(apiUrl + "/panel/programs/apply", {
         method: "GET",
-        headers,
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": "1234",
+          "ngrok-skip-browser-warning": true,
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // Use localStorage directly
+        },
       });
 
       const result = await response.json();
@@ -93,7 +119,12 @@ export const UserProvider = ({ children }) => {
     try {
       const response = await fetch(apiUrl + "/panel/programs/purchases", {
         method: "GET",
-        headers,
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": "1234",
+          "ngrok-skip-browser-warning": true,
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // Use localStorage directly
+        },      
       });
 
       const result = await response.json();
@@ -108,7 +139,12 @@ export const UserProvider = ({ children }) => {
     try {
       const response = await fetch(`${apiUrl}/panel/notifications`, {
         method: "GET",
-        headers,
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": "1234",
+          "ngrok-skip-browser-warning": true,
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // Use localStorage directly
+        },
       });
 
       const result = await response.json();
@@ -126,7 +162,7 @@ export const UserProvider = ({ children }) => {
           "Content-Type": "application/json",
           "x-api-key": "1234",
           "ngrok-skip-browser-warning": true,
-          Authorization: "Bearer " + token,
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // Use localStorage directly
         },
       });
 
@@ -159,7 +195,7 @@ export const UserProvider = ({ children }) => {
             "Content-Type": "application/json",
             "x-api-key": "1234",
             "ngrok-skip-browser-warning": true,
-            Authorization: "Bearer " + token,
+            Authorization: `Bearer ${localStorage.getItem("token")}`, // Use localStorage directly
           },
          }
       );
@@ -180,7 +216,7 @@ export const UserProvider = ({ children }) => {
           "Content-Type": "application/json",
           "x-api-key": "1234",
           "ngrok-skip-browser-warning": true,
-          Authorization: "Bearer " + token,
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // Use localStorage directly
           accept: "application/json",
         },
       });
@@ -203,7 +239,7 @@ export const UserProvider = ({ children }) => {
           "Content-Type": "application/json",
           "x-api-key": "1234",
           "ngrok-skip-browser-warning": true,
-          Authorization: "Bearer " + token,
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // Use localStorage directly
         },
       });
 
@@ -212,6 +248,26 @@ export const UserProvider = ({ children }) => {
       setInstallmentsCount(result?.data?.overdueInstallmentsCount);
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const fetchCourseData = async (classId, courseId) => {
+    if (!token || courseData) return; // Prevent repeated fetch if data exists
+    try {
+      const response = await fetch(
+        `${apiUrl}/${classId}/learning-page/${courseId}`,
+        { headers }
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const result = await response.json();
+      setCourseData(result.data);
+      setChapters(result.data?.course?.chapters || []);
+      setQuizzes(result.data?.course?.quizzes || []);
+      
+    } catch (error) {
+      console.error("Error fetching course data:", error);
     }
   };
 
@@ -254,6 +310,10 @@ export const UserProvider = ({ children }) => {
         programs,
         ProgramsInstallmentData,
         installmentsCount,
+        courseData,
+        chapters,
+        quizzes,
+        fetchCourseData,
         error
       }}
     >

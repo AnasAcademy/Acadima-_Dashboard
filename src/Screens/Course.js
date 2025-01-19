@@ -1,4 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useContext, useState } from "react";
+import { useParams } from "react-router-dom";
+
+import { UserContext } from "../Context/UserContext";
+
 import "../Styles/Course/Course.css";
 
 import Header from "../Components/Course/Header";
@@ -6,6 +10,8 @@ import CourseCard from "../Components/Course/CourseCard";
 import ExamCard from "../Components/Course/ExamCard";
 import VideoContent from "../Components/Course/VideoContent";
 import ExamContent from "../Components/Course/ExamContent";
+import AssignmentContent from "../Components/Course/AssignmentContent";
+import TextLessonContent from "../Components/Course/TextLessonContent";
 
 import Activecoursecontent from "../Images/Activecoursecontent.svg";
 import coursecontent from "../Images/coursecontent.svg";
@@ -13,54 +19,53 @@ import Activecourseexams from "../Images/Activecourseexams.svg";
 import courseexams from "../Images/courseexams.svg";
 
 function Course() {
+  const { fetchCourseData, courseData, chapters, quizzes } =
+    useContext(UserContext);
+
   const [activeTab, setActiveTab] = useState("content"); // "content" or "exams"
   const [isCompact, setIsCompact] = useState(false); // Track layout mode
   const [activeLecture, setActiveLecture] = useState(null); // Track active lecture
   const [activeExam, setActiveExam] = useState(null); // Track active exam
+  const [activeAssignment, setActiveAssignment] = useState(null); // Track active assignment
+  const [activeTextLesson, setActiveTextLesson] = useState(null); // Track active text lesson
+
+  const { classId, courseId } = useParams(); // Get the `id` from the URL
+
+  useEffect(() => {
+    fetchCourseData(classId, courseId); // Fetch course data on mount
+  }, [classId, courseId, fetchCourseData]);
 
   const toggleLayout = () => {
     setIsCompact((prev) => !prev);
   };
 
-  const courses = [
-    {
-      title: "المقرر 1",
-      description: "هنا نص عشوائي يُستخدم لملء الفراغات في التصميم.",
-      lectures: [
-        { title: "المحاضرة 1", duration: "ساعة واحدة" },
-        { title: "المحاضرة 2", duration: "45 دقيقة" },
-      ],
-    },
-  ];
-
-  const exams = [
-    {
-      title: "اختبار الوحدة 1",
-      grade: 3,
-      exam: [
-        { title: "عنـــوان الإختبار", duration: "ساعة واحدة", description: "هنا وصف للاختبار يمكن تعديله حسب الحاجة.",
-        },
-      ],
-    },
-  ];
+  const hasContent = activeTab === "content" && chapters?.length > 0;
 
   return (
     <div className="course-screen">
-      <Header toggleLayout={toggleLayout} />
+      <Header toggleLayout={toggleLayout} title={courseData?.pageTitle} />
       <div className={`course-main-container ${isCompact ? "compact" : ""}`}>
         {!isCompact && (
           <div className="courses-list">
             <div className="courses-info-selection-cont">
               <div
-                className={`selection ${activeTab === "content" ? "active" : ""}`}
+                className={`selection ${
+                  activeTab === "content" ? "active" : ""
+                }`}
                 onClick={() => {
                   setActiveTab("content");
-                  setActiveLecture(null); // Reset active lecture
-                  setActiveExam(null); // Reset active exam
+                  setActiveLecture(null);
+                  setActiveExam(null);
+                  setActiveAssignment(null);
+                  setActiveTextLesson(null);
                 }}
               >
                 <img
-                  src={activeTab === "content" ? Activecoursecontent : coursecontent}
+                  src={
+                    activeTab === "content"
+                      ? Activecoursecontent
+                      : coursecontent
+                  }
                   alt="Activecoursecontent"
                   className="coursedetails-icon"
                 />
@@ -70,8 +75,10 @@ function Course() {
                 className={`selection ${activeTab === "exams" ? "active" : ""}`}
                 onClick={() => {
                   setActiveTab("exams");
-                  setActiveLecture(null); // Reset active lecture
-                  setActiveExam(null); // Reset active exam
+                  setActiveLecture(null);
+                  setActiveExam(null);
+                  setActiveAssignment(null);
+                  setActiveTextLesson(null);
                 }}
               >
                 <img
@@ -85,9 +92,16 @@ function Course() {
 
             <div className="courses-list-cont">
               {activeTab === "content" ? (
-                <CourseCard courses={courses} setActiveLecture={setActiveLecture} />
+                <CourseCard
+                  chapters={chapters}
+                  course={courseData}
+                  setActiveLecture={setActiveLecture}
+                  setActiveAssignment={setActiveAssignment}
+                  setActiveTextLesson={setActiveTextLesson}
+                  setActiveSession={setActiveLecture}
+                />
               ) : (
-                <ExamCard exams={exams} setActiveExam={setActiveExam} />
+                <ExamCard exams={quizzes || []} setActiveExam={setActiveExam} />
               )}
             </div>
           </div>
@@ -97,15 +111,22 @@ function Course() {
           className={`lecture-container ${
             isCompact
               ? "lecture-container-full"
-              : activeLecture || activeExam
+              : activeLecture ||
+                activeExam ||
+                activeAssignment ||
+                activeTextLesson
               ? "content-container"
               : "video-content-container"
           }`}
         >
           {activeLecture ? (
-            <VideoContent videoSrc={null} />
+            <VideoContent videoSrc={activeLecture?.content || null} />
           ) : activeExam ? (
             <ExamContent exam={activeExam} />
+          ) : activeAssignment ? (
+            <AssignmentContent assignment={activeAssignment} />
+          ) : activeTextLesson ? (
+            <TextLessonContent textLesson={activeTextLesson} />
           ) : (
             <div className="placeholder-content">
               <p>اختر محتوى أو اختبار لعرض التفاصيل</p>

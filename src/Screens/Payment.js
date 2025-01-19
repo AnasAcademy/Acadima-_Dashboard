@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "../Styles/Payment/Payment.css";
 import { apiUrl } from "../API";
+import { UserContext } from "../Context/UserContext"; // Import UserContext
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 
 import Navbar from "../Components/Main/Navbar";
@@ -26,10 +27,29 @@ function Payment() {
 
   const navigate = useNavigate();
   const location = useLocation(); // Use useLocation hook
+  const [menuOpen, setMenuOpen] = useState(false); // Sidebar toggle state
+const { userBriefData, notifications } = useContext(UserContext); // Consume userBriefData from context
+  const [hasUnreadNotifications, setHasUnreadNotifications] = useState(false);
 
-  if(!order_id) {
-    navigate("/notfound")
+  useEffect(() => {
+    const unreadExists = notifications?.some(
+      (notification) => notification.status === "unread" // Check for unread status
+    ) || false;
+  
+    setHasUnreadNotifications(unreadExists);
+  }, [notifications]);
+  
+  
+  
+
+  // Function to toggle the sidebar
+  const handleMenuToggle = () => {
+    setMenuOpen((prev) => !prev);
   };
+
+  if (!order_id) {
+    navigate("/notfound");
+  }
 
   const token = localStorage.getItem("token");
 
@@ -41,13 +61,12 @@ function Payment() {
           "Content-Type": "application/json",
           "x-api-key": "1234",
           "ngrok-skip-browser-warning": true,
-          Authorization:
-            "Bearer " + token,
+          Authorization: "Bearer " + token,
         },
       });
       // console.log(response);
       const result = await response.json();
-      if(result.data.order.status === "paid") {
+      if (result.data.order.status === "paid") {
         navigate("/");
       }
       // console.log(result);
@@ -78,8 +97,7 @@ function Payment() {
           "Content-Type": "application/json",
           "x-api-key": "1234",
           "ngrok-skip-browser-warning": true,
-          Authorization:
-            "Bearer " + token,
+          Authorization: "Bearer " + token,
         },
         body: JSON.stringify({
           coupon,
@@ -118,7 +136,6 @@ function Payment() {
   useEffect(() => {
     fetchPaymentData();
   }, []);
-
 
   function useCharge(event) {
     event.target.setAttribute("disabled", true);
@@ -167,7 +184,7 @@ function Payment() {
   const checkout = async () => {
     try {
       console.log("Location state in checkout:", location.state);
-  
+
       const response = await fetch(apiUrl + "/checkout", {
         method: "POST",
         headers: {
@@ -177,22 +194,28 @@ function Payment() {
         },
         body: JSON.stringify(data),
       });
-  
+
       const result = await response.json();
-  
+
       if (result?.data?.order?.status === "paid") {
-        navigate("/", { state: { showPopup: true, popupMessage: "تم دفع القسط بنجاح" } });
+        navigate("/", {
+          state: { showPopup: true, popupMessage: "تم دفع القسط بنجاح" },
+        });
       } else {
         console.log("Order not paid. Displaying error...");
-        navigate("/", { state: { showPopup: true, popupMessage: "فشل الدفع. حاول مرة أخرى." } });
+        navigate("/", {
+          state: { showPopup: true, popupMessage: "فشل الدفع. حاول مرة أخرى." },
+        });
       }
-  
+
       if (result?.data?.url) {
         window.location.href = result?.data?.url;
       }
     } catch (error) {
       console.error("Error in checkout:", error);
-      navigate("/", { state: { showPopup: true, popupMessage: "حدث خطأ أثناء معالجة الدفع." } });
+      navigate("/", {
+        state: { showPopup: true, popupMessage: "حدث خطأ أثناء معالجة الدفع." },
+      });
     }
   };
 
@@ -203,7 +226,12 @@ function Payment() {
 
   return (
     <div className="payment">
-      <Navbar />
+      <Navbar
+        menuOpen={menuOpen}
+        onMenuToggle={handleMenuToggle}
+        userBriefData={userBriefData}
+        hasUnreadNotifications={hasUnreadNotifications}
+      />
       <Hero />
 
       <div className="payment-main-container">

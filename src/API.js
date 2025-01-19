@@ -1,4 +1,4 @@
-const apiDomain = "https://2050-146-70-63-114.ngrok-free.app/";
-const apiUrl = apiDomain + "api/development"; 
+// const apiDomain = "https://f777-156-204-171-17.ngrok-free.app/";
+const apiUrl = "https://api.acadima.tech/api/development"; 
 
-export {apiDomain, apiUrl};
+export {apiUrl};

@@ -11,6 +11,7 @@
   align-items: stretch;
   gap: 40px;
   padding-bottom: 40px;
+  padding-top: 40px;
 }
 
 .course-header {
@@ -40,7 +41,15 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  gap: 160px;
+  gap: 100px;
+  width: 50%;
+}
+.course-progress-details {
+  width: 100%;
+  display: flex;
+flex-direction: column;
+justify-content: flex-start;
+align-items: flex-end;
 }
 .courselogo {
   width: 149px;
@@ -72,7 +81,7 @@
 }
 /* Progress bar styling */
 .course-progress-container {
-  width: 100%;
+  width: 80%;
   display: flex;
   flex-direction: row-reverse;
   justify-content: flex-start;
@@ -216,6 +225,13 @@
   align-items: center;
   padding: 12px 28px;
   box-sizing: border-box;
+}
+.assignments-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px;
 }
 .course-item-right {
   display: flex;
@@ -495,6 +511,25 @@
   gap: 30px;
   margin: auto;
 }
+.text-lesson-content {
+  color: white;
+  width: 40%;
+  margin: auto;
+  border: 1px solid #599FAF;
+  background-color: #599FAF;
+  border-radius: 12px;
+  padding: 20px;
+}
+.assignment-content {
+  width: 40%;
+  margin: auto;
+  border: 1px solid #599FAF;
+  background-color: #599FAF;
+  border-radius: 12px;
+}
+.border-none {
+  border: none;
+}
 @media (max-width: 1600px) {
   .courses-list {
     width: 40%;
@@ -526,6 +561,10 @@
 @media (max-width: 1376px) {
   .course-header-right {
     gap: 20px;
+    width: 60%;
+  }
+  .course-progress-container {
+    width: 60%;
   }
   .course-main-container {
     flex-direction: column;
@@ -552,5 +591,12 @@
   }
   .course-header {
     justify-content: center;
+    padding: 20px;
+  }
+  .course-progress-container {
+    width: 100%;
+  }
+  .course-header-right {
+    width: 100%;
   }
  }
