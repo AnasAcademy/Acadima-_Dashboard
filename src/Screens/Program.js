@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { UserContext } from "../Context/UserContext";
 import "../Styles/Program/Program.css";
 
@@ -7,7 +7,7 @@ import ProgramCard from "../Components/Program/ProgramCard";
 import payment from "../Images/Sidebar icons/payment.svg";
 
 function Program() {
-  const { programs } = useContext(UserContext);
+  const { programs, ProgramsInstallmentData } = useContext(UserContext);
 
   return (
     <>
@@ -25,9 +25,20 @@ function Program() {
         </div>
         <div className="programs-list">
           {programs?.length > 0 ? (
-            programs?.map((program) => (
-              <ProgramCard key={program?.id} program={program} />
-            ))
+            programs.map((program) => {
+              // Find the corresponding installment data for this program
+              const matchingInstallmentData = ProgramsInstallmentData.find(
+                (installment) => installment?.orderItem?.id === program.id
+              );
+
+              return (
+                <ProgramCard
+                  key={program?.id}
+                  program={program}
+                  programInstallmentData={matchingInstallmentData} // Pass the matching installment data
+                />
+              );
+            })
           ) : (
             <p className="no-programs">لا توجد برامج متاحة حالياً</p>
           )}

@@ -488,24 +488,58 @@
   background: #141f25;
   padding: 20px;
   border-radius: 8px;
-  width: 300px;
+  width: 400px;
   text-align: center;
-  height: fit-content;
+  height: 400px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  gap: 5px;
+  gap: 20px;
 }
+.popup-form-container {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
 
+}
 .popup-content input {
-  height: 30px; /* Adjust the height as needed */
+  height: 40px; /* Adjust the height as needed */
+  width: 80%;
   padding: 10px; /* Optional: Add padding for better spacing */
   font-size: 16px; /* Optional: Adjust the font size */
   border: 1px solid #ccc; /* Optional: Add a border for better visuals */
   border-radius: 5px; /* Optional: Add rounded corners */
   box-sizing: border-box; /* Ensures padding doesn't affect width */
 }
+.settings-popup-buttons {
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+width: 65%;
+}
+.popup-button {
+  border-radius: 6px;
+background: #599FAF;
+border: none;
+color: #FFF;
+text-align: center;
+font-size: 24px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+height: 34px;
+padding: 8px 14px;
+gap: 8px;
+flex-shrink: 0;
+width: 48% !important;
+height: fit-content;
+}
+
 .save-button {
   padding: 5px 10px;
   border-radius: 5px;

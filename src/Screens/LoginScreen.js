@@ -44,11 +44,11 @@ const ForgotPasswordPopup = ({ onClose, onSend }) => {
           required
         />
         <div className="popup-buttons">
-          <button className="send-button" onClick={handleSend}>
-            إرسال
-          </button>
           <button className="cancel-button" onClick={onClose}>
             إلغاء
+          </button>
+          <button className="send-button" onClick={handleSend}>
+            إرسال
           </button>
         </div>
       </div>

@@ -2,14 +2,14 @@ import React, { useState, useContext } from "react";
 import { UserContext } from "../Context/UserContext";
 import "../Styles/Installments/Installments.css";
 
-import MobileInstallmentTable from '../Components/Installments/MobileInstallmentTable';
+import MobileInstallmentTable from "../Components/Installments/MobileInstallmentTable";
 import InstallmentTable from "../Components/Installments/InstallmentTable";
 import ProgramInstallmentCard from "../Components/Installments/ProgramInstallmentCard";
 import InstallmentCard from "../Components/Installments/InstallmentCard";
 
 function Installments() {
-    const { ProgramsInstallmentData } = useContext(UserContext);
-  
+  const { ProgramsInstallmentData } = useContext(UserContext);
+
   const [selectedProgram, setSelectedProgram] = useState(null);
 
   return (
@@ -21,7 +21,7 @@ function Installments() {
         <div className="programs-cards-container">
           {ProgramsInstallmentData.map((program) => (
             <ProgramInstallmentCard
-              // key={program?.orderItem?.id}
+              key={program?.id} // Add a unique key here
               program={program}
               isSelected={selectedProgram?.id === program?.id}
               onClick={() => setSelectedProgram(program)}
@@ -39,7 +39,7 @@ function Installments() {
 
             {/* Installments Table */}
             <h2 className="all-programs-title">جدول تقسيط رسوم البرنامج</h2>
-            <div className="wide-screen-view">
+            <div className="installments-wide-screen-view">
               <div className="installment-table">
                 <div className="installment-table-header">
                   <p className="installment-table-item">الرقم</p>
@@ -49,24 +49,36 @@ function Installments() {
                   <p className="installment-table-item">تاريخ الدفع</p>
                   <p className="installment-table-item">حالة الدفع</p>
                 </div>
-                <InstallmentTable id={1} step={selectedProgram?.upfront} />
+                <InstallmentTable
+                  key={selectedProgram?.id}
+                  id={1}
+                  step={selectedProgram?.upfront}
+                  order_id={selectedProgram?.id}
+                  program={selectedProgram}
+                />
                 {selectedProgram?.installments_steps.map((step, index) => (
                   <InstallmentTable
+                    key={index}
                     id={index + 2} // Correctly embedded expression
                     step={step}
                     order_id={selectedProgram?.id}
+                    program={selectedProgram}
                   />
                 ))}
               </div>
             </div>
-            <div className="mobile-screen-view"> 
-            <MobileInstallmentTable step={selectedProgram?.upfront} />
-                {selectedProgram?.installments_steps.map((step, index) => (
-                  <MobileInstallmentTable
-                    step={step}
-                    order_id={selectedProgram?.id}
-                  />
-                ))}
+            <div className="mobile-screen-view">
+              <MobileInstallmentTable
+                step={selectedProgram?.upfront}
+                order_id={selectedProgram?.id}
+              />
+              {selectedProgram?.installments_steps.map((step, index) => (
+                <MobileInstallmentTable
+                  key={index}
+                  step={step}
+                  order_id={selectedProgram?.id}
+                />
+              ))}
             </div>
           </div>
         )}

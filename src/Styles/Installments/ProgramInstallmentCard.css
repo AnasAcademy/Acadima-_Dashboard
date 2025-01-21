@@ -49,3 +49,8 @@
   background: #fff;
   color: #141F25;
 }
+@media(max-width:450px) {
+  .program-card {
+    width: 70%;
+  }
+}

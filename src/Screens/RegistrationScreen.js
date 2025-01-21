@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "../Styles/Registration/RegistartionScreen.css";
 import "../Styles/Registration/LoginScreen.css";
+import { UserContext } from "../Context/UserContext";
 import { apiUrl } from "../API";
 
 import anasAcadlogo from "../Images/AcadimaLogo.png";
@@ -28,6 +29,7 @@ const Popup = ({ message, onClose }) => {
 };
 
 function RegistrationScreen() {
+  const { refreshUserData } = useContext(UserContext);
   const [full_name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -101,6 +103,7 @@ function RegistrationScreen() {
 
       const token = data.data.token;
       localStorage.setItem('token', token);
+      await refreshUserData();
       navigate("/admission");
       // Navigate to login or home page on successful registration
       // navigate("/login");

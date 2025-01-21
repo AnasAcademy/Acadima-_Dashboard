@@ -14,37 +14,9 @@ import Calendar from "../Components/Student Platform/Calendar/Calendar";
 
 function StudentPlatform() {
   const navigate = useNavigate();
-  const [showPopup, setShowPopup] = useState(false);
-  const [popupMessage, setPopupMessage] = useState("");
-  const { userData, notifications } = useContext(UserContext); // Access userData from context
+  const { userData} = useContext(UserContext); // Access userData from context
 
-  useEffect(() => {
-    // Check for new notifications
-    if (notifications?.length > 0) {
-      const unreadNotification = notifications.find(
-        (notification) => notification.status === "unread" // Check for unread status
-      );
-
-      if (unreadNotification) {
-        setPopupMessage(unreadNotification.message || "لديك إشعار جديد!");
-        setShowPopup(true);
-
-        // Optionally store the ID if needed later
-        setUnreadNotificationId(unreadNotification.id);
-      }
-    }
-  }, [notifications]);
-
-  const [unreadNotificationId, setUnreadNotificationId] = useState(null);
-
-  const showNotification = (notificationId) => {
-    navigate(`/notifications/${notificationId}`);
-  };
-
-  const closePopup = () => {
-    setShowPopup(false);
-  };
-
+  
   const [selectedLectureType, setSelectedLectureType] =
     useState("المحاضرات المسجلة");
 
@@ -60,29 +32,6 @@ function StudentPlatform() {
   return (
     <div className="student-platform-container">
       <div className="student-right-container">
-        {showPopup && (
-          <div className="popup-overlay">
-            <div className="popup-content-notification">
-              <p>{popupMessage}</p>
-              <div className="popup-buttons">
-                <button
-                  className="save-button margin-0"
-                  style={{ marginTop: "0" }}
-                  onClick={closePopup}
-                >
-                  إغلاق
-                </button>
-                <button
-                  className="save-button margin-0"
-                  style={{ marginTop: "0" }}
-                  onClick={() => showNotification(unreadNotificationId)} // Use an arrow function
-                >
-                  إظهار
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
         {/* Student Card */}
         <ContentCard>
           <div className="student-info-card">

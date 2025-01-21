@@ -7,7 +7,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  width: 20%;
+  width: 27.5%;
   height: fit-content;
   min-height: 130px;
   direction: rtl;
@@ -90,10 +90,15 @@
 
 @media(max-width: 1650px) {
   .classes-program-card {
-    width: 25%;
+    width: 28%;
   }
 } 
 @media(max-width: 1280px) {
+  .classes-program-card {
+    width: 45%;
+  }
+}
+@media(max-width:1200px) {
   .classes-program-card {
     width: 40%;
   }

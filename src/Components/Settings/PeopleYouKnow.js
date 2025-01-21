@@ -40,12 +40,12 @@ function PeopleYouKnow({ onNext, references, setReferences, updateProgress }) {
 
   const handleAddOrUpdateReference = async () => {
     const { name, email, workplace, relationship, job_title } = tempReference;
-  
+
     if (!name || !email || !workplace || !relationship || !job_title) {
       alert("يرجى تعبئة جميع الحقول.");
       return;
     }
-  
+
     if (activeReferenceIndex !== null) {
       // Edit mode
       try {
@@ -62,7 +62,7 @@ function PeopleYouKnow({ onNext, references, setReferences, updateProgress }) {
             body: JSON.stringify(tempReference),
           }
         );
-  
+
         if (response.ok) {
           setReferences((prev) =>
             prev.map((ref, i) =>
@@ -90,7 +90,7 @@ function PeopleYouKnow({ onNext, references, setReferences, updateProgress }) {
             body: JSON.stringify(tempReference),
           }
         );
-  
+
         if (response.ok) {
           const savedReference = await response.json();
           const newReference = {
@@ -98,7 +98,8 @@ function PeopleYouKnow({ onNext, references, setReferences, updateProgress }) {
             name: savedReference.name || tempReference.name,
             email: savedReference.email || tempReference.email,
             workplace: savedReference.workplace || tempReference.workplace,
-            relationship: savedReference.relationship || tempReference.relationship,
+            relationship:
+              savedReference.relationship || tempReference.relationship,
             job_title: savedReference.job_title || tempReference.job_title,
           };
           setReferences((prev) => [...prev, newReference]);
@@ -108,7 +109,7 @@ function PeopleYouKnow({ onNext, references, setReferences, updateProgress }) {
         console.error("Error adding reference:", error);
       }
     }
-  
+
     setIsPopupOpen(false);
     setTempReference({
       name: "",
@@ -197,53 +198,57 @@ function PeopleYouKnow({ onNext, references, setReferences, updateProgress }) {
                   ? "تعديل المعرف"
                   : "إضافة معرف جديد"}
               </h3>
-              <input
-                type="text"
-                placeholder="اسم المعرف"
-                value={tempReference.name}
-                onChange={(e) => handleInputChange("name", e.target.value)}
-              />
-              <input
-                type="email"
-                placeholder="البريد الإلكتروني"
-                value={tempReference.email}
-                onChange={(e) => handleInputChange("email", e.target.value)}
-              />
-              <input
-                type="text"
-                placeholder="مكان العمل"
-                value={tempReference.workplace}
-                onChange={(e) => handleInputChange("workplace", e.target.value)}
-              />
-              <input
-                type="text"
-                placeholder="العلاقة"
-                value={tempReference.relationship}
-                onChange={(e) =>
-                  handleInputChange("relationship", e.target.value)
-                }
-              />
-              <input
-                type="text"
-                placeholder="المسمى الوظيفي"
-                value={tempReference.job_title}
-                onChange={(e) =>
-                  handleInputChange("job_title", e.target.value)
-                }
-              />
-              <div className="popup-buttons">
+              <div className="popup-form-container">
+                <input
+                  type="text"
+                  placeholder="اسم المعرف"
+                  value={tempReference.name}
+                  onChange={(e) => handleInputChange("name", e.target.value)}
+                />
+                <input
+                  type="email"
+                  placeholder="البريد الإلكتروني"
+                  value={tempReference.email}
+                  onChange={(e) => handleInputChange("email", e.target.value)}
+                />
+                <input
+                  type="text"
+                  placeholder="مكان العمل"
+                  value={tempReference.workplace}
+                  onChange={(e) =>
+                    handleInputChange("workplace", e.target.value)
+                  }
+                />
+                <input
+                  type="text"
+                  placeholder="العلاقة"
+                  value={tempReference.relationship}
+                  onChange={(e) =>
+                    handleInputChange("relationship", e.target.value)
+                  }
+                />
+                <input
+                  type="text"
+                  placeholder="المسمى الوظيفي"
+                  value={tempReference.job_title}
+                  onChange={(e) =>
+                    handleInputChange("job_title", e.target.value)
+                  }
+                />
+              </div>
+              <div className="settings-popup-buttons">
                 <button
                   type="button"
-                  className="save-button margin-0"
-                  style={{width:"105px"}}
+                  className="popup-button"
+                  style={{ width: "105px" }}
                   onClick={handleAddOrUpdateReference}
                 >
                   {activeReferenceIndex !== null ? "تحديث" : "إضافة"}
                 </button>
                 <button
                   type="button"
-                  className="save-button margin-0"
-                  style={{width:"105px"}}
+                  className="popup-button"
+                  style={{ width: "105px" }}
                   onClick={handleCancel}
                 >
                   إلغاء

@@ -42,7 +42,7 @@ function ProgressChart({
 
         <div className="progress-text-div">
           <span className="progress-text">المبلغ الكلي</span>
-          <p className="progress-total-price">{`${selectedProgram?.total_installments_amount}ر.س`}</p>
+          <p className="progress-total-price">{`${selectedProgram?.total_installments_amount}`}</p>
           <span className="progress-text">
           {paidInstallments === 0 
           ? `لم يتم سداد أى أقساط`

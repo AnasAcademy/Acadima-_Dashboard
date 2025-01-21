@@ -11,6 +11,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
 }
 
 .arrow-button {
@@ -48,6 +49,7 @@
   line-height: normal; 
   direction: rtl;
   align-items: center;
+  
 }
 
 
@@ -226,9 +228,7 @@ width: 200px;
  .calendar-days {
   gap: 5px;
  }
- .custom-calendar {
-  width: 80%;
-}
+
 }
 
 @media (max-width: 1000px) {
@@ -250,6 +250,6 @@ width: 200px;
 }
 @media (max-width: 380px) {
   .custom-calendar {
-    width: 90%;
+    width: 100%;
   }
 }

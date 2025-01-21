@@ -60,7 +60,7 @@ function Notifications() {
   return (
     <>
       <div className="notifications-container">
-        <div className="wide-screen-view">
+        <div className="notifications-wide-screen-view">
           <div className="notifications-content">
             <h2 className="notifications-title">الإشعارات</h2>
             <div className="notifications-list">
@@ -108,6 +108,7 @@ function Notifications() {
             {notifications.map((notification) => (
               <MobileNotificationCard
                 key={notification.id}
+                status={notification.status} // Pass status to NotificationCard
                 notification={notification} // Use `message` for description
                 onClick={() => markAsSeen(notification.id)} // Pass the ID to `markAsSeen`
                 selected={selectedNotificationId === notification.id}

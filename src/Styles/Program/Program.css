@@ -119,7 +119,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  gap: 20px;
+  gap: 15px;
   flex: 1;
   border: 1px solid #ccf5ff;
   height: fit-content;
@@ -141,12 +141,20 @@
   flex-direction: column;
   width: 100%;
 }
+.all-prices-cont {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 10px;
+}
 .price {
-  font-size: 40px;
-  color: #ccf5ff;
+  font-size: 24px;
+  color: #ffffff;
   font-weight: 700;
-  margin-top: 0;
-  margin-bottom: 20px;
+  margin:0;
+  height: fit-content;
 }
 
 .payment-button {
@@ -235,5 +243,13 @@
   }
   .buy-button {
     font-size: 16px;
+  }
+  .all-prices-cont {
+    flex-direction: column;
+    margin-bottom: 10px;
+    gap: 10px;
+  }
+  .price {
+    margin: 0;
   }
 }

@@ -245,7 +245,7 @@ const { userBriefData, notifications } = useContext(UserContext); // Consume use
               </p>
               <p className="payment-details-title">
                 رسوم البرنامج :{" "}
-                <span>{paymentData?.order?.total_amount} ر.س</span>
+                <span>{paymentData?.order?.total_amount} $</span>
               </p>
             </div>
           </Container>
@@ -288,14 +288,14 @@ const { userBriefData, notifications } = useContext(UserContext); // Consume use
               <Container>
                 <div className="row">
                   <p className="details-title">المجموع الفرعى</p>
-                  <span>{paymentData?.order?.total_amount} ر.س</span>
+                  <span>{paymentData?.order?.total_amount} $</span>
                 </div>
                 <div className="row" id="coupon">
                   <div className="coupon-percent">
                     <p className="details-title"> تخفيض</p>
                     <span>( %{couponDetails?.discount_percent || 0})</span>
                   </div>
-                  <span>{couponDetails?.total_discount || 0} ر.س</span>
+                  <span>{couponDetails?.total_discount || 0} $</span>
                 </div>
 
                 <div className="charge-row" id="charge">
@@ -318,7 +318,7 @@ const { userBriefData, notifications } = useContext(UserContext); // Consume use
                           : "#9da6a8",
                     }}
                   >
-                    {charge} ر.س
+                    {charge}$
                   </span>
                 </div>
                 <div
@@ -362,7 +362,7 @@ const { userBriefData, notifications } = useContext(UserContext); // Consume use
                   }}
                 >
                   <div className="wallet-input">
-                    <p>رصيد المحفظة: {userCharge} ر.س</p>
+                    <p>رصيد المحفظة: {userCharge}$</p>
                   </div>
                   <button className="wallet-button" onClick={useCharge}>
                     استخدام الرصيد
@@ -370,7 +370,7 @@ const { userBriefData, notifications } = useContext(UserContext); // Consume use
                 </div>
                 <div className="row total-row">
                   <p className="details-title">الإجمالى</p>
-                  <span>{totalAmount} ر.س</span>
+                  <span>{totalAmount} $</span>
                 </div>
               </Container>
             </div>

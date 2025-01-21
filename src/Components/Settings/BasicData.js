@@ -12,7 +12,9 @@ const Popup = ({ message, onClose }) => {
     <div className="popup-container">
       <div className="popup-dark">
         <p>{message}</p>
-        <button className="save-button" onClick={onClose}>إغلاق</button>
+        <button className="save-button" onClick={onClose}>
+          إغلاق
+        </button>
       </div>
     </div>
   );
@@ -46,9 +48,9 @@ function BasicData({ onNext, allUserData, setAllUserData, updateProgress }) {
   const calculateProgress = () => {
     const fields = Object.values(allUserData);
     const completedFields = fields.filter(
-      (field) => field && field!= ""
+      (field) => field && field != ""
     ).length;
-    const progress = Math.round((completedFields / fields.length) * 100) ;
+    const progress = Math.round((completedFields / fields.length) * 100);
     updateProgress(progress);
   };
 
@@ -138,7 +140,7 @@ function BasicData({ onNext, allUserData, setAllUserData, updateProgress }) {
       allUserData.confirm_password &&
       allUserData.new_password !== allUserData.confirm_password
     ) {
-      setErrors("كلمات المرور غير متطابقة. الرجاء التأكد من تطابقهما.")
+      setErrors("كلمات المرور غير متطابقة. الرجاء التأكد من تطابقهما.");
       return;
     }
 
@@ -217,22 +219,25 @@ function BasicData({ onNext, allUserData, setAllUserData, updateProgress }) {
         <button className="mobile-edit-button" onClick={showPopUp}>
           <img src={editx} alt="editx" className="edit-button-icon" />
         </button>
-
       </div>
 
       {isPopupVisible && (
         <div className="popup-overlay">
-          <div className="popup-content">
+          <div className="popup-content" style={{height: "250px"}}>
             <h2>تحديث الصورة الشخصية</h2>
-            <input type="file" accept="image/*" onChange={handleImageChange} />
-            <div className="popup-buttons">
-              <button
-                className="save-button margin-0"
-                onClick={handleSaveAvatar}
-              >
+            <div className="popup-form-container">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+              />
+            </div>
+
+            <div className="settings-popup-buttons">
+              <button className="popup-button" onClick={handleSaveAvatar}>
                 حفظ
               </button>
-              <button className="save-button  margin-0" onClick={hidePopUp}>
+              <button className="popup-button" onClick={hidePopUp}>
                 إلغاء
               </button>
             </div>
@@ -353,7 +358,7 @@ function BasicData({ onNext, allUserData, setAllUserData, updateProgress }) {
           />
         </div>
 
-        <div className="toggle-group" style={{marginTop: "0"}}>
+        <div className="toggle-group" style={{ marginTop: "0" }}>
           <label>تفعيل رسائل الملف الشخصي</label>
           <input
             type="checkbox"

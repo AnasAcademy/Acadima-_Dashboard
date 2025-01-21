@@ -4,7 +4,7 @@ import { apiUrl } from "../../API";
 
 import "../../Styles/Program/Program.css";
 
-function ProgramCard({ program }) {
+function ProgramCard({ program, programInstallmentData }) {
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
@@ -76,7 +76,15 @@ function ProgramCard({ program }) {
                 <span className="span-two">السعر شامل الضريبة</span>
               </div>
               <div className="price-cont">
-                <p className="price">{program?.price} ر.س</p>
+                <div className="all-prices-cont"> 
+                  <p className="price">{program?.price} $ </p>
+                  {/* <p className="price">=</p> */}
+                  <p className="price">
+                    ({program?.new_price}
+                    {" "}   
+                    {program?.country_currency})
+                  </p>
+                </div>
                 <button
                   className="payment-button"
                   onClick={(event) => handleCashClick(program?.id)}
@@ -93,9 +101,18 @@ function ProgramCard({ program }) {
                   <h3 className="span-one">تقسيط</h3>
                 </div>
                 <div className="price-cont">
+                <div className="all-prices-cont"> 
+
                   <p className="price">
-                    {program?.installment_plan?.totalPayments} ر.س
+                    {program?.installment_plan?.totalPayments} $
                   </p>
+                  {/* <p className="price">=</p> */}
+                  <p className="price">
+                    ({program?.installment_plan?.total_new_price}
+                    {" "}   
+                    {program?.country_currency})
+                  </p>
+                  </div>
                   <button
                     className="payment-button"
                     onClick={() => handleInstallmentClick()}
@@ -112,7 +129,7 @@ function ProgramCard({ program }) {
                 {showInstallments && (
                   <ul className="installments-list">
                     <p className="upfront-p">
-                      {program?.installment_plan?.upfront}
+                      {program?.installment_plan?.upfront}  {program?.installment_plan?.new_upfront}{" "}={" "}{program?.country_currency}
                     </p>
                     {program?.installment_plan?.steps.map((step, index) => (
                       <li key={index}>{step}</li>

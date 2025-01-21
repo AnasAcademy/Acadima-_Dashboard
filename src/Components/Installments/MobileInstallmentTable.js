@@ -4,6 +4,8 @@ import { apiUrl } from "../../API";
 import "../../Styles/Installments/Installments.css";
 
 import dropdown from "../../Images/Chevron_Down.svg";
+import paidinst from '../../Images/paidinst.svg';
+import unpaidinst from '../../Images/unpaidinst.svg';
 
 function MobileInstallmentTable({ order_id, step }) {
   const navigate = useNavigate();
@@ -44,6 +46,17 @@ function MobileInstallmentTable({ order_id, step }) {
         className={`installment-header ${isExpanded ? "expanded" : ""}`}
         onClick={() => setIsExpanded((prev) => !prev)} // Toggle expand/collapse
       >
+        <span
+          className={`installment-status ${
+            step?.payment_status === "Paid" ? "paid" : "unpaid"
+          }`}
+        >
+          {step?.payment_status === "Paid" ? (
+            <img src={paidinst} alt="paidinst" />
+          ) : (
+            <img src={unpaidinst} alt="unpaidinst" />
+          )}
+        </span>
         <span>{step?.title}</span>
         <div className="arrow-container">
           <img
@@ -52,17 +65,7 @@ function MobileInstallmentTable({ order_id, step }) {
             className={`course-dropdownarrow ${isExpanded ? "rotated" : ""}`}
           />
         </div>
-        <span
-          className={`installment-status ${
-            step?.payment_status === "مدفوع" ? "paid" : "unpaid"
-          }`}
-        >
-          {step?.payment_status === "مدفوع" ? (
-            <i className="icon-check-circle"></i>
-          ) : (
-            <i className="icon-circle"></i>
-          )}
-        </span>
+        
       </div>
 
       {/* Collapsible content */}
@@ -70,7 +73,7 @@ function MobileInstallmentTable({ order_id, step }) {
         <div className="installment-details">
           <div className="installment-detail-item">
             <span>المبلغ:</span>
-            <span>{step?.amount} ر.س</span>
+            <span>{step?.amount} $</span>
           </div>
           <div className="installment-detail-item">
             <span>نهاية القسط:</span>
@@ -82,7 +85,7 @@ function MobileInstallmentTable({ order_id, step }) {
           </div>
           <div className="installment-detail-item">
             <span>حالة عملية الدفع:</span>
-            {step?.payment_status === "مدفوع" ? (
+            {step?.payment_status === "Paid" ? (
               <span className="paid">مدفوع</span>
             ) : (
               <button

@@ -13,9 +13,12 @@ function Classes() {
   const navigate = useNavigate();
   const { id } = useParams(); // Get the `id` from the URL if it exists
 
-  const { classesData } = useContext(UserContext); // Fetch data from UserContext
+  const { classesData, fetchClassesData } = useContext(UserContext); // Fetch data from UserContext
 
   const [selectedCard, setSelectedCard] = useState(null);
+   useEffect(() => {
+    fetchClassesData();
+    }, [classesData]);
 
   useEffect(() => {
     if (id) {
@@ -73,7 +76,7 @@ function Classes() {
                     : "بيانات غير متوفرة"}
                 </span>
               </h3>
-              <div className="wide-screen-view">
+              <div className="classes-wide-screen-view">
                 {selectedCard?.courses?.length > 0 ? (
                   <div className="assignments-table">
                     <div className="assignments-table-header">

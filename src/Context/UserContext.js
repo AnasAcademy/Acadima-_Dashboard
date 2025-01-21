@@ -25,7 +25,7 @@ export const UserProvider = ({ children }) => {
   const [certificates, setCertificates] = useState([]); // New state for certificates
   const [programs, setPrograms] = useState([]);
   const [ProgramsInstallmentData, setProgramsInstallmentData] = useState([]);
-  const [installmentsCount, setInstallmentsCount] = useState(0);
+  const [installmentsCount, setInstallmentsCount] = useState(false);
   const [availableCertificates, setAvailableCertificates] =  useState(0);
   const [courseData, setCourseData] = useState(null); // Course data
   const [chapters, setChapters] = useState([]); // Course chapters
@@ -239,17 +239,30 @@ export const UserProvider = ({ children }) => {
           "Content-Type": "application/json",
           "x-api-key": "1234",
           "ngrok-skip-browser-warning": true,
-          Authorization: `Bearer ${localStorage.getItem("token")}`, // Use localStorage directly
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-
+  
       const result = await response.json();
-      setProgramsInstallmentData(result?.data?.ordersList);
-      setInstallmentsCount(result?.data?.overdueInstallmentsCount);
+      const ordersList = result?.data?.ordersList || [];
+  
+      // Check if any orders have incomplete installments
+      const hasIncompleteOrders = ordersList.some(
+        (order) => order.orderIsCompleted === false
+      );
+  
+      // Update the state with fetched data
+      setProgramsInstallmentData(ordersList);
+  
+      // Update installmentsCount based on the condition
+      setInstallmentsCount(hasIncompleteOrders);
+  
     } catch (error) {
-      console.log(error);
+      console.log("Error fetching installment data:", error);
     }
   };
+  
+  
 
   const fetchCourseData = async (classId, courseId) => {
     if (!token || courseData) return; // Prevent repeated fetch if data exists
@@ -297,6 +310,7 @@ export const UserProvider = ({ children }) => {
         userBriefData,
         categories,
         appliedPrograms,
+        fetchClassesData,
         classesData,
         notifications,
         fetchNotifications, 
@@ -308,6 +322,7 @@ export const UserProvider = ({ children }) => {
         certificates,
         availableCertificates,
         programs,
+        fetchAppliedProgramsData,
         ProgramsInstallmentData,
         installmentsCount,
         courseData,

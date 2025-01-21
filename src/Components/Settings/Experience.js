@@ -199,33 +199,35 @@ function Experience({ onNext, experience, id, updateProgress }) {
         {/* Popup for Add or Edit */}
         {isPopupOpen && (
           <div className="popup-overlay">
-            <div className="popup-content">
+            <div className="popup-content" style={{height: "300px"}}>
               <h3>
                 {activeFormIndex !== null ? "تعديل الخبرة" : "إضافة خبرة جديدة"}
               </h3>
-              <input
-                type="text"
-                placeholder="مجال الخبرة"
-                value={tempExperience.name}
-                onChange={(e) => handleInputChange("name", e.target.value)}
-              />
-              <input
-                type="text"
-                placeholder="عدد سنوات الخبرة"
-                value={tempExperience.value}
-                onChange={(e) => handleInputChange("value", e.target.value)}
-              />
-              <div className="popup-buttons">
+              <div className="popup-form-container">
+                <input
+                  type="text"
+                  placeholder="مجال الخبرة"
+                  value={tempExperience.name}
+                  onChange={(e) => handleInputChange("name", e.target.value)}
+                />
+                <input
+                  type="text"
+                  placeholder="عدد سنوات الخبرة"
+                  value={tempExperience.value}
+                  onChange={(e) => handleInputChange("value", e.target.value)}
+                />
+              </div>
+              <div className="settings-popup-buttons">
                 <button
                   type="button"
-                  className="save-button margin-0"
+                  className="popup-button"
                   onClick={handleAddOrUpdateExperience}
                 >
                   {activeFormIndex !== null ? "تحديث" : "إضافة"}
                 </button>
                 <button
                   type="button"
-                  className="save-button margin-0"
+                  className="popup-button"
                   onClick={handleCancel}
                 >
                   إلغاء

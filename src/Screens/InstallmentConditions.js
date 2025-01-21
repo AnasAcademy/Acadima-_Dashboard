@@ -5,47 +5,46 @@ import { apiUrl } from "../API";
 import "../Styles/Installments/InstallmentsConditions.css";
 
 import condlogo from "../Images/AcadimaLogo.png";
-import conditionsbg from "../Images/conditions.png";
+import conditionsbg from "../Images/conditionss.png";
 import payment from "../Images/Sidebar icons/payment.svg";
 import installmentdeadline from "../Images/installmentdeadline.svg";
 
 function InstallmentConditions() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { program  } = location.state || {}; // Get passed data
+  const { program } = location.state || {}; 
 
   const token = localStorage.getItem("token");
 
-
   const handleInstallmentPayment = async () => {
     try {
-      const response = await fetch(apiUrl + "/panel/programs/purchase/" + program?.installment_plan?.id, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": "1234",
-          "ngrok-skip-browser-warning": true,
-          Authorization: "Bearer " + token,
-        },
-        body: JSON.stringify({ item_id: program?.id }),
-      });
-  
+      const response = await fetch(
+        `${apiUrl}/panel/programs/purchase/${program?.installment_plan?.id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key": "1234",
+            "ngrok-skip-browser-warning": true,
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ item_id: program?.id }),
+        }
+      );
+
       const result = await response.json();
       if (result.success === true) {
         let order_id = result?.data?.order?.id;
-        console.log("Navigating to payment with state:", {
-          from: "/finances/installments",
+        navigate(`/payment/${order_id}`, {
+          state: { from: "/finances/installments" },
         });
-        navigate("/payment/" + order_id, { state: { from: "/finances/installments" } });
       } else {
-        console.log("API Error:", result.errors);
+        console.log("API Error:", result);
       }
     } catch (error) {
       console.log("Error in handleInstallmentPayment:", error);
     }
   };
-  
-
 
   return (
     <div className="conditions-page-container">
@@ -63,11 +62,15 @@ function InstallmentConditions() {
       {/* Selected Installment Brief */}
       <div className="installment-brief">
         <h3 className="brief-title">نظرة عامة على القسط</h3>
-        <p className="brief-program-name"> اسم البرنامج : <span>{program?.title}</span></p>
+        <p className="brief-program-name">
+          اسم البرنامج : <span>{program?.title}</span>
+        </p>
         <div className="brief-details">
           <div className="brief-details-part">
             <img src={payment} alt="payment" className="payment-icon" />
-            <span className="brief-program-name">{program?.installment_plan?.upfront}</span>
+            <span className="brief-program-name">
+              {program?.installment_plan?.upfront}
+            </span>
           </div>
           <div className="brief-details-part">
             <img
@@ -75,7 +78,9 @@ function InstallmentConditions() {
               alt="installmentdeadline"
               className="payment-icon"
             />
-            <span className="brief-program-name">تاريخ انتهاء الأقساط {program?.installment_plan?.last_step_date}</span>
+            <span className="brief-program-name">
+              تاريخ انتهاء الأقساط {program?.installment_plan?.last_step_date}
+            </span>
           </div>
         </div>
       </div>
@@ -142,7 +147,10 @@ function InstallmentConditions() {
 
         <div className="brief-subcontainer">
           <h3 className="brief-title subcontainer">هام جدا</h3>
-          <span>من خلال المتابعة في عملية الدفع، فإنك توافق على جميع الشروط والأحكام وتتعهد بالالتزام بها لضمان استمرارية وصولك إلى خدمات acadima.</span>
+          <span>
+            من خلال المتابعة في عملية الدفع، فإنك توافق على جميع الشروط والأحكام
+            وتتعهد بالالتزام بها لضمان استمرارية وصولك إلى خدمات acadima.
+          </span>
         </div>
       </div>
 
@@ -151,7 +159,9 @@ function InstallmentConditions() {
         <button className="back-button" onClick={() => navigate(-1)}>
           الرجوع
         </button>
-        <button className="confirm-button" onClick={handleInstallmentPayment}>موافق</button>
+        <button className="confirm-button" onClick={handleInstallmentPayment}>
+          موافق
+        </button>
       </div>
     </div>
   );

@@ -71,7 +71,7 @@ function NavigationMenu({ installmentsCount, availableCertificates }) {
       children: [
         // Conditionally include this menu item
         { defaultIcon: installments, activeIcon: ActiveInstallments, label: "دفع رسوم البرنامج", route: "/finances/program" },
-        ...(installmentsCount > 0
+        ...(installmentsCount 
           ? [{ defaultIcon: pay, activeIcon: ActivePay, label: "الأقساط", route: "/finances/installments" },]
           : []),
         

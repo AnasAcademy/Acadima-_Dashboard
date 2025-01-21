@@ -167,8 +167,9 @@ function WorkLinks({ onNext, links, setLinks, updateProgress }) {
         {/* Popup for Add or Edit */}
         {isPopupOpen && (
           <div className="popup-overlay">
-            <div className="popup-content">
+            <div className="popup-content" style={{height: "230px"}}>
               <h3>{activeLinkIndex !== null ? "تعديل الرابط" : "إضافة رابط جديد"}</h3>
+              <div className="popup-form-container">
               <input
                 type="text"
                 placeholder="أدخل الرابط هنا"
@@ -176,10 +177,11 @@ function WorkLinks({ onNext, links, setLinks, updateProgress }) {
                 onChange={(e) => handleInputChange(e.target.value)}
                 autoFocus
               />
-              <div className="popup-buttons">
+              </div>
+              <div className="settings-popup-buttons">
                 <button
                   type="button"
-                  className="save-button margin-0"
+                  className="popup-button"
                   style={{width:"110px"}}
                   onClick={handleAddOrUpdateLink}
                 >
@@ -187,7 +189,7 @@ function WorkLinks({ onNext, links, setLinks, updateProgress }) {
                 </button>
                 <button
                   type="button"
-                  className="save-button margin-0"
+                  className="popup-button"
                   onClick={handleCancel}
                 >
                   إلغاء

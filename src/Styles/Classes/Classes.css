@@ -31,7 +31,7 @@
   gap: 20px; /* Space between cards */
   flex-direction: row;
   direction: rtl;
-  width: 100%;
+  width: 80%;
 }
 .classes-bottom-main {
   display: flex;
@@ -186,9 +186,14 @@
   font-weight: 500;
   line-height: 20px; 
 }
-.wide-screen-view {
+.classes-wide-screen-view {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  align-items: flex-end;
+  gap: 50px;
   display: block;
-  width: 100%;
+  width: 93%;
 }
 
 .mobile-screen-view {
@@ -200,8 +205,16 @@
   .classes-bottom {
     width: 100%;
   }
+  .classes-programs-container {
+    width: 87%;
+  }
 }
 
+@media(max-width: 1280px) {
+  .assignments-table {
+    width: 95%;
+  }
+}
 @media(max-width: 1200px) {
   .classes-programs-container {
     width: 90%;
@@ -218,9 +231,13 @@
   .classes-bottom {
     width: 100%;
   }
+  .assignments-table {
+    width: 100%;
+  }
 }
+
 @media(max-width: 800px) {
-  .wide-screen-view {
+  .classes-wide-screen-view {
     display: none;
   }
   .mobile-screen-view {

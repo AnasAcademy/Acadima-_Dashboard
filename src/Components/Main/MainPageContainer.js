@@ -34,7 +34,8 @@ function MainPageContainer() {
         menuOpen={menuOpen}
         onMenuToggle={handleMenuToggle}
         userBriefData={userBriefData} // Pass user brief data to Navbar
-        hasUnreadNotifications={hasUnreadNotifications} // Pass unread notification status
+        hasUnreadNotifications={hasUnreadNotifications} 
+        notifications={notifications}// Pass unread notification status
       />
 
       {/* Main container for sidebar and content */}

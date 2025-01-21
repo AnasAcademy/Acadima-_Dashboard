@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../../Styles/Classes/MobileAssignmentCard.css";
 
-function MobileNotificationCard({ onClick, selected, notification }) {
+function MobileNotificationCard({ onClick, selected, status,notification }) {
   return (
     <div
       className={`mobile-notification-card ${
@@ -11,8 +11,17 @@ function MobileNotificationCard({ onClick, selected, notification }) {
       <div>
         <div className="notification-header">
           <h4 className="notification-title">
-            <span className="dot"></span>
+            {/* Status circle indicating read/unread */}
             {notification?.title}
+            <span
+          className={`status-circle ${
+            selected
+              ? "white" // Black when selected
+              : status === "unread"
+              ? "red" // Red when unread
+              : "white" // White when read and not selected
+          }`}
+        ></span>
           </h4>
           <span className="notification-date">{notification?.created_at}</span>
         </div>
@@ -23,7 +32,7 @@ function MobileNotificationCard({ onClick, selected, notification }) {
         </span>
       )}
       <button className="notification-button" onClick={onClick}>
-        {selected ? "إغلاق الرسالة" : "معاينة الرسالة"}
+        معاينة الرسالة
       </button>
     </div>
   );

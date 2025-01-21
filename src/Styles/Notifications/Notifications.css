@@ -83,6 +83,15 @@
   line-height: normal;
   margin: 0;
   width: fit-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+
+.notification-title .status-circle {
+  margin-top: 0;
 }
 
 .notification-date {
@@ -255,12 +264,13 @@
   color: #fff;
   line-height: 1.5;
 }
-.wide-screen-view {
+.notifications-wide-screen-view {
   display: flex;
   flex-direction: row-reverse;
   justify-content: flex-start;
   align-items: flex-end;
   gap: 50px;
+  width: 100%;
 }
 
 .mobile-notification-card {
@@ -305,16 +315,27 @@
   align-items: flex-end;
   gap: 20px;
 }
-
+@media(max-width:1620px) {
+  .chosen-notification-container {
+    width: 60%;
+  }
+  .notifications-content {
+    width: 30%;
+  }
+}
 @media (max-width: 1440px) {
   .chosen-notification-container {
-    width: 70%;
+    width: 60%;
   }
+  .chosen-notification-bottom {
+ 
+  padding: 20px;
+ }
   .notification-button {
     width: 100%;
   }
   .chosen-notification-description {
-    width: 100%;
+    width: 80%;
   }
   .notification-header {
     gap: 20px;
@@ -322,7 +343,7 @@
 }
 
 @media (max-width: 770px) {
-  .wide-screen-view {
+  .notifications-wide-screen-view {
     display: none;
   }
   .notification-card-active {
@@ -333,6 +354,8 @@
   }
   .notifications-list {
     width: 100%;
+    max-height: fit-content;
+    padding-bottom: 20px;
   }
   .notification-button {
     width: 30%;

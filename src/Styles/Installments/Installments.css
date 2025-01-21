@@ -1,6 +1,7 @@
 .installments-page {
-  width: 90%;
-  margin: auto;
+  width: 80%;
+  margin-left: auto;
+  margin-right: 50px;
   direction: rtl;
   display: flex;
   flex-direction: column;
@@ -12,6 +13,7 @@
   margin-top: 40px;
   /* overflow-y: scroll;
   scrollbar-width: none; */
+  box-sizing: border-box;
 }
 .all-programs-title {
   font-size: 24px;
@@ -25,7 +27,9 @@
   justify-content: flex-start;
   align-items: flex-start;
   gap: 20px;
-  width: 85%;
+  width: 80%;
+  overflow-y: scroll;
+  scrollbar-width: none;
 }
 .program-installment-details-container {
   width: 90%;
@@ -245,7 +249,12 @@
   background-color: #979797;
   cursor: not-allowed;
 }
-.wide-screen-view {
+.installments-wide-screen-view {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  align-items: flex-end;
+  gap: 50px;
   display: block;
   width: 90%;
 }
@@ -277,7 +286,6 @@
   box-sizing: border-box;
 }
 .arrow-container {
-  width: 70%;
   text-align: left;
 }
 .course-dropdownarrow {
@@ -345,44 +353,70 @@ height: 100%;
   }
 }
 @media (max-width: 1500px) {
+  .programs-cards-container {
+    width: 90%;
+  }
   .payment-top {
     width: 100%;
   }
   .installment-table {
     width: 100%;
   }
-  .wide-screen-view {
+  .installments-wide-screen-view {
     width: 100%;
   }
 }
 @media (max-width: 1200px) {
+  .programs-cards-container {
+    width: 80%;
+  }
   .payment-top {
     width: 90%;
   }
-  .wide-screen-view {
+  .installments-wide-screen-view {
     width: 90%;
+  }
+  .installment-data {
+    padding-left: 20px;
+  }
+  .payment-status-button {
+    width: 15%;
+    padding: 7px 10px;
   }
 }
 @media (max-width: 1100px) {
   .payment-top {
-    width: 80%;
+    width: 90%;
   }
-  .wide-screen-view {
-    width: 80%;
+  .installments-wide-screen-view {
+    width: 90%;
   }
 }
 @media (max-width: 1000px) {
+  .installments-page {
+    width: 90%;
+    margin-right: 30px;
+  }
   .program-installment-details-container {
+    width: 100%;
+  }
+  .programs-cards-container {
     width: 100%;
   }
   .payment-top {
     width: 100%;
   }
-  .wide-screen-view {
+  .installments-wide-screen-view {
     width: 100%;
+  }
+  .installment-data {
+    gap: 5px;
   }
 }
 @media (max-width: 700px) {
+  .installments-page {
+    width: 85%;
+  }
   .progress-chart-container {
     display: none;
   }
@@ -399,12 +433,19 @@ height: 100%;
     border-top: 1px solid #5b767c;
     padding-top: 20px;
   }
-  .wide-screen-view {
+  .installments-wide-screen-view {
     display: none;
   }
   .mobile-screen-view {
     display: flex;
     flex-direction: column-reverse;
+  }
+  /* .arrow-container {
+    width: 70%;
+  } */
+  .installment-payment-button{
+    width: 30%;
+    padding: 10px;
   }
 }
 @media (max-width: 400px) {
@@ -413,3 +454,4 @@ height: 100%;
     padding: 10px;
   }
 }
+
