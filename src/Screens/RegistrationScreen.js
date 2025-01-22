@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import "../Styles/Registration/RegistartionScreen.css";
 import "../Styles/Registration/LoginScreen.css";
 import { UserContext } from "../Context/UserContext";
+import { getPreviousRoute } from "../Context/RouteHistory";
+
 import { apiUrl } from "../API";
 
 import anasAcadlogo from "../Images/AcadimaLogo.png";
@@ -17,16 +19,15 @@ import appleLogo from "../Images/Registration/apple.svg";
 import googleLogo from "../Images/Registration/google.svg";
 import facebookLogo from "../Images/Registration/fb.svg";
 
-const Popup = ({ message, onClose }) => {
-  return (
-    <div className="popup-container">
-      <div className="popup">
-        <p>{message}</p>
-        <button onClick={onClose}>إغلاق</button>
-      </div>
+// Popup Component
+const Popup = ({ message, onClose }) => (
+  <div className="popup-container">
+    <div className="popup">
+      <p>{message}</p>
+      <button onClick={onClose}>إغلاق</button>
     </div>
-  );
-};
+  </div>
+);
 
 function RegistrationScreen() {
   const { refreshUserData } = useContext(UserContext);
@@ -36,21 +37,36 @@ function RegistrationScreen() {
   const [mobile, setMobile] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [countryPrefix, setCountryPrefix] = useState("+1");
-  const [loading, setLoading] = useState(false); // For loading state
-  const [error, setError] = useState(null); // For error messages
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
   const countryOptions = [
     { code: "+966", name: "KSA" },
     { code: "+20", name: "EGP" },
-    // Add more countries as needed
+    // Add more country options here
   ];
 
+  // Toggle password visibility
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
 
+  // Validate that name only contains English letters and spaces
+  const handleNameChange = (e) => {
+    const value = e.target.value;
+    const englishRegex = /^[A-Za-z\s]*$/;
+
+    if (!englishRegex.test(value)) {
+      setError("الرجاء إدخال الاسم باللغة الإنجليزية فقط");
+      return;
+    }
+    setError(null);
+    setName(value);
+  };
+
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -64,51 +80,42 @@ function RegistrationScreen() {
     };
 
     try {
-      const response = await fetch(
-        apiUrl + "/register",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            'x-api-key': '1234',
-          },
-          body: JSON.stringify(registrationData),
-        }
-      );
+      const response = await fetch(apiUrl + "/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": "1234",
+        },
+        body: JSON.stringify(registrationData),
+      });
 
       const data = await response.json();
 
       if (!response.ok) {
-        // Handle specific API errors
         if (data.errors) {
           const errorMessages = [];
-          if (data.errors.email) {
-            errorMessages.push(`${data.errors.email[0]}`);
-          }
-          if (data.errors.mobile) {
-            errorMessages.push(`${data.errors.mobile[0]}`);
-          }
-          if (data.errors.password) {
-            errorMessages.push(`${data.errors.password[0]}`);
-          }
-          console.log(errorMessages);
-          console.log(data);
+          if (data.errors.email) errorMessages.push(`${data.errors.email[0]}`);
+          if (data.errors.mobile) errorMessages.push(`${data.errors.mobile[0]}`);
+          if (data.errors.password) errorMessages.push(`${data.errors.password[0]}`);
           setError(errorMessages.join(" و "));
         } else {
           setError("Failed to register. Please try again.");
         }
         return;
       }
-      console.log("Registration successful:", data);
 
       const token = data.data.token;
-      localStorage.setItem('token', token);
+      localStorage.setItem("token", token);
+
       await refreshUserData();
-      navigate("/admission");
-      // Navigate to login or home page on successful registration
-      // navigate("/login");
-    }  catch (err) {
-      console.log(err);
+      const previousRoute = getPreviousRoute();
+      if (previousRoute) {
+        navigate(previousRoute);
+      } else {
+        navigate("/admission"); // Default fallback route
+      }
+    } catch (err) {
+      console.error(err);
       setError("An unknown error occurred.");
     } finally {
       setLoading(false);
@@ -119,7 +126,7 @@ function RegistrationScreen() {
     <div className="mainContainer">
       <div className="reg-formContainer">
         <div className="form-one">
-          <a className="logo-container" href="https://anasacademy.uk">
+          <a className="login-logo-container" href="https://anasacademy.uk">
             <img src={anasAcadlogo} alt="anasAcadlogo" className="anasAcadlogo" />
           </a>
         </div>
@@ -133,10 +140,10 @@ function RegistrationScreen() {
             <img src={user} alt="user" className="icon" />
             <input
               type="text"
-              placeholder="الاسم "
+              placeholder="الاسم باللغة الإنجليزية"
               required
               value={full_name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={handleNameChange}
             />
           </div>
 
@@ -197,9 +204,9 @@ function RegistrationScreen() {
           </div>
 
           <div className="reg-buttons-container">
-            <button type="submit" className="login-button">
+            <button type="submit" className="login-button" disabled={loading}>
               <span className="login-button-text">
-              إنشاء حساب
+                {loading ? "جاري الإرسال..." : "إنشاء حساب"}
               </span>
             </button>
           </div>
@@ -208,7 +215,9 @@ function RegistrationScreen() {
         <div className="social-login">
           <div className="social-login-divider">
             <span className="line"></span>
-            <span className="text" style={{color: "white"}}>أو أنشئ الحساب عبر</span>
+            <span className="text" style={{ color: "white" }}>
+              أو أنشئ الحساب عبر
+            </span>
             <span className="line"></span>
           </div>
 
@@ -223,7 +232,7 @@ function RegistrationScreen() {
               <img src={facebookLogo} alt="Facebook Login" />
             </a>
           </div>
-          <p className="register-link" style={{color: "white"}}>
+          <p className="register-link" style={{ color: "white" }}>
             لديك حساب بالفعل؟{" "}
             <a href="#" onClick={() => navigate("/login")}>
               تسجيل دخول
@@ -231,6 +240,7 @@ function RegistrationScreen() {
           </p>
         </div>
       </div>
+
       {error && (
         <Popup
           message={error}

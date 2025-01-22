@@ -22,6 +22,7 @@
     font-style: normal;
     font-weight: 700;
     line-height: 23px; 
+    margin-bottom: 0;
 }
 
 .testimonial-content {
@@ -32,6 +33,7 @@
     width: 95%;
     line-height: 22px; /* 157.143% */
     height: 100%;
+    margin-top: 0;
 }
 .testimonial-author {
 display: flex;

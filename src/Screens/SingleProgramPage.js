@@ -22,9 +22,16 @@ import adyen from "../Images/Single Program Page/companies/adyen.svg";
 // import HowToApplyCard from "../Components/Single Program Page/HowToApplyCard";
 import WhyEnroll from "../Components/Single Program Page/WhyEnroll";
 import handson from "../Images/Single Program Page/handson.png";
+import righthVector from "../Images/Single Program Page/rightVector.svg";
+import leftVector from "../Images/Single Program Page/leftVector.svg";
 
 function SingleProgramPage() {
-  // const { cyberSecurity } = useContext(UserContext);
+  const { fetchSinglePageProgramData, singlePageProgramData } =
+    useContext(UserContext);
+
+  useEffect(() => {
+    fetchSinglePageProgramData();
+  }, []);
 
   const sections = [
     {
@@ -221,10 +228,7 @@ function SingleProgramPage() {
   return (
     <div className="programDetailsScreen">
       <ProgramHeader
-        title="{cyberSecurity.title}"
-        desc="{cyberSecurity.description}"
-        bundle_id="{cyberSecurity.id}"
-        category_id="{cyberSecurity.category?.id}"
+        program={singlePageProgramData}
         appDeadline="Oct 2"
         durationInSemesters="3"
         durationInHours="230"
@@ -246,47 +250,51 @@ function SingleProgramPage() {
         </div>
         <p className="start-date">Start date: Enrollment Weekly</p>
       </div>
-      <div className="single-program-page-flex">
-        <div className="single-program-details-container">
-          <h2 id="program-details" className="single-program-section-title">
-            Program Details
-          </h2>
-          <h3 className="single-program-details-title">
-            What You’ll Learn On Our Software Development Course
-          </h3>
-          <p className="program-details-subtitle">
-            Our program equips you with vital skills to thrive in a rapidly
-            evolving workforce.
-          </p>
-          {/* Left Sidebar */}
-          <div className="single-program-side-bar-container">
-            <div className="single-program-sidebar">
-              {sections.map((section) => (
-                <div
-                  className="single-program-sidebar-item-container"
-                  key={section.id}
-                >
-                  <div
-                    className={`single-program-sidebar-item ${
-                      activeSection === section.id ? "active" : ""
-                    }`}
-                    onClick={() => handleSectionClick(section.id)}
-                  >
-                    {section.title}
-                  </div>
-                </div>
-              ))}
-              <button className="download-brochure">Download brochure</button>
-            </div>
 
-            {/* Main Content */}
-            <div className="single-program-content">
-              <h3>{activeContent?.title}</h3>
-              {activeContent?.content}
-            </div>
+      <div className="single-program-details-container">
+        <h2 id="program-details" className="single-program-section-title">
+          Program Details
+        </h2>
+        <h3 className="single-program-details-title">
+          What You’ll Learn On Our Software Development Course
+        </h3>
+        <p className="program-details-subtitle">
+          Our program equips you with vital skills to thrive in a rapidly
+          evolving workforce.
+        </p>
+        {/* Left Sidebar */}
+        <div className="single-program-side-bar-container">
+          <div className="single-program-sidebar">
+            {sections.map((section) => (
+              <div
+                className="single-program-sidebar-item-container"
+                key={section.id}
+              >
+                <div
+                  className={`single-program-sidebar-item ${
+                    activeSection === section.id ? "active" : ""
+                  }`}
+                  onClick={() => handleSectionClick(section.id)}
+                >
+                  {section.title}
+                </div>
+              </div>
+            ))}
+            {/* <button className="download-brochure">Download brochure</button> */}
+          </div>
+
+          {/* Main Content */}
+          <div className="single-program-content">
+            <h3>{activeContent?.title}</h3>
+            {activeContent?.content}
           </div>
         </div>
+      </div>
 
+      <div className="vector-container">
+        <img src={righthVector} alt="Vector" className="rightVector" />
+      </div>
+      <div className="single-program-page-flex">
         <div className="top-companies-section">
           <h2 className="top-companies-title">
             Top Tech Companies around the world hire <br /> our Graduates.
@@ -305,6 +313,10 @@ function SingleProgramPage() {
           desc="The future of work is changing due to ai and data, secure your career with in-demand skills"
         />
 
+        <div className="left-vector-container">
+          <img src={leftVector} alt="Vector" className="leftVector" />
+        </div>
+        
         <WhyStart
           title="Cybersecurity Program"
           desc="In todays digital world, cybersecurity is essential for protecting sensitive data, maintaining public trust, and ensuring national security. As cyber threats grow more sophisticated, organizations need skilled professionals to safeguard their systems, prevent costly breaches, and keep operations secure. A comprehensive cybersecurity program equips individuals with the expertise to defend against these evolving threats, meeting regulatory requirements and supporting the safety of critical infrastructures."
@@ -378,7 +390,7 @@ function SingleProgramPage() {
         </div>
       </div> */}
 
-        {/* <PaymentSection sectionId="pricing"/> */}
+        <PaymentSection sectionId="pricing" />
 
         <AdditionalInfoSection sectionId="faq" />
       </div>

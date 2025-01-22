@@ -33,6 +33,8 @@ export const UserProvider = ({ children }) => {
 
   const [error, setError] = useState(null);
 
+  const [singlePageProgramData, setSinglePageProgramData] = useState([]);
+
   const [token, setToken] = useState(localStorage.getItem("token")); // Track token
   const headers = {
     "Content-Type": "application/json",
@@ -40,14 +42,6 @@ export const UserProvider = ({ children }) => {
     "ngrok-skip-browser-warning": true,
     Authorization: `Bearer ${localStorage.getItem("token")}`, // Use localStorage directly
   };
-
-  // const validateToken = () => {
-  //   const storedToken = localStorage.getItem("token");
-  //   if (storedToken && storedToken !== token) {
-  //     setToken(storedToken);
-  //   }
-  // };
-  
 
   const fetchUserData = async () => {
     // if (!token) return;
@@ -262,8 +256,6 @@ export const UserProvider = ({ children }) => {
     }
   };
   
-  
-
   const fetchCourseData = async (classId, courseId) => {
     if (!token || courseData) return; // Prevent repeated fetch if data exists
     try {
@@ -281,6 +273,27 @@ export const UserProvider = ({ children }) => {
       
     } catch (error) {
       console.error("Error fetching course data:", error);
+    }
+  };
+
+  const fetchSinglePageProgramData = async () => {
+    try {
+      const response = await fetch(apiUrl + "/programs", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": "1234",
+          "ngrok-skip-browser-warning": true,
+          accept: "application/json",
+        },
+      });
+
+      const result = await response.json();
+      // console.log(result);
+      setSinglePageProgramData(result.data);
+
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -328,6 +341,8 @@ export const UserProvider = ({ children }) => {
         courseData,
         chapters,
         quizzes,
+        fetchSinglePageProgramData,
+        singlePageProgramData,
         fetchCourseData,
         error
       }}

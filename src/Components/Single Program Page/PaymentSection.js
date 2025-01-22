@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { apiUrl } from "../../API";
+import { UserContext } from "../../Context/UserContext";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../../Styles/SingleProgramPage/PaymentSection.css";
 
 import check from "../../Images/Single Program Page/offerCheck.svg";
@@ -12,41 +14,24 @@ function PaymentSection({ programId, sectionId}) {
     "University Credit-Rated Programme",
     "Learn Groundbreaking Tech & AI Skills",
   ];
+  const { programs } = useContext(UserContext);
+
+  let program = [];
+  if (programs?.length > 0) {
+    program = programs[0];
+  } else {
+  } 
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  
   const token = localStorage.getItem("token");
 
-  const [program, setProgram] = useState(null);
-  const [error, setError] = useState(null);
-
-  // Fetch applied programs data
-  useEffect(() => {
-    const fetchAppliedProgramsData = async () => {
-      try {
-        const response = await fetch(apiUrl + "/panel/programs/applieds", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "x-api-key": "1234",
-            "ngrok-skip-browser-warning": true,
-            Authorization: `Bearer ${token}`,
-          },
-        });
-  
-        const result = await response.json();
-        if (result?.data?.length > 0) {
-          setProgram(result.data[0]);
-        } else {
-          console.error("No program data found.");
-        }
-      } catch (error) {
-        console.error("Error fetching applied programs:", error);
-      }
-    };
-  
-    fetchAppliedProgramsData();
-  }, [token]);
-  
-
   const handleCashClick = async (programId) => {
+    if (!token) {
+      navigate("/login", { state: { from: location } });
+      return;
+    }
     try {
       const response = await fetch(apiUrl + "/panel/programs/purchase", {
         method: "POST",
@@ -63,17 +48,26 @@ function PaymentSection({ programId, sectionId}) {
 
       if (result.success === true) {
         const order_id = result?.data?.order?.id;
-        window.location.href = `http://localhost:3001/payment/${order_id}`;
+        navigate(`/payment/${order_id}`);
       } else {
-        console.error("Error in cash payment:", result.errors);
-        setError(result.errors?.[0] || "An error occurred during payment.");
+        console.log("Error in cash payment:", result.errors);
       }
     } catch (error) {
-      console.error("Error in handleCashClick:", error);
-      setError(error.message || "An error occurred during payment.");
+      console.log("Error in handleCashClick:", error);
     }
   };
 
+  function handleInstallmentClick() {
+    if (!token) {
+      navigate("/login", { state: { from: location } });
+      return;
+    }
+    navigate("/finances/installments/conditions", {
+      state: {
+        program: program,
+      },
+    });
+  }
 
   return (
     <div className="payment-section">
@@ -112,7 +106,7 @@ function PaymentSection({ programId, sectionId}) {
             <p className="plan-desc">Best value, pay upfront</p>
             <div className="discount">42%</div>
             <div className="price">
-              <h2 className="new-price">3,680 SAR</h2>
+              <h2 className="new-price">{program?.price} $</h2>
               <span className="old-price">6,394 SAR</span>
             </div>
           </div>
@@ -120,7 +114,7 @@ function PaymentSection({ programId, sectionId}) {
             <div className="payment-buttons-container">
               <button
                 className="register-btn"
-                onClick={() => handleCashClick(programId)}
+                onClick={() => handleCashClick(program?.id)}
               >
                 Register Now
               </button>
@@ -143,7 +137,7 @@ function PaymentSection({ programId, sectionId}) {
             <div className="payment-buttons-container">
               <button
                 className="register-btn"
-                // onClick={handleInstallmentClick}
+                onClick={handleInstallmentClick}
               >
                 Register Now
               </button>

@@ -1,21 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../../Styles/SingleProgramPage/NavBar.css";
+import { addRouteToHistory } from "../../Context/RouteHistory";
 import logo from "../../Images/Single Program Page/image1.png";
 
 function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false); // State to toggle the menu
   const navigate = useNavigate(); // Hook for navigation
+  const location = useLocation();
 
   const [hasToken, setHasToken] = useState(false);
   const token = localStorage.getItem("token");
 
-  if (token !== null) {
-    setHasToken(true);
-  }
+  useEffect(() => {
+    addRouteToHistory(location.pathname); // Track route changes
+  }, [location]);
+
+  useEffect(() => {
+    setHasToken(token !== null);
+  }, [token]);
 
   const handleLoginClick = () => {
-    navigate("/login"); // Replace '/login' with your actual login route
+    navigate("/login", { state: { from: location } });
   };
 
   const toggleMenu = () => {
@@ -42,17 +48,17 @@ function NavBar() {
         <li className="single-program-nav-bar-item">Contact</li>
         <div className="single-prgram-login-button">
           <button className="single-program-login mobile-button">
-            Login LMS
+          {hasToken ? "Dashboard" : "Login LMS"}
           </button>
         </div>
       </ul>
 
       {/* Login Button */}
-      {/* {!hasToken && ( */}
-        <div className="single-prgram-login-button" onClick={handleLoginClick}>
-          <button className="single-program-login">Login LMS</button>
-        </div>
-      {/* )} */}
+      <div className="single-prgram-login-button" onClick={handleLoginClick}>
+        <button className="single-program-login">
+          {hasToken ? "Dashboard" : "Login LMS"}
+        </button>
+      </div>
     </div>
   );
 }

@@ -22,7 +22,7 @@ function ProgramCard({ program, programInstallmentData }) {
 
   if (program?.bought_type === "cache") {
     type = "رسوم التسجيل المبكر";
-  } else {
+  } else if(program?.bought_type === "installment") {
     type = "تقسيط";
   }
 
@@ -61,7 +61,7 @@ function ProgramCard({ program, programInstallmentData }) {
     <div className="my-program-card">
       <h4 className="my-program-title">{program?.title}</h4>
 
-      {program?.has_bought ? ( // Display these elements only when not expanded
+      {program?.has_bought && programInstallmentData?.upfront?.payment_status ==="Paid" ? ( // Display these elements only when not expanded
         <div className="program-card-second-container">
           <h3 className="span-one">{type}</h3>
           <span className="span-two">السعر شامل الضريبة</span>
@@ -72,7 +72,7 @@ function ProgramCard({ program, programInstallmentData }) {
           <div className="program-details">
             <div className="payment-option">
               <div className="payment-option-top">
-                <h3 className="span-one">رسوم التسجيل المبكر</h3>
+                <h3 className="span-one">{type}</h3>
                 <span className="span-two">السعر شامل الضريبة</span>
               </div>
               <div className="price-cont">

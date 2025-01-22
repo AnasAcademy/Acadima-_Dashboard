@@ -1,7 +1,8 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../Styles/Registration/LoginScreen.css";
 import { UserContext } from "../Context/UserContext";
+import { getPreviousRoute } from "../Context/RouteHistory";
 import { apiUrl } from "../API";
 
 import anasAcadlogo from "../Images/AcadimaLogo.png";
@@ -66,17 +67,23 @@ function LoginScreen() {
   const [showForgotPasswordPopup, setShowForgotPasswordPopup] = useState(false); // New state for popup
   const navigate = useNavigate();
 
+  // Get the previous route from location state
+  const previousRoute = getPreviousRoute();
+  
+
+  // Toggle password visibility
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
 
+  // Handle login submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-  
+
     const loginData = { email, password };
-  
+
     try {
       const response = await fetch(apiUrl + "/login", {
         method: "POST",
@@ -86,21 +93,23 @@ function LoginScreen() {
         },
         body: JSON.stringify(loginData),
       });
-  
+
       const data = await response.json();
       if (!response.ok || data.success === false) {
-        setError("Wrong email or password");
+        setError("البريد الإلكتروني أو كلمة المرور غير صحيحة");
         return;
       }
-  
+
       const token = data.data.token;
       localStorage.setItem("token", token);
-  
-      // Wait for the user data to be refreshed
+
+      // Refresh user data
       await refreshUserData();
-  
-      // Navigate to the appropriate route after data is loaded
-      if (data?.data?.user?.role === "user") {
+
+      // Navigate based on role or previous route
+      if (previousRoute) {        
+        navigate(previousRoute);
+      } else if (data?.data?.user?.role === "user") {
         navigate("/");
       } else if (data?.data?.user?.user_code) {
         navigate("/finances/program");
@@ -108,12 +117,11 @@ function LoginScreen() {
         navigate("/admission");
       }
     } catch (err) {
-      setError("An unknown error occurred.");
+      setError("حدث خطأ غير متوقع");
     } finally {
       setLoading(false);
     }
   };
-    
 
   const handleForgotPassword = async (email) => {
     setLoading(true);
@@ -218,7 +226,7 @@ function LoginScreen() {
           </div>
           <p className="register-link">
             <span style={{ color: "white" }}>ليس لديك حساب؟ </span>{" "}
-            <a href="#" onClick={() => navigate("/register")}>
+            <a onClick={() => navigate("/register")}>
               إنشاء حساب
             </a>
           </p>

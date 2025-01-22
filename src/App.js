@@ -20,9 +20,11 @@ import RegistrationScreen from './Screens/RegistrationScreen';
 import Certificates from './Screens/Certificates';
 import Program from './Screens/Program';
 import MainPageContainer from './Components/Main/MainPageContainer';
+import Consultant from './Screens/Consultant.js';
 import { UserProvider } from './Context/UserContext';
 import Test from './Screens/Test';
 import NotFound from './Screens/NotFound';
+import ResetPassword from './Screens/ResetPassword.js';
 
 function App() {
   return (
@@ -37,6 +39,8 @@ function App() {
             <Route path="/payment/:order_id" element={<ProtectedRoute><Payment /></ProtectedRoute>} />
             <Route path="/finances/installments/conditions" element={<ProtectedRoute><InstallmentConditions /></ProtectedRoute>} />
             <Route path="/programs" element={<SingleProgramPage />} />
+            <Route path="/programs/consultant" element={<Consultant />} />
+            <Route path="/reset-password/:token" element={<ResetPassword />} />
 
             <Route path="*" element={<NotFound />} />
 

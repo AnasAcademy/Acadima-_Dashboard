@@ -1,0 +1,49 @@
+.consultation-form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    direction: rtl; /* Arabic language direction */
+  }
+  
+  .consultation-form-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .consultation-logo {
+    max-width: 100px;
+  }
+  
+  .consultation-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .consultation-form input,
+  .consultation-form select,
+  .consultation-form button {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .consultation-form select {
+    background-color: #fff;
+  }
+  
+  .consultation-form .submit-button {
+    background-color: #ff007b; /* Pink color */
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+  }
+  
+  .consultation-form .submit-button:hover {
+    background-color: #e60070; /* Darker pink */
+  }
+  

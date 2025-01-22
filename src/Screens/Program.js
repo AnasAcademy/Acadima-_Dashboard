@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { UserContext } from "../Context/UserContext";
 import "../Styles/Program/Program.css";
 
@@ -7,8 +7,10 @@ import ProgramCard from "../Components/Program/ProgramCard";
 import payment from "../Images/Sidebar icons/payment.svg";
 
 function Program() {
-  const { programs, ProgramsInstallmentData } = useContext(UserContext);
-
+  const { programs, ProgramsInstallmentData, fetchAppliedProgramsData } = useContext(UserContext);
+  useEffect(() => {
+        fetchAppliedProgramsData();
+    }, []);
   return (
     <>
       <div className="programs-container">
