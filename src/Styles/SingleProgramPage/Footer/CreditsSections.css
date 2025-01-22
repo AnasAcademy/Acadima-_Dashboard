@@ -1,0 +1,86 @@
+.credits-section {
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    font-size: 14px;
+    width: 65%;
+}
+
+.anascoLogo {
+    width: 190px;
+    height: 52px;
+}
+
+.anascogroupLink {
+    text-decoration: none;
+    color: white;
+}
+
+.anascogroupLink:hover {
+    color: #F4C90C;
+}
+
+.credits-left {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.credits-left-text {
+    text-decoration: none;
+    color: white;
+    text-align: center;
+}
+
+.credits-text-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 30px;
+}
+
+.credits-left-text:hover {
+    color: #F4C90C;
+}
+
+.anascoExtraLogo {
+    width: 120px;
+    height: auto;
+}
+
+@media (max-width: 1400px) {
+    .credits-section {
+        width: 80%;
+    }
+}
+
+@media (max-width: 1000px) {
+    .credits-section {
+        width: 90%;
+        align-items: center;
+        flex-direction: column;
+        gap: 5px;
+        padding-bottom: 40px;
+    }
+    .credits-left {
+        margin-top: 0;
+    }
+    .credits-text-container {
+        flex-direction: column;
+        width: 95%;
+    }
+    .credits-text {
+        width: 95%;
+    }
+    .credits-left {
+        width: 95%;
+        flex-direction: column;
+    }
+}
+

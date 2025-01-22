@@ -1,0 +1,133 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #143844;
+    border-radius: 15px;
+    position: relative;
+    width: 1200px;
+    height: 373px;
+    margin-left: 300px ;
+    padding: 63px 100px;
+  }
+  
+  
+  .content {
+    color: white;
+    text-align: left;
+    width: 600px;
+    margin-left: 20px;
+  }
+  
+  .keepintouch {
+    width: 427px;
+    height: 116px;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: capitalize; 
+    margin-top: 0;
+    margin-bottom: 15px;
+  }
+  
+  .paragraph {
+    width: 400px;
+    height: 127px;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-transform: capitalize;
+    margin: 0;
+  }
+
+  .form {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 33px;
+    padding: 5px;   
+    width: 671px;
+    height: 99px;
+    /* margin-right: 20px; */
+    margin-bottom: 60px;
+  }
+
+  .input {
+    border: none;
+    outline: none;
+    padding: 10px;
+    font-size: 16px;
+    flex-grow: 1;
+    border-radius: 33px;
+    margin-top: 0;
+  }
+
+  input:focus {
+    outline: none; /* Removes default focus outline */
+    border: 2px solid #65a4b0; /* Adds a custom border color */
+    color: white;
+  }
+  
+  .button {
+    background-color: #65a4b0;
+    color: white;
+    border: none;
+    border-radius: 33px;
+    padding: 10px 20px;
+    cursor: pointer;
+    width: 163px;
+    height: 84px;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-transform: capitalize;
+  }
+  
+  .hand {
+    width: 542px;
+    height: 542px;
+    position: absolute;
+    transform: translate(135%, 11%);
+  }
+
+  @media (max-width: 1400px) {
+    .container {
+      margin-left: 200px;
+      width: 900px;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      padding-top: 40px;
+      padding-bottom: 40px;
+      height: 400px;
+    }
+    .content {
+      width: 450px;
+
+    }
+    .keepintouch {
+      margin-bottom: 0;
+    }
+    .paragraph{
+      height: 110px;
+    }
+
+    .form {
+      width: 700px;
+      margin-bottom: 80px;
+      margin-left: 10px;
+    }
+    .hand {
+      width: 500px;
+      height: 580px;
+      transform: translate(119.5%, 13.5%);
+    }
+  }
+  @media (max-width: 1221px) {
+    .container {
+      margin-left: 150px;
+    }
+  }

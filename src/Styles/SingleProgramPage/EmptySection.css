@@ -1,0 +1,33 @@
+.empty-section {
+    /* width: 1920px; */
+    height: 100%;
+    background: #373A3C;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.empty-section-title {
+    /* width: 497px; */
+    height: 28px;
+    flex-shrink: 0;
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 28px; /* 77.778% */
+    letter-spacing: -0.1px;
+    color: white;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+@media (max-width: 780px) {
+    .empty-section-title{
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 360px) {
+    .empty-section-title {
+        font-size: 20px;
+    }
+}

@@ -14,7 +14,7 @@ import InstallmentConditions from './Screens/InstallmentConditions';
 import Payment from './Screens/Payment';
 import Notifications from './Screens/Notifications';
 import Settings from './Screens/Settings';
-
+import SingleProgramPage from './Screens/SingleProgramPage.js';
 import LoginScreen from './Screens/LoginScreen';
 import RegistrationScreen from './Screens/RegistrationScreen';
 import Certificates from './Screens/Certificates';
@@ -35,9 +35,9 @@ function App() {
             <Route path="/register" element={<PublicRoute><RegistrationScreen /></PublicRoute>} />      
             <Route path="/classes/:classId/course/:courseId" element={<ProtectedRoute><Course /></ProtectedRoute>} />
             <Route path="/payment/:order_id" element={<ProtectedRoute><Payment /></ProtectedRoute>} />
-            <Route path="/conditions" element={<ProtectedRoute><InstallmentConditions /></ProtectedRoute>} />
-            <Route path="/conditions?program=${programQuery}" element={<ProtectedRoute><InstallmentConditions /></ProtectedRoute>} />
-              
+            <Route path="/finances/installments/conditions" element={<ProtectedRoute><InstallmentConditions /></ProtectedRoute>} />
+            <Route path="/programs" element={<SingleProgramPage />} />
+
             <Route path="*" element={<NotFound />} />
 
             {/* Routes wrapped with MainPageContainer */}

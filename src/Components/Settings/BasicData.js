@@ -102,6 +102,8 @@ function BasicData({ onNext, allUserData, setAllUserData, updateProgress }) {
     formData.append("profile_image", newAvatar);
 
     try {
+
+
       const response = await fetch(apiUrl + "/panel/profile-setting/images", {
         method: "POST",
         headers: {

@@ -10,7 +10,7 @@ function ProgramCard({ program, programInstallmentData }) {
   const token = localStorage.getItem("token");
 
   function handleInstallmentClick() {
-    navigate("/conditions", {
+    navigate("/finances/installments/conditions", {
       state: {
         program: program,
       },

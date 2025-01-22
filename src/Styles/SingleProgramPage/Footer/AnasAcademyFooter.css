@@ -1,0 +1,45 @@
+.anas-acad-footer {
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+}
+
+.anas-acad-socials{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    width: 65%;
+    margin: auto;
+}
+
+.anas-logos-main-container {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+.anas-acad-socials-left {
+    width: 45%;
+    text-align: left;
+    font-size: 16px;
+}
+
+@media (max-width: 1400px) {
+    .anas-acad-socials{
+        width: 80%;
+    }
+    .anas-acad-socials-left {
+        width: 60%;
+    }
+}
+@media (max-width: 1000px) {
+    .anas-acad-socials{
+        width: 90%;
+    }
+}

@@ -147,7 +147,7 @@ function LoginScreen() {
     <div className="mainContainer">
       <div className="formContainer">
         <div className="form-one">
-          <a className="logo-container" href="https://anasacademy.uk">
+          <a className="login-logo-container" href="https://anasacademy.uk">
             <img src={anasAcadlogo} alt="anasAcadlogo" className="anasAcadlogo" />
           </a>
         </div>

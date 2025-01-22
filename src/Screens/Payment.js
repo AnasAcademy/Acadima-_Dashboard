@@ -176,7 +176,6 @@ const { userBriefData, notifications } = useContext(UserContext); // Consume use
       window.history.back();
     } else {
       let previousUrl = document.referrer || "/";
-      console.log("Referrer:", previousUrl);
       window.location.href = previousUrl;
     }
   }

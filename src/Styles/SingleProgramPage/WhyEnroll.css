@@ -1,0 +1,202 @@
+.why-enrol-section {
+  color: #fff;
+  padding: 60px 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 65%;
+  height: 800px;
+  margin: auto;
+}
+.why-enrol-top {
+  width: 100%;
+  height: 40%;
+}
+.why-enrol-section .backgroundImg {
+  background: url("../../Images/Single Program Page/Rectangle.png") no-repeat center center;
+  background-size: contain;
+  width: 50%;
+  margin: auto;
+  height: 100%;
+  z-index: 10;
+  opacity: 0.2;
+  position: relative;
+
+}
+
+.why-enrol-title {
+  color: #ccf5ff;
+  text-align: center;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px; /* 142.857% */
+  letter-spacing: -0.1px;
+  width: 20%;
+  margin: 0 auto;
+  position: absolute;
+  transform: translate(120%, -220%);
+}
+
+.why-enrol-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 20px;
+  justify-items: center;
+  align-items: start;
+  width: 100%;
+  margin: auto;
+  margin-top: 0;
+}
+
+.benefit-card {
+  background-color: transparent;
+  border: none;
+  border-radius: 8px;
+  padding: 20px 0;
+  text-align: left;
+  transition: all 0.3s ease;
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.benefit-card:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-5px);
+}
+
+.benefit-number {
+  border-radius: 8px;
+  border: 1px solid #ccf5ff;
+  display: flex;
+  width: 55px;
+  height: 34px;
+  padding: 1px 5px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+}
+.benefit-card-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.benefit-title {
+  color: #ccf5ff;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin: 0;
+  width: 100%;
+}
+
+.benefit-description {
+  color: #fff;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  width: 90%;
+}
+
+@media (max-width: 1650px) {
+  .why-enrol-grid {
+    width: 100%;
+  }
+}
+@media (max-width: 1400px) {
+  .why-enrol-section {
+    width: 80%;
+  }
+  .why-enrol-title {
+    transform: translate(85%, -220%);
+    width: 30%;
+  }
+}
+@media (max-width: 1100px) {
+  .why-enrol-section .backgroundImg {
+    width: 80%;
+  }
+  .why-enrol-title {
+    transform: translate(55%, -200%);
+    width: 40%;
+  }
+}
+@media (max-width: 1000px) {
+.why-enrol-section {
+  width: 90%;
+}
+}
+@media (max-width: 900px) {
+  .why-enrol-title {
+    transform: translate(55%, -150%);
+    font-size: 22px;
+  }
+}
+@media (max-width: 800px) {
+  .why-enrol-section {
+    height: 1200px;
+  }
+
+  .why-enrol-title {
+    transform: translate(60%, -300%);
+  }
+  .why-enrol-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .benefit-card {
+    padding: 15px;
+  }
+
+  .benefit-number {
+    font-size: 18px;
+  }
+
+  .benefit-title {
+    font-size: 16px;
+  }
+
+  .benefit-description {
+    font-size: 14px;
+  }
+}
+@media(max-width:680px) {
+  .why-enrol-title {
+    transform: translate(30%, -350%);
+    width: 60%;
+  }
+}
+
+@media(max-width:450px) {
+  .why-enrol-section .backgroundImg {
+    width: 100%;
+  }
+  .why-enrol-title {
+    transform: translate(10%, -280%);
+    width: 80%;
+  }
+}
+
+@media(max-width:360px) {
+  .why-enrol-title {
+    transform: translate(5%, -220%);
+    font-size: 16px;
+  }
+}

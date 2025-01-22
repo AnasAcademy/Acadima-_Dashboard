@@ -1,0 +1,145 @@
+.cert-section {
+    width: 65%;
+    height: 700px;
+    margin: auto;
+}
+
+.cert-title {
+    width: 38%;
+    flex-shrink: 0;
+    color: white;
+    font-size: 42px;
+    font-weight: 600;
+    line-height: 60px; /* 142.857% */
+    text-align: left;
+}
+
+.cert-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #151515; /* dark background */
+    border: 2px solid #777; /* border color */
+    border-radius: 8px; /* rounded edges */
+    box-sizing: border-box;
+    width: 100%;
+    height: 200px;
+    flex-shrink: 0;
+    margin-top: 65px;
+    z-index: 2; /* Ensure border is above .certification-image */
+
+}
+
+.certification-text {
+    width: 55%;
+    color: white;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 28px; /* 155.556% */
+    letter-spacing: -0.1px;
+    text-align: left;
+    text-transform: capitalize;
+    padding: 20px 40px;
+
+}
+
+.certification-image {
+    width: 34%;
+    height: 100%;
+    border-top-right-radius:  8px;
+    border-bottom-right-radius: 8px;
+    background: var(--color-cyan-52, #275762);
+    z-index: 1; /* Place below .cert-content */
+    position: relative;
+}
+
+.certificateImage {
+    width: 90%;
+    height: 119%;
+    position: absolute;
+    top: -10%;
+    left: 5%;
+    z-index: 3; /* Ensure image is above both elements */
+}
+
+@media (max-width:1640px) {
+    
+    .cert-title {
+        width: 50%;
+    }
+}
+
+@media (max-width:1450px) {
+    
+}
+@media (max-width:1400px) {
+    .cert-section {
+        width: 80%;
+    }
+    .certificateImage {
+        width: 92%;
+    }
+    .certification-image {
+        width: 36%;
+        
+    }
+
+}
+@media (max-width: 1050px) {
+    .cert-section {
+        height: 800px; /* Let height adjust dynamically */
+        width: 90%;
+
+    }
+
+    .cert-title {
+        width: 100%; /* Allow the title to take full width */
+        font-size: 32px; /* Adjust font size */
+        line-height: 48px; /* Adjust line height */
+        text-align: center; /* Center-align the title */
+        margin-bottom: 20px; /* Add spacing below the title */
+    }
+
+    .cert-content {
+        flex-direction: column-reverse; /* Stack content vertically */
+        justify-content: center; /* Center align the items */
+        align-items: center;
+        height: auto; /* Let height adjust dynamically */
+        padding: 20px; /* Add padding for spacing */
+        margin-top: 150px;
+    }
+
+    .certification-text {
+        width: 100%; /* Full width for the text */
+        text-align: center; /* Center-align text */
+        padding: 0; 
+    }
+
+    .certification-image {
+        width: 60%; /* Reduce image container width */
+        height: 45%; /* Let height adjust dynamically */
+        border-radius: 8px; /* Maintain rounded edges */
+        margin-top: -100px; /* Add spacing above the image */
+    }
+
+    .certificateImage {
+        width: 90%; /* Adjust the image to fit the container */
+        height: auto; /* Maintain aspect ratio */
+        position: relative; /* Reset position */
+        top: 20%; /* Reset top offset */
+        left: 0; /* Reset left offset */
+    }
+}
+@media (max-width:800px) {
+    
+    .certification-image {
+        width: 80%;
+        height: 50%;
+    }
+}
+@media (max-width:400px) {
+    .certification-image {
+        width: 90%;
+        height: 50%;
+    }
+}

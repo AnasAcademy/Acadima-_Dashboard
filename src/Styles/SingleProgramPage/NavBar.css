@@ -1,0 +1,209 @@
+.single-program-navBar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: transparent;
+  margin: auto;
+  width: 65%;
+  padding-top: 15px;
+  padding-bottom: 10px;
+  position: relative; /* Ensures the dropdown menu stays within the navbar */
+  z-index: 1000;
+}
+
+.single-program-Acadima-logo {
+  height: 86px;
+  width: 220px;
+  margin-right: 0;
+}
+
+.single-program-menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.single-program-menu .single-program-nav-bar-item {
+  color: #fff;
+  cursor: pointer;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  width: 100px;
+  text-align: center;
+}
+
+.single-program-menu .single-program-nav-bar-item:first-child {
+  margin-left: 0;
+}
+
+.single-program-menu .single-program-nav-bar-item:last-child {
+  margin-right: 0;
+}
+
+.single-program-menu .single-program-nav-bar-item:hover {
+  color: #00ccff;
+}
+
+.single-program-login-button {
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.single-program-login {
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-transform: capitalize;
+  padding: 10px;
+  border-radius: 8px;
+  width: 158px;
+  border-width: 0;
+  height: 48px;
+  cursor: pointer;
+}
+
+.single-program-hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.single-program-hamburger span {
+  width: 26px;
+  height: 3px;
+  background-color: white;
+  margin: 4px;
+  transition: all 0.3s;
+}
+
+/* Dropdown menu for mobile */
+.single-program-menu-dropdown {
+  display: none;
+  flex-direction: column;
+  background-color: transparent;
+  color: #fff;
+  position: absolute;
+  top: 100%; /* Position it below the navbar */
+  right: 0;
+  width: 50%;
+  padding: 10px 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 999; 
+}
+
+.single-program-menu-dropdown .single-program-nav-bar-item {
+  color: #fff;
+  padding: 10px 20px;
+  text-align: left;
+}
+
+.single-program-menu-dropdown .single-program-nav-bar-item:hover {
+  color: #00ccff;
+}
+
+.mobile-button {
+  display: none;
+}
+
+/* Responsive Styles */
+@media (max-width: 1400px) {
+  .single-program-navBar {
+    width: 80%;
+  }
+  .single-program-login {
+    width: 140px;
+  }
+  .single-program-menu {
+    gap: 20px;
+  }
+  .single-program-menu .single-program-nav-bar-item  {
+    width: fit-content;
+  }
+}
+@media (max-width: 1000px) {
+  .single-program-navBar {
+    width: 90%;
+  }
+  
+  
+}
+@media (max-width: 890px) {
+  .single-program-navBar {
+    padding-top: 20px;
+  }
+
+  .single-program-Acadima-logo {
+    width: 121px;
+    height: 47px;
+  }
+
+  .single-program-menu {
+    display: none; /* Hide the horizontal menu on smaller screens */
+  }
+
+  .single-program-menu.show {
+    display: flex; /* Show menu when toggled */
+    flex-direction: column;
+    background-color: rgba(20, 36, 42, 0.95); /* 80% opacity */
+    position: absolute;
+    top: 78px; /* Adjust position */
+    right: -38px;
+    width: 50%;
+    height: fit-content;
+    padding: 20px 0;
+    text-align: left;
+  }
+  .single-program-login-button {
+    display: none;
+  }
+  .single-program-hamburger {
+    display: flex; /* Show hamburger on smaller screens */
+    justify-content: flex-end;
+    align-items: flex-end;
+    width: 100%;
+  }
+  .mobile-button{
+    display: inline;
+  }
+  .single-program-login {
+    display: none;
+  }
+}
+
+@media (max-width: 360px) {
+  .single-program-navBar {
+    width: 90%;
+  }
+
+  .single-program-Acadima-logo {
+    width: 121px;
+    height: 47px;
+  }
+
+  .single-program-menu {
+    display: none;
+  }
+
+  .single-program-menu.show {
+    display: flex;
+    top: 80px; /* Adjust position */
+    right: -55px;
+    width: 80%;
+  }
+
+  .single-program-login-button {
+    display: none;
+  }
+
+  .single-program-hamburger {
+    display: flex;
+  }
+}

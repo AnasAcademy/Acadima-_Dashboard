@@ -1,0 +1,107 @@
+.personal-card-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 362px;
+    height: 300px;
+    border-radius: 12px;
+    border: 2px solid #29A1B8;
+    text-align: left;
+    padding: 10px;
+}
+
+.user-pic {
+    width: 60px;
+    height: 60px;
+}
+
+.personal-card-details-top {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.personal-card-personInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-left: 10px;
+    height: 80px; 
+}
+
+.personal-card-name { 
+    margin-bottom: 0;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.personal-card-age {
+    font-size: 18px;
+    font-weight: 300;
+    line-height: normal;
+    text-transform: capitalize;
+    margin-top: 0;
+}
+
+.personal-card-details-bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.linkedinIcon {
+    margin-right: 10px;
+}
+
+@media (max-width: 780px) {
+    .personal-card-details {
+        padding: 20px;
+        height: 250px;
+        width: 400px;
+    }
+    .user-pic {
+        width: 50px;
+        height: 50px;
+    }
+    .personal-card-name {
+        font-size: 18px;
+    }
+    .personal-card-age {
+        font-size: 16px;
+    }
+    .personal-card-desc {
+        font-size: 16px;
+        margin-top: 0;
+    }
+    .personal-card-username {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 360px) {
+    .personal-card-details {
+        width: 280px;
+        height: 230px;
+        padding: 10px;
+    }
+    .personal-card-name {
+        font-size: 16px;
+    }
+    .personal-card-age {
+        font-size: 14px;
+    }
+    .personal-card-desc {
+        font-size: 14px;
+        margin: 0;
+    }
+    .personal-card-username {
+        font-size: 14px;
+    }
+    
+}

@@ -1,0 +1,555 @@
+.programDetailsScreen {
+  /* background-color: #0e0e0e; */
+  background-color: black;
+  position: relative;
+  height: fit-content;
+  overflow: hidden;
+}
+.single-program-page-flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  gap: 200px;
+  height: fit-content;
+}
+.single-program-id-bar {
+  width: 65%;
+  margin: 100px auto;
+  color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.single-program-id-bar-items {
+  width: 100%;
+  color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 2px solid #ffffff;
+  gap: 0;
+}
+.single-program-id-bar-items p {
+  width: 20%;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 25.5px; /* 170% */
+  letter-spacing: 0.1px;
+  cursor: pointer;
+  margin: 0;
+  height: 57px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.single-program-id-bar-items p:hover {
+  border-bottom: 2px solid #CCF5FF; /* Add a border for the active section */
+  color: #CCF5FF;
+  font-weight: 600; 
+}
+
+.single-program-id-bar .start-date {
+  width: 25%;
+  border-radius: 0px 12px 12px 0px;
+  background: #599faf;
+  border-bottom: 5px solid #599faf;
+  height: fit-content;
+  padding: 15px 5px;
+  margin: 0;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px; /* 150% */
+  cursor: pointer;
+}
+.single-program-details-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 65%;
+  margin: auto;
+  gap: 20px;
+}
+
+.single-program-details-title {
+  color: #fff;
+  text-align: center;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 45px;
+  margin: 0;
+}
+
+.program-details-subtitle {
+  color: #fff;
+  text-align: center;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  margin: 0;
+}
+
+.single-program-side-bar-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.single-program-sidebar {
+  padding: 20px 0 0;
+  border-radius: 10px;
+  text-align: left;
+  width: 25%;
+}
+
+.single-program-sidebar-item-container {
+  border-bottom: 1px solid white;
+  padding-top: 10px;
+}
+
+.single-program-sidebar-item {
+  font-size: 20px;
+  color: #bbb;
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.single-program-sidebar-item:hover {
+  color: #fff;
+  background-color: #2a3a47;
+}
+
+.single-program-sidebar-item.active {
+  color: #fff;
+  border-radius: 8px;
+  background: #599faf;
+}
+
+.download-brochure {
+  border-radius: 10px;
+  background: #ccf5ff;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+  padding: 10px 20px;
+  margin-top: 10px;
+  border: none;
+  font-size: 20px;
+}
+
+.download-brochure:hover {
+  background-color: #ccf5ff9d;
+}
+
+.single-program-content {
+  padding: 30px;
+  padding-left: 0;
+  padding-bottom: 0;
+  width: 55%;
+  height: 100%;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.single-program-content h3 {
+  color: #fff;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 33px;
+  margin: 0;
+}
+
+.single-program-content p {
+  color: #fff;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.single-program-content h4 {
+  color: #ccf5ff;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.single-program-content ul {
+  color: white;
+  padding-left: 20px;
+}
+
+.single-program-content li {
+  color: #fff;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+.top-companies-section {
+  width: 65%;
+  margin: auto;
+  height: 350px;
+}
+
+.top-companies-title {
+  color: #ccf5ff;
+  text-align: center;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 45px;
+  margin-bottom: 50px;
+}
+
+.companies-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 80%;
+  margin: auto;
+  flex-wrap: nowrap; /* Default behavior */
+}
+
+.testimonials-section {
+  text-align: center;
+  height: 500px;
+  width: 65%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.testimonials-left {
+  width: 35%;
+  text-align: left;
+}
+
+.testimonials-subtitle {
+  color: #ccf5ff;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 45px; /* 150% */
+}
+
+.testimonials-desc {
+  color: #fff;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+.testimonial-card-container {
+  width: 50%;
+}
+.enrollment-steps {
+  color: #fff;
+  width: 65%;
+  margin: 100px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.enrollment-title {
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 45px;
+  margin-bottom: 0;
+  text-align: left;
+}
+
+.enrollment-description {
+  color: #fff;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
+  text-align: left;
+  width: 55%;
+}
+
+.steps-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: fit-content;
+  gap: 10px;
+  width: 100%;
+}
+
+.hands-on-labs-section {
+  color: #ffffff;
+  width: 65%;
+  margin: auto;
+}
+.handson-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 30px;
+  text-align: left;
+}
+.text-content {
+  width: 40%;
+}
+
+.handson-title {
+  color: #ccf5ff;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 45px;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+.features-list {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+.features-list li {
+  color: #fff;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 26px;
+}
+
+.capstone-description {
+  color: #ccf5ff;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 26px;
+  width: 80%;
+  margin-top: 0;
+}
+
+.lab-image {
+  width: 40%;
+  height: auto;
+  border-radius: 10px;
+}
+@media(max-width:1670px) {
+  .single-program-id-bar .start-date {
+    width: 30%;
+  }
+}
+@media (max-width: 1600px) {
+  .single-program-sidebar {
+    width: 30%;
+  }
+  .companies-list {
+    width: 90%;
+  }
+  .lab-image {
+    margin-top: 50px;
+    width: 50%;
+  }
+  .text-content {
+    width: 45%;
+  }
+}
+@media(max-width:1440px) {
+  .single-program-id-bar .start-date {
+    width: 35%;
+  }
+}
+@media (max-width: 1400px) {
+  .single-program-details-container {
+    width: 80%;
+  }
+  .single-program-id-bar {
+    width: 80%;
+  }
+  .top-companies-section {
+    width: 80%;
+  }
+  .companies-list {
+    width: 100%;
+  }
+  .testimonials-section {
+    width: 80%;
+  }
+  .testimonials-left {
+    width: 40%;
+  }
+  .enrollment-steps {
+    width: 80%;
+  }
+  .hands-on-labs-section {
+    width: 80%;
+  }
+}
+@media (max-width: 1150px) {
+  .single-program-id-bar .start-date {
+    width: 38%;
+  }
+  .handson-title {
+    font-size: 20px;
+  }
+  .features-list li {
+    font-size: 14px;
+  }
+  .capstone-description {
+    font-size: 14px;
+    width: 100%;
+  }
+}
+@media (max-width: 1000px) {
+  .single-program-details-container {
+    width: 90%;
+    margin: 50px auto;
+  }
+  .single-program-id-bar {
+    width: 90%;
+  }
+  .single-program-sidebar {
+    width: 35%;
+  }
+  .top-companies-section {
+    width: 90%;
+  }
+  .testimonials-section {
+    width: 90%;
+    flex-direction: column;
+    height: fit-content;
+    gap: 50px;
+  }
+  .testimonials-left {
+    width: 100%;
+  }
+  .testimonial-card-container {
+    width: 100%;
+  }
+  .enrollment-steps {
+    width: 90%;
+  }
+  .hands-on-labs-section {
+    width: 90%;
+  }
+}
+
+@media (max-width: 800px) {
+  .single-program-side-bar-container {
+    flex-direction: column;
+  }
+
+  .single-program-sidebar {
+    width: 100%;
+    padding: 10px 0;
+  }
+
+  .single-program-content {
+    width: 100%;
+    padding: 20px 15px;
+  }
+
+  .single-program-details-title {
+    font-size: 24px;
+    line-height: 36px;
+  }
+
+  .program-details-subtitle {
+    line-height: 22px;
+  }
+
+  .single-program-sidebar-item {
+    padding: 10px;
+  }
+
+  .single-program-content h3 {
+    line-height: 28px;
+  }
+
+  .single-program-content p,
+  .single-program-content li {
+    line-height: 30px;
+  }
+  .download-brochure {
+    width: 40%;
+  }
+  .companies-list {
+    flex-wrap: wrap; /* Enable wrapping */
+    justify-content: center; /* Center-align wrapped items */
+    gap: 20px; /* Add spacing between items */
+  }
+  .steps-container {
+    flex-direction: column;
+  }
+  .enrollment-description {
+    width: 90%;
+  }
+  .hands-on-labs-section {
+    flex-direction: column;
+    text-align: center;
+  }
+  .handson-content {
+    flex-direction: column-reverse;
+  }
+  .lab-image {
+    width: 100%;
+    margin-top: 0;
+  }
+  .text-content {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .handson-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+    line-height: 30px;
+  }
+
+  .capstone-title {
+    font-size: 20px;
+  }
+  .capstone-description {
+    font-size: 16px;
+    width: 80%;
+  }
+  .features-list {
+    margin-bottom: 20px;
+  }
+  .features-list li {
+    font-size: 16px;
+  }
+}
+@media (max-width: 730px) {
+  .single-program-details-title {
+    text-align: left;
+  }
+  .program-details-subtitle {
+    text-align: left;
+  }
+  .download-brochure {
+    width: 100%;
+  }
+}
