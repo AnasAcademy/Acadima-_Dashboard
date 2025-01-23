@@ -27,7 +27,6 @@ function Notifications() {
           method: "POST",
           headers: {
             "x-api-key": "1234",
-            "ngrok-skip-browser-warning": true,
             Authorization: "Bearer " + token,
             "Content-Type": "application/json",
           },

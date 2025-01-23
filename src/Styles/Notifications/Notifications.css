@@ -33,6 +33,7 @@
   max-height: 615px;
   scrollbar-width: none; /* For Firefox */
   -ms-overflow-style: none;
+  width: 100%;
 }
 
 .notification-card {
@@ -367,5 +368,10 @@
   }
   .notification-button {
     width: 50%;
+  }
+}
+@media(max-width:360px) {
+  .notification-button {
+    width: 100%;
   }
 }

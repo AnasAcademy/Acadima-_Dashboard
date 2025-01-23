@@ -55,6 +55,7 @@ function Navbar({ userBriefData, hasUnreadNotifications, notifications }) {
 
   const showNotification = (notificationId) => {
     navigate(`/notifications/${notificationId}`);
+    setShowNotificationPopup((prev) => !prev); // Toggle the popup manually
   };
 
   return (
@@ -96,7 +97,7 @@ function Navbar({ userBriefData, hasUnreadNotifications, notifications }) {
                       <li
                         key={index}
                         className="navbar-notification-item unread"
-                        onClick={() => showNotification}
+                        onClick={() => showNotification(notification?.id)}
                       >
                         <div className="navbar-notification-content">
                           <p className="navbar-notification-title">
@@ -120,7 +121,10 @@ function Navbar({ userBriefData, hasUnreadNotifications, notifications }) {
 
               <button
                 className="view-all-notifications"
-                onClick={() => navigate("/notifications")}
+                onClick={() => {
+                  navigate("/notifications");
+                  setShowNotificationPopup(prev => !prev);
+                }}
               >
                 عرض كل الإشعارات
               </button>

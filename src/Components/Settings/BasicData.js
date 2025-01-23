@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { apiUrl } from "../../API";
 import "../../Styles/Settings/SettingsMainCont.css";
-import x from "../../Images/x.png";
-import ln from "../../Images/ln.png";
-import ig from "../../Images/ig.png";
+// import x from "../../Images/x.png";
+// import ln from "../../Images/ln.png";
+// import ig from "../../Images/ig.png";
 import edit from "../../Images/edit.svg";
 import editx from "../../Images/SettingsSidebar/editx.svg";
 
@@ -63,6 +63,8 @@ function BasicData({ onNext, allUserData, setAllUserData, updateProgress }) {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setAllUserData((prev) => ({ ...prev, [name]: value || "" }));
+    console.log(name, value);
+    
     setTimeout(calculateProgress, 0); // Recalculate after the state updates
   };
 
@@ -136,7 +138,7 @@ function BasicData({ onNext, allUserData, setAllUserData, updateProgress }) {
   const handleSubmitInfo = async (e) => {
     e.preventDefault();
     setErrors(null); // Reset errors before submission
-
+  
     if (
       allUserData.new_password &&
       allUserData.confirm_password &&
@@ -146,50 +148,51 @@ function BasicData({ onNext, allUserData, setAllUserData, updateProgress }) {
       return;
     }
 
-    const updatedData = { ...allUserData };
-    if (!allUserData.new_password) {
-      delete updatedData.new_password;
-    }
-
+    const updatedData = {
+      full_name: allUserData?.full_name || "",
+      email: allUserData?.email || "",
+      mobile: allUserData?.mobile || "",
+      language: allUserData?.language || "",
+      timezone: allUserData?.timezone || "",
+      newsletter: allUserData?.newsletter ?? true,
+      public_message: allUserData?.public_message ?? false,
+    };
+  
+  
     try {
-      const response = await fetch(
-        apiUrl + "/panel/profile-setting/basic_information",
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            "x-api-key": "1234",
-            "ngrok-skip-browser-warning": true,
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(updatedData),
-        }
-      );
-
+      const response = await fetch(apiUrl + "/panel/profile-setting/basic_information", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": "1234",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(updatedData),
+      });
+  
       const result = await response.json();
-
-      if (result.success) {
+      console.log("API Response:", result);
+  
+      if (response.ok && result.success) {
         onNext();
       } else {
+        // Handle server errors
         if (result.errors) {
           const errorMessages = [];
-          if (result.errors.email) {
-            errorMessages.push(result.errors.email[0]);
-          }
-          if (result.errors.full_name) {
-            errorMessages.push(result.errors.full_name[0]);
-          }
+          if (result.errors.email) errorMessages.push(result.errors.email[0]);
+          if (result.errors.full_name) errorMessages.push(result.errors.full_name[0]);
+          if (result.errors.mobile) errorMessages.push(result.errors.mobile[0]);
           setErrors(errorMessages.join(" و "));
         } else {
           setErrors("حدث خطأ أثناء التحديث. الرجاء المحاولة لاحقاً.");
         }
       }
     } catch (error) {
-      // console.log("Error:", error);
+      console.error("Error:", error);
       setErrors("حدث خطأ غير معروف.");
     }
   };
-
+  
   return (
     <div className="user-profile-container">
       <div className="profile-header">
@@ -203,13 +206,13 @@ function BasicData({ onNext, allUserData, setAllUserData, updateProgress }) {
             />
           </span>
           <div className="profile-info">
-            <h3 className="student-name">{allUserData.full_name || ""}</h3>
-            <p className="student-code">{allUserData.code || ""}</p>
-            <div className="profile-social-icons">
+            <h3 className="student-name">{allUserData?.full_name || ""}</h3>
+            <p className="student-code">{allUserData?.code || ""}</p>
+            {/* <div className="profile-social-icons">
               <img src={x} alt="x" className="social-personal-icon" />
               <img src={ln} alt="ln" className="social-personal-icon" />
               <img src={ig} alt="ig" className="social-personal-icon" />
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -257,7 +260,7 @@ function BasicData({ onNext, allUserData, setAllUserData, updateProgress }) {
             <label>
               الكود الأكاديمي <span className="asterisk">*</span>
             </label>
-            <input type="text" name="code" value={allUserData.code} readOnly />
+            <input type="text" name="code" value={allUserData?.code || ""} readOnly />
           </div>
 
           <div className="form-group">
@@ -267,7 +270,7 @@ function BasicData({ onNext, allUserData, setAllUserData, updateProgress }) {
             <input
               type="text"
               name="full_name"
-              value={allUserData.full_name || ""}
+              value={allUserData.full_name}
               onChange={handleInputChange}
               required
             />
@@ -280,7 +283,7 @@ function BasicData({ onNext, allUserData, setAllUserData, updateProgress }) {
             <input
               type="email"
               name="email"
-              value={allUserData.email || ""}
+              value={allUserData.email}
               onChange={handleInputChange}
               required
             />
@@ -321,7 +324,7 @@ function BasicData({ onNext, allUserData, setAllUserData, updateProgress }) {
             <label>الوحدة الزمنية</label>
             <select
               name="timezone"
-              value={allUserData.timezone || ""}
+              value={allUserData?.timezone || "Africa/Cairo"}
               onChange={handleInputChange}
             >
               {timezone.length > 0 ? (
@@ -342,7 +345,7 @@ function BasicData({ onNext, allUserData, setAllUserData, updateProgress }) {
             <label>اللغة</label>
             <select
               name="language"
-              value={allUserData.language || ""}
+              value={allUserData?.language || "العربية"}
               onChange={handleInputChange}
             >
               <option value="العربية">العربية</option>
@@ -355,7 +358,7 @@ function BasicData({ onNext, allUserData, setAllUserData, updateProgress }) {
           <label>اضف للقائمة البريدية</label>
           <input
             type="checkbox"
-            checked={allUserData.newsletter}
+            checked={allUserData?.newsletter}
             onChange={() => handleToggleChange("newsletter")}
           />
         </div>
@@ -364,7 +367,7 @@ function BasicData({ onNext, allUserData, setAllUserData, updateProgress }) {
           <label>تفعيل رسائل الملف الشخصي</label>
           <input
             type="checkbox"
-            checked={allUserData.public_message}
+            checked={allUserData?.public_message}
             onChange={() => handleToggleChange("public_message")}
           />
         </div>

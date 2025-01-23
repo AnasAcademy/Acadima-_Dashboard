@@ -40,23 +40,22 @@ function ResetPassword() {
     setErrorMessage("");
     setLoading(true);
 
-    try {
-      // Log the data being sent for debugging
-      console.log("Sending data:", {
-        email,
-        password,
-        password_confirmation: confirmPassword,
-      });
+    // Prepare the payload
+    const payload = {
+      email,
+      password,
+      password_confirmation: confirmPassword,
+    };
 
-      const newData = {email, password, confirmPassword};
+    try {
       // Send request to the API
       const response = await fetch(`${apiUrl}/reset-password/${token}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json", // Required for JSON body
-          "x-api-key": "1234",               // Include your API key
+          "x-api-key": "1234", // Include your API key
         },
-        body: JSON.stringify(newData), // Correctly stringify the body
+        body: JSON.stringify(payload), // Correctly stringify the payload
       });
 
       const data = await response.json();
@@ -74,7 +73,7 @@ function ResetPassword() {
     } catch (error) {
       // Catch and handle unexpected errors
       setErrorMessage("حدث خطأ غير متوقع. الرجاء المحاولة مرة أخرى");
-      console.error("Error:", error);
+      console.log("Error:", error);
     } finally {
       setLoading(false); // Stop loading spinner
     }

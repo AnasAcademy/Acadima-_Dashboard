@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../Styles/Registration/LoginScreen.css";
 import { UserContext } from "../Context/UserContext";
@@ -151,6 +151,76 @@ function LoginScreen() {
     }
   };
 
+  const handleGoogleLogin = async () => {
+    try {
+      // Call your backend's endpoint to initiate the Google OAuth process
+      const response = await fetch(`${apiUrl}/google`, {
+        method: "GET",
+        headers: {
+          "x-api-key": "1234", // Custom header if required
+          "Content-Type": "application/json",
+        },
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        if (data.redirect_url) {
+          // Open the Google OAuth URL in a new tab
+          window.open(data.redirect_url, "_blank");
+        } else {
+          setError("Failed to get the Google login redirect URL.");
+        }
+      } else {
+        console.error("Error initiating Google login:", response.statusText);
+        setError("An error occurred while initiating Google login.");
+      }
+    } catch (error) {
+      console.error("Error during Google login:", error);
+      setError("An unknown error occurred.");
+    }
+  };
+  
+
+  const handleGoogleCallback = async (authCode) => {
+    try {
+      const response = await fetch(`${apiUrl}/google/callback`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          code: authCode, // Pass the authorization code to the backend
+        }),
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok && data.success) {
+        const token = data?.data?.token;
+        localStorage.setItem("token", token); // Save token in local storage
+        refreshUserData(); // Refresh user data
+        navigate("/"); // Redirect to the homepage or a specific route
+      } else {
+        setError(data.message || "Failed to authenticate using Google.");
+      }
+    } catch (error) {
+      console.error("Error in Google callback:", error);
+      setError("An unknown error occurred.");
+    }
+  };
+  
+  // Extract the Google auth code from the URL when the component mounts
+  useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const authCode = queryParams.get("code");
+  
+    if (authCode) {
+      handleGoogleCallback(authCode); // Send the code to the backend
+    }
+  }, []);
+  
+  
+  
   return (
     <div className="mainContainer">
       <div className="formContainer">
@@ -217,7 +287,7 @@ function LoginScreen() {
             <a href="">
               <img src={appleLogo} alt="Apple Login" />
             </a>
-            <a href="">
+            <a onClick={handleGoogleLogin}>
               <img src={googleLogo} alt="Google Login" />
             </a>
             <a href="">

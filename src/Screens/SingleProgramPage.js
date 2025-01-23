@@ -29,9 +29,9 @@ function SingleProgramPage() {
   const { fetchSinglePageProgramData, singlePageProgramData } =
     useContext(UserContext);
 
-  useEffect(() => {
-    fetchSinglePageProgramData();
-  }, []);
+    useEffect(() => {
+      fetchSinglePageProgramData(); // Call the fetch function directly
+    }, []);
 
   const sections = [
     {

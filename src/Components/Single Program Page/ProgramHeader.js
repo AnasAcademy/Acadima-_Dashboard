@@ -76,22 +76,27 @@ function ProgramHeader({
       });
 
       let hasBought = false;
+
       if (programs?.length > 0) {
-        hasBought = programs[0]?.has_bought || false;
+        const programWithId66 = programs.find((program) => program.id === 66);
+        if (programWithId66) {
+          hasBought = programWithId66.has_bought || false;
+        } else {
+          console.log("No program with ID 66 found.");
+        }
       } else {
         console.log("Programs array is empty or undefined.");
       }
+      
 
       const result = await response.json();
 
-      if (!result.success && hasBought === false) {
+      if (result.success) {
         // Navigate if the application is successful and the program hasn't been purchased
         navigate("/finances/program");
-      } else if (!result.success && hasBought) {
-        // Show the popup if the program has been purchased and there are errors
-        const errorDetail = "You have already purchased this program.";
-        setErrorMessage(errorDetail);
-      } else if (!result.success) {
+      }  else if (!result.success){
+        setErrorMessage("You have already applied to this program");
+      } else {
         // Handle API failure
         console.log("API call failed.");
         console.log("API Errors:", result);

@@ -12,6 +12,8 @@ function Consultant() {
   const [webinars, setWebinars] = useState([]);
   const [bundles, setBundles] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
+  const [popupMessage, setPopupMessage] = useState(""); // For popup message
+  const [isPopupVisible, setIsPopupVisible] = useState(false); // To control popup visibility
 
   const [formData, setFormData] = useState({
     name: "",
@@ -139,13 +141,23 @@ function Consultant() {
 
       const result = await response.json();
 
-    console.log("Form Data Submitted:", payload); // Log the final payload
-    console.log(result);
-    
-    // Add your form submission logic here (API integration, etc.)
-  } catch (err) {
-    console.log(err);
-  }
+      if (result.success === false && result.errors) {
+        // Parse error messages for popup
+        const errorMessages = [];
+        for (const [field, messages] of Object.entries(result.errors)) {
+          errorMessages.push(`${messages.join(", ")}`);
+        }
+        setPopupMessage(errorMessages.join("\n")); // Combine error messages
+        setIsPopupVisible(true); // Show popup
+      } else {
+        console.log("Form submitted successfully:", result);
+        // Perform additional success actions (if needed)
+      }
+    } catch (err) {
+      console.log("Error submitting form:", err);
+      setPopupMessage("حدث خطأ أثناء إرسال الطلب."); // Generic error message
+      setIsPopupVisible(true); // Show popup
+    }
   };
 
   return (
@@ -269,6 +281,18 @@ function Consultant() {
           تأكيد طلب الاستشارة
         </button>
       </form>
+
+      {/* Popup for errors */}
+      {isPopupVisible && (
+        <div className="popup-container">
+          <div className="popup">
+            <p>{popupMessage}</p>
+            <button onClick={() => setIsPopupVisible(false)}>
+              إغلاق
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

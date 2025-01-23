@@ -61,7 +61,7 @@ function ProgramCard({ program, programInstallmentData }) {
     <div className="my-program-card">
       <h4 className="my-program-title">{program?.title}</h4>
 
-      {program?.has_bought && programInstallmentData?.upfront?.payment_status ==="Paid" ? ( // Display these elements only when not expanded
+      {(program?.has_bought && programInstallmentData?.upfront?.payment_status ==="Paid" || (program?.has_bought && program?.bought_type === "cache")) ? ( // Display these elements only when not expanded
         <div className="program-card-second-container">
           <h3 className="span-one">{type}</h3>
           <span className="span-two">السعر شامل الضريبة</span>
@@ -77,13 +77,13 @@ function ProgramCard({ program, programInstallmentData }) {
               </div>
               <div className="price-cont">
                 <div className="all-prices-cont"> 
-                  <p className="price">{program?.price} $ </p>
+                  <p className="price" style={{direction: "ltr"}}>{program?.price} $ </p>
                   {/* <p className="price">=</p> */}
-                  <p className="price">
+                  {/* <p className="price">
                     ({program?.new_price}
                     {" "}   
                     {program?.country_currency})
-                  </p>
+                  </p> */}
                 </div>
                 <button
                   className="payment-button"
@@ -103,15 +103,15 @@ function ProgramCard({ program, programInstallmentData }) {
                 <div className="price-cont">
                 <div className="all-prices-cont"> 
 
-                  <p className="price">
-                    {program?.installment_plan?.totalPayments} $
+                  <p className="price"  style={{direction: "ltr"}}>
+                   {program?.installment_plan?.upfront} 
                   </p>
                   {/* <p className="price">=</p> */}
-                  <p className="price">
+                  {/* <p className="price">
                     ({program?.installment_plan?.total_new_price}
                     {" "}   
                     {program?.country_currency})
-                  </p>
+                  </p> */}
                   </div>
                   <button
                     className="payment-button"
@@ -129,7 +129,8 @@ function ProgramCard({ program, programInstallmentData }) {
                 {showInstallments && (
                   <ul className="installments-list">
                     <p className="upfront-p">
-                      {program?.installment_plan?.upfront}  {program?.installment_plan?.new_upfront}{" "}={" "}{program?.country_currency}
+                      {program?.installment_plan?.upfront} 
+                      {/* {program?.installment_plan?.new_upfront}{" "}={" "}{program?.country_currency} */}
                     </p>
                     {program?.installment_plan?.steps.map((step, index) => (
                       <li key={index}>{step}</li>

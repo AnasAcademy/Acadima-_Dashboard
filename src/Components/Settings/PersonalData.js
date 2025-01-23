@@ -14,7 +14,7 @@ const Popup = ({ message, onClose }) => {
 
 function PersonalData({ onNext, allUserData, setAllUserData, updateProgress }) {
   const [fileName, setFileName] = useState("لم يتم إرفاق ملف");
-    const [errors, setErrors] = useState(null);
+  const [errors, setErrors] = useState(null);
 
   const countries = [
     "السعودية",
@@ -115,24 +115,24 @@ function PersonalData({ onNext, allUserData, setAllUserData, updateProgress }) {
 
   const handleSubmitInfo = async (e) => {
     e.preventDefault();
-  
+    
     const formData = new FormData();
-  
+    
     // Add all fields to the FormData object
     Object.keys(allUserData).forEach((key) => {
       const value = allUserData[key];
-      if (key === "identity_img" && value) {
+      if (key === "identity_img" && value instanceof File) {
         formData.append("identity_img", value);
       } else if (value !== undefined && value !== null) {
         formData.append(key, String(value)); // Ensure non-file fields are strings
       }
     });
-    
+  
     try {
       const response = await fetch(apiUrl + "/panel/profile-setting/personal_details", {
         method: "POST",
         headers: {
-          "x-api-key": "1234", // Custom headers
+          "x-api-key": "1234",
           "ngrok-skip-browser-warning": true,
           Authorization: `Bearer ${token}`, // Token for authentication
         },
@@ -140,7 +140,7 @@ function PersonalData({ onNext, allUserData, setAllUserData, updateProgress }) {
       });
   
       const result = await response.json();
-
+  
       if (result.success) {
         onNext();
       } else {
@@ -174,13 +174,13 @@ function PersonalData({ onNext, allUserData, setAllUserData, updateProgress }) {
         } else {
           setErrors("حدث خطأ أثناء التحديث. الرجاء المحاولة لاحقاً.");
         }
-      }    
+      }
     } catch (error) {
-      // console.error("Error submitting form:", error);
+      console.log("Error submitting form:", error);
       setErrors("حدث خطأ غير معروف.");
-      
     }
   };
+  
   
   
   return (
@@ -335,7 +335,15 @@ function PersonalData({ onNext, allUserData, setAllUserData, updateProgress }) {
           حفظ
         </button>
       </form>
+       {/* Error Popup */}
+       {errors && (
+        <Popup
+          message={errors}
+          onClose={() => setErrors(null)} // Close the popup when dismissed
+        />
+      )}
     </div>
+
   );
 }
 

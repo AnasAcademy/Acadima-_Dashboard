@@ -233,6 +233,7 @@ function Extrainfo({ onNext, additionalData, updateProgress }) {
                     defaultValue={true} // Actual boolean value
                     defaultChecked={submit_formdata.deaf === true}
                     onChange={handleInputChange}
+                    required
                   />
                   نعم
                 </label>

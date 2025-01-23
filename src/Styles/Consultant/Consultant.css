@@ -91,13 +91,13 @@
   width: 20%;
   padding: 10px 30px;
   text-align: center;
-  background-color: #316F7D; 
-  color: #fff;
+  background-color: #CCF5FF; 
+  color: #000;
   border: none;
 }
 .consultation-form .submit-button {
-  background-color: #316F7D; 
-  color: #fff;
+  background-color: #CCF5FF; 
+  color: #000;
   border: none;
   cursor: pointer;
   font-size: 20px;
@@ -106,7 +106,7 @@
 }
 
 .consultation-form .submit-button:hover {
-  background-color: #316f7dbb;
+  background-color: #ccf5ff77;
 }
 
 @media(max-width:1440px) {

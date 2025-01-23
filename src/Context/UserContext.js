@@ -180,28 +180,6 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  const fetchCertificates = async () => {
-    try {
-      const response = await fetch(
-        `${apiUrl}/panel/certificates/achievements`,
-        { method: "GET", 
-          headers: {
-            "Content-Type": "application/json",
-            "x-api-key": "1234",
-            "ngrok-skip-browser-warning": true,
-            Authorization: `Bearer ${localStorage.getItem("token")}`, // Use localStorage directly
-          },
-         }
-      );
-      const result = await response.json();
-      setCertificates(result?.data?.bundleCertificates || []);
-      setAvailableCertificates(result?.data?.bundleCertificates.length);
-    } catch (error) {
-      console.error("Error fetching certificates:", error);
-      setError("حدث خطأ أثناء جلب الشهادات.");
-    }
-  };
-
   const fetchAppliedProgramsData = async () => {
     try {
       const response = await fetch(apiUrl + "/panel/programs/applieds", {
@@ -224,6 +202,30 @@ export const UserProvider = ({ children }) => {
       console.log(error);
     }
   };
+
+  const fetchCertificates = async () => {
+    try {
+      const response = await fetch(
+        `${apiUrl}/panel/certificates/achievements`,
+        { method: "GET", 
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key": "1234",
+            Authorization: `Bearer ${localStorage.getItem("token")}`, // Use localStorage directly
+          },
+         }
+      );
+      const result = await response.json();
+      console.log(result);
+      
+      setCertificates(result?.data?.bundleCertificates || []);
+      setAvailableCertificates(result?.data?.bundleCertificates.length);
+    } catch (error) {
+      console.error("Error fetching certificates:", error);
+      setError("حدث خطأ أثناء جلب الشهادات.");
+    }
+  };
+
 
   const fetchProgramsInstallmentData = async () => {
     try {
@@ -281,10 +283,7 @@ export const UserProvider = ({ children }) => {
       const response = await fetch(apiUrl + "/programs", {
         method: "GET",
         headers: {
-          "Content-Type": "application/json",
           "x-api-key": "1234",
-          "ngrok-skip-browser-warning": true,
-          accept: "application/json",
         },
       });
 
@@ -303,11 +302,13 @@ export const UserProvider = ({ children }) => {
     await fetchProgramData();
     await fetchClassesData();
     await fetchNotifications();
-    await fetchCertificates(); // Fetch certificates
     await fetchAllUserSettingsData();
     await fetchAppliedProgramsData();
     await fetchProgramsInstallmentData();
-  };
+    await fetchSinglePageProgramData();
+    if (programs.length > 0) {
+      await fetchCertificates(); // Fetch certificates only if programs exist
+    }  };
 
   // Fetch data on mount
   useEffect(() => {
