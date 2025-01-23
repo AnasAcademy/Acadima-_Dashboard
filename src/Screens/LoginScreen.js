@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../Styles/Registration/LoginScreen.css";
 import { UserContext } from "../Context/UserContext";
 import { getPreviousRoute } from "../Context/RouteHistory";

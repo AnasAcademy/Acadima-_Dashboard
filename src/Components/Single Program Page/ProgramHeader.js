@@ -75,8 +75,6 @@ function ProgramHeader({
         body: JSON.stringify(data),
       });
 
-      const result = await response.json();
-
       let hasBought = false;
       if (programs?.length > 0) {
         hasBought = programs[0]?.has_bought || false;
@@ -84,15 +82,14 @@ function ProgramHeader({
         console.log("Programs array is empty or undefined.");
       }
 
-      if (!result.success && !hasBought) {
+      const result = await response.json();
+
+      if (!result.success && hasBought === false) {
         // Navigate if the application is successful and the program hasn't been purchased
         navigate("/finances/program");
       } else if (!result.success && hasBought) {
         // Show the popup if the program has been purchased and there are errors
-        console.log("Program already purchased with errors.");
-        const errorDetail =
-          result.errors?.bundle_id?.[0] ||
-          "You have already purchased this program.";
+        const errorDetail = "You have already purchased this program.";
         setErrorMessage(errorDetail);
       } else if (!result.success) {
         // Handle API failure
@@ -106,7 +103,7 @@ function ProgramHeader({
       }
     } catch (error) {
       setErrorMessage("An unexpected error occurred. Please try again.");
-      console.error("Error applying to program:", error);
+      console.log("Error applying to program:", error);
     }
   };
 
@@ -120,7 +117,6 @@ function ProgramHeader({
       navigate("/programs/consultant");
     }
   };
-  
 
   return (
     <div className="prog-header">
@@ -136,7 +132,9 @@ function ProgramHeader({
               <p className="enroll-p"> Download our 2024 curriculum</p>
             </button>
             <button className="header-button consult">
-              <p className="enroll-p consult" onClick={handleConsultantClick}>Consult</p>
+              <p className="enroll-p consult" onClick={handleConsultantClick}>
+                Consult
+              </p>
             </button>
             <button className="header-button" onClick={applyToProgram}>
               <p className="enroll-p"> Apply now</p>

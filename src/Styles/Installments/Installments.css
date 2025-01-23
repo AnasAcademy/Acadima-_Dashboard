@@ -50,6 +50,7 @@
   background: #141f25;
   padding: 29px 66px;
   box-sizing: border-box;
+  gap: 100px;
 }
 .progress-chart-container {
   display: flex;
@@ -345,11 +346,22 @@ height: 100%;
 .payment-button:hover {
   background-color: #ccf5ffbd;
 }
+@media(max-width:1880px) {
+  .program-details-payment-info-div {
+    gap: 20px;
+  }
+}
+
 @media (max-width: 1700px) {
   .program-details-payment-info-div {
     flex-direction: column-reverse;
     align-items: flex-start;
     gap: 5px;
+  }
+}
+@media (max-width: 1600px) {
+  .payment-top {
+    gap: 0;
   }
 }
 @media (max-width: 1500px) {

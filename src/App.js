@@ -22,7 +22,6 @@ import Program from './Screens/Program';
 import MainPageContainer from './Components/Main/MainPageContainer';
 import Consultant from './Screens/Consultant.js';
 import { UserProvider } from './Context/UserContext';
-import Test from './Screens/Test';
 import NotFound from './Screens/NotFound';
 import ResetPassword from './Screens/ResetPassword.js';
 
@@ -39,7 +38,7 @@ function App() {
             <Route path="/payment/:order_id" element={<ProtectedRoute><Payment /></ProtectedRoute>} />
             <Route path="/finances/installments/conditions" element={<ProtectedRoute><InstallmentConditions /></ProtectedRoute>} />
             <Route path="/programs" element={<SingleProgramPage />} />
-            <Route path="/programs/consultant" element={<Consultant />} />
+            <Route path="/programs/consultant" element={<ProtectedRoute><Consultant /></ProtectedRoute>} />
             <Route path="/reset-password/:token" element={<ResetPassword />} />
 
             <Route path="*" element={<NotFound />} />
@@ -57,7 +56,6 @@ function App() {
               <Route path="/notifications/:notification_id" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
               <Route path="/services" element={<ProtectedRoute><Services /></ProtectedRoute>} />
               <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
-              <Route path="/test" element={<ProtectedRoute><Test /></ProtectedRoute>} />
             </Route>
           </Routes>
         </div>

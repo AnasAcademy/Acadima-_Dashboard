@@ -6,7 +6,7 @@ import "../../Styles/SingleProgramPage/PaymentSection.css";
 
 import check from "../../Images/Single Program Page/offerCheck.svg";
 
-function PaymentSection({ programId, sectionId}) {
+function PaymentSection({sectionId}) {
   const whatCourseOffers = [
     "Personal career support",
     "Online, Part-Time",
@@ -18,16 +18,17 @@ function PaymentSection({ programId, sectionId}) {
 
   let program = [];
   if (programs?.length > 0) {
-    program = programs[0];
+    program = programs[3];
   } else {
   } 
+  
 
   const navigate = useNavigate();
   const location = useLocation();
   
   const token = localStorage.getItem("token");
 
-  const handleCashClick = async (programId) => {
+  const handleCashClick = async () => {
     if (!token) {
       navigate("/login", { state: { from: location } });
       return;
@@ -41,7 +42,7 @@ function PaymentSection({ programId, sectionId}) {
           "ngrok-skip-browser-warning": true,
           Authorization: "Bearer " + token,
         },
-        body: JSON.stringify({ item_id: programId }),
+        body: JSON.stringify({ item_id: program?.id }),
       });
 
       const result = await response.json();
@@ -114,7 +115,7 @@ function PaymentSection({ programId, sectionId}) {
             <div className="payment-buttons-container">
               <button
                 className="register-btn"
-                onClick={() => handleCashClick(program?.id)}
+                onClick={() => handleCashClick()}
               >
                 Register Now
               </button>
@@ -129,7 +130,7 @@ function PaymentSection({ programId, sectionId}) {
             <p className="plan-desc">Flexible payments for your budget.</p>
             <div className="discount">25%</div>
             <div className="price">
-              <h2 className="new-price">4,784 SAR</h2>
+              <h2 className="new-price">{program?.installment_plan?.upfront}</h2>
               <span className="old-price">6,394 SAR</span>
             </div>
           </div>

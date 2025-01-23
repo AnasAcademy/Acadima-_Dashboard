@@ -467,6 +467,7 @@
   .single-program-details-container {
     width: 90%;
     margin: 50px auto;
+    margin-top: 100px;
   }
   .single-program-id-bar {
     width: 90%;
@@ -612,5 +613,20 @@
 @media (max-width: 500px) {
   .rightVector {
     width: 58%;
+  }
+}
+@media (max-width: 450px) {
+  .rightVector {
+    top: 17%;
+  }
+}
+@media (max-width: 380px) {
+  .rightVector {
+    top: 17.5%;
+  }
+}
+@media (max-width: 330px) {
+  .rightVector {
+    top: 18%;
   }
 }

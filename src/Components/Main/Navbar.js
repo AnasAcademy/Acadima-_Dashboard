@@ -133,7 +133,7 @@ function Navbar({ userBriefData, hasUnreadNotifications, notifications }) {
           <p className="student-name">{userBriefData?.full_name}</p>
           <p className="student-code">{userBriefData?.user_code}</p>
         </div>
-        <img src={userBriefData?.avatar} alt="logo" className="logo" />
+        <img src={userBriefData?.avatar} alt="logo" className="user-logo" />
       </div>
     </div>
   );
