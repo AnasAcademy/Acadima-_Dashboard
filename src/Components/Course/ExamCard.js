@@ -26,9 +26,14 @@ function ExamCard({ exams = [], setActiveExam }) {
                 <div className="course-title">
                   {exam.translations?.[0]?.title || "No Title"}
                 </div>
-                <span className="lecture-number">
-                  Attempts Allowed: {exam.attempt || "N/A"}
-                </span>
+                <div className="course-more-details">
+                  <span className="lecture-number">
+                    Attempts Allowed: {exam.attempt || "N/A"}
+                  </span>
+                  <span className="exam-duration">
+                    Duration: {exam?.time || "N/A"} minutes
+                  </span>
+                </div>
               </div>
             </div>
             <img
@@ -55,7 +60,7 @@ function ExamCard({ exams = [], setActiveExam }) {
                   />
                   <div className="lecture-item-left">
                     <span className="lecture-title">
-                    {exam.translations?.[0]?.title || "No Title"}
+                      {exam.translations?.[0]?.title || "No Title"}
                     </span>
                     {/* <span className="lecture-duration">
                       Pass Mark: {exam.pass_mark || "N/A"}%

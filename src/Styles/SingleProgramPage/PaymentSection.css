@@ -118,6 +118,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 5px;
+  width: 100%;
 }
 .plan-title {
   font-size: 1.5rem;
@@ -125,7 +126,7 @@
 }
 
 .plan-desc {
-  font-size: 1rem;
+  font-size: 14px;
   color: #aaa;
   margin-bottom: 20px;
   margin-top: 0;
@@ -240,7 +241,7 @@
   }
   .plan {
     width: 200px;
-    height: 370px;
+    height: 390px;
   }
   .plan-title {
     font-size: 20px;
@@ -255,6 +256,9 @@
   }
   .plans {
     width: 60%;
+  }
+  .plan {
+    height: 420px;
   }
 }
 @media (max-width: 1000px) {
@@ -283,9 +287,6 @@
   .plans {
     width: 80%;
     margin: 0;
-  }
-  .plan {
-    height: 420px;
   }
   .avg-salary {
     width: 60%;
@@ -329,7 +330,7 @@
   }
   .plans {
     flex-direction: column;
-    width: 60%;
+    width: 80%;
   }
   .plan {
     width: 80%;

@@ -63,7 +63,6 @@ function BasicData({ onNext, allUserData, setAllUserData, updateProgress }) {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setAllUserData((prev) => ({ ...prev, [name]: value || "" }));
-    console.log(name, value);
     
     setTimeout(calculateProgress, 0); // Recalculate after the state updates
   };

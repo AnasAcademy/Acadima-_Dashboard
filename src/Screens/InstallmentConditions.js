@@ -12,7 +12,7 @@ import installmentdeadline from "../Images/installmentdeadline.svg";
 function InstallmentConditions() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { program } = location.state || {}; 
+  const { program } = location.state || {};
 
   const token = localStorage.getItem("token");
 
@@ -60,30 +60,32 @@ function InstallmentConditions() {
       </div>
 
       {/* Selected Installment Brief */}
-      <div className="installment-brief">
-        <h3 className="brief-title">نظرة عامة على القسط</h3>
-        <p className="brief-program-name">
-          اسم البرنامج : <span>{program?.title}</span>
-        </p>
-        <div className="brief-details">
-          <div className="brief-details-part">
-            <img src={payment} alt="payment" className="payment-icon" />
-            <span className="brief-program-name">
-              {program?.installment_plan?.upfront}
-            </span>
-          </div>
-          <div className="brief-details-part">
-            <img
-              src={installmentdeadline}
-              alt="installmentdeadline"
-              className="payment-icon"
-            />
-            <span className="brief-program-name">
-              تاريخ انتهاء الأقساط {program?.installment_plan?.last_step_date}
-            </span>
+      {program && (
+        <div className="installment-brief">
+          <h3 className="brief-title">نظرة عامة على القسط</h3>
+          <p className="brief-program-name">
+            اسم البرنامج : <span>{program?.title}</span>
+          </p>
+          <div className="brief-details">
+            <div className="brief-details-part">
+              <img src={payment} alt="payment" className="payment-icon" />
+              <span className="brief-program-name">
+                {program?.installment_plan?.upfront}
+              </span>
+            </div>
+            <div className="brief-details-part">
+              <img
+                src={installmentdeadline}
+                alt="installmentdeadline"
+                className="payment-icon"
+              />
+              <span className="brief-program-name">
+                تاريخ انتهاء الأقساط {program?.installment_plan?.last_step_date}
+              </span>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Installment Conditions */}
       <div className="installment-brief">
@@ -159,9 +161,11 @@ function InstallmentConditions() {
         <button className="back-button" onClick={() => navigate(-1)}>
           الرجوع
         </button>
-        <button className="confirm-button" onClick={handleInstallmentPayment}>
-          موافق
-        </button>
+        {program && (
+          <button className="confirm-button" onClick={handleInstallmentPayment}>
+            موافق
+          </button>
+        )}
       </div>
     </div>
   );

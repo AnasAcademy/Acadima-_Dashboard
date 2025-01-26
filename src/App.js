@@ -24,6 +24,7 @@ import Consultant from './Screens/Consultant.js';
 import { UserProvider } from './Context/UserContext';
 import NotFound from './Screens/NotFound';
 import ResetPassword from './Screens/ResetPassword.js';
+import Exam from './Screens/Exam.js';
 
 function App() {
   return (
@@ -34,10 +35,12 @@ function App() {
             {/* Public Routes */}
             <Route path="/login" element={<PublicRoute><LoginScreen /></PublicRoute>} />
             <Route path="/register" element={<PublicRoute><RegistrationScreen /></PublicRoute>} />      
+            <Route path="/programs" element={<SingleProgramPage />} />
             <Route path="/classes/:classId/course/:courseId" element={<ProtectedRoute><Course /></ProtectedRoute>} />
+            <Route path="/classes/:classId/course/:courseId/Quiz" element={<ProtectedRoute><Exam /></ProtectedRoute>} />
             <Route path="/payment/:order_id" element={<ProtectedRoute><Payment /></ProtectedRoute>} />
             <Route path="/finances/installments/conditions" element={<ProtectedRoute><InstallmentConditions /></ProtectedRoute>} />
-            <Route path="/programs" element={<SingleProgramPage />} />
+            <Route path="/installments-conditions" element={<ProtectedRoute><InstallmentConditions /></ProtectedRoute>} />
             <Route path="/programs/consultant" element={<ProtectedRoute><Consultant /></ProtectedRoute>} />
             <Route path="/reset-password/:token" element={<ResetPassword />} />
 

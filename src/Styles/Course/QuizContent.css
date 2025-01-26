@@ -1,0 +1,63 @@
+.exam-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 40%;
+  margin: auto;
+  color: #fff;
+  border-radius: 8px;
+  border: 1px solid #203947;
+  padding: 20px;
+}
+.exam-content-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+}
+.exam-title {
+  margin: 0;
+}
+.exam-content-info p {
+  margin: 0;
+  direction: ltr;
+}
+.exam-screen {
+  padding: 40px;
+}
+.exam-screen-content {
+  padding: 40px;
+  width: 65%;
+  margin: auto;
+  margin-top: 80px;
+}
+.exam-title {
+  color: #fff;
+  text-align: right;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.exam-subtitle {
+    color: gray;
+    text-align: right;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    direction: rtl;
+}
+.exam-detail {
+    color: #ccf5ff;
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-bottom: 0;
+  max-width: 100px;
+}

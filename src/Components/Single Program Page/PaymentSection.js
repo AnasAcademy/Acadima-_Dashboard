@@ -184,13 +184,14 @@ function PaymentSection({ sectionId }) {
             <div className="discount">25%</div>
             <div className="price">
               <h2 className="new-price">
-                {program?.installment_plan?.upfront}
+                {/* {program?.installment_plan?.upfront} */}
+                3000
               </h2>
               <span className="old-price">
-                {program?.installment_plan?.upfront
+                {3000
                   ? `${calculateOldPrice(
-                      program.installment_plan.upfront,
-                      program.discount || 25
+                      3000,
+                      25 || 25
                     )} $`
                   : ""}
               </span>
@@ -201,7 +202,9 @@ function PaymentSection({ sectionId }) {
               <button className="register-btn" onClick={handleInstallmentClick}>
                 Register Now
               </button>
-              <button className="register-btn details-btn">
+              <button className="register-btn details-btn"   
+              onClick={() => navigate("/installments-conditions")}
+              >
                 View installment details
               </button>
             </div>

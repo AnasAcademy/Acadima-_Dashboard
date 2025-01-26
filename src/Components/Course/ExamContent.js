@@ -1,41 +1,30 @@
 import React from "react";
-import "../../Styles/Course/Course.css";
+import "../../Styles/Course/QuizContent.css";
 
 import examCont from "../../Images/examCont.svg";
-import leftarrow from "../../Images/leftarrow.svg";
+import { useNavigate, useParams } from "react-router-dom";
 
-function ExamContent({ exam }) {
-  // Extract important fields with fallbacks
-  const title = exam?.translations?.[0]?.title || "No Title Available";
-  const time = exam?.time || "N/A";
-  const passMark = exam?.pass_mark || "N/A";
-  const attempts = exam?.attempt || "N/A";
-  const expiry_days = exam?.expiry_days || "N/A";
-  const canTry = exam?.can_try ? "Yes" : "No";
-  const certificateStatus = exam?.can_download_certificate
-    ? "Available"
-    : "Not Available";
-  const createdAt = exam?.created_at
-    ? new Date(exam.created_at * 1000).toLocaleString() // Convert timestamp to readable format
-    : "Timestamp Not Provided";
+function ExamContent({ exam, teacher }) {
+  const navigate = useNavigate(); // Correct use of useNavigate hook
+  const { classId, courseId } = useParams(); // Get route parameters from parent
+
+  const handleStartQuiz = () => {
+    // Dynamically navigate to the quiz page using parameters
+    navigate(`/classes/${classId}/course/${courseId}/Quiz`, { state: { exam, teacher } });
+  };
 
   return (
-    <div className="exam-content" style={{ color: "green" }}>
-      <img src={examCont} alt="ExamContent" className="examcontimg" />
-      <div className="exam-header">
-        <h2 className="exam-title">{title}</h2>
-        <p className="exam-duration">Duration: {time} minutes</p>
-        <p className="exam-pass-mark">Pass Mark: {passMark}%</p>
-        <p className="exam-attempts">Attempts Allowed: {attempts}</p>
+    <div className="exam-content">
+      <img src={examCont} alt="Exam Content" className="examcontimg" />
+      <div className="exam-content-info">
+        <h2 className="exam-title">{exam?.translations?.[0]?.title}</h2>
+        <p>انتقل الى صفحة الاختبار للحصول على مزيد من المعلومات</p>
+        <p>The quiz will expire in {exam?.expiry_days} days.</p>
       </div>
-      <div className="exam-description">
-        <p>Can Try: {canTry}</p>
-        <p>Certificate Status: {certificateStatus}</p>
-      </div>
-      <button className="exam-action-btn">
-        {/* <img src={leftarrow} alt="leftarrow" className="leftarrow" /> */}
+      <button className="assignment-action-button" onClick={handleStartQuiz}>
         Start Quiz
       </button>
+      
     </div>
   );
 }

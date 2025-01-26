@@ -1,8 +1,6 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useParams } from "react-router-dom";
-
 import { UserContext } from "../Context/UserContext";
-
 import "../Styles/Course/Course.css";
 
 import Header from "../Components/Course/Header";
@@ -19,7 +17,7 @@ import Activecourseexams from "../Images/Activecourseexams.svg";
 import courseexams from "../Images/courseexams.svg";
 
 function Course() {
-  const { fetchCourseData, courseData, chapters, quizzes } =
+  const { fetchCourseData, fetchClassesData, courseData, chapters, quizzes, teacher } =
     useContext(UserContext);
 
   const [activeTab, setActiveTab] = useState("content"); // "content" or "exams"
@@ -31,9 +29,18 @@ function Course() {
 
   const { classId, courseId } = useParams(); // Get the `id` from the URL
 
+  // Fetch course data and classes data when the classId or courseId changes
   useEffect(() => {
-    fetchCourseData(classId, courseId); // Fetch course data on mount
-  }, [classId, courseId, fetchCourseData]);
+    // Clear previous state before fetching new data
+    setActiveLecture(null);
+    setActiveExam(null);
+    setActiveAssignment(null);
+    setActiveTextLesson(null);
+
+    // Fetch the updated data
+    fetchClassesData();
+    fetchCourseData(classId, courseId);
+  }, [classId, courseId, fetchCourseData, fetchClassesData]);
 
   const toggleLayout = () => {
     setIsCompact((prev) => !prev);
@@ -122,7 +129,7 @@ function Course() {
           {activeLecture ? (
             <VideoContent videoSrc={activeLecture?.content || null} />
           ) : activeExam ? (
-            <ExamContent exam={activeExam} />
+            <ExamContent exam={activeExam} teacher={teacher} />
           ) : activeAssignment ? (
             <AssignmentContent assignment={activeAssignment} />
           ) : activeTextLesson ? (

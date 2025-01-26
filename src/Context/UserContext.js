@@ -30,7 +30,7 @@ export const UserProvider = ({ children }) => {
   const [courseData, setCourseData] = useState(null); // Course data
   const [chapters, setChapters] = useState([]); // Course chapters
   const [quizzes, setQuizzes] = useState([]);
-
+  const [teacher, setTeacher] = useState([]);
   const [error, setError] = useState(null);
 
   const [singlePageProgramData, setSinglePageProgramData] = useState([]);
@@ -124,7 +124,7 @@ export const UserProvider = ({ children }) => {
       const result = await response.json();
       setClassesData(result?.data?.bundles || []);
     } catch (error) {
-      console.error("Error fetching classes data:", error);
+      console.log("Error fetching classes data:", error);
       setError("حدث خطأ أثناء جلب البيانات. يرجى المحاولة لاحقًا.");
     }
   };
@@ -144,7 +144,7 @@ export const UserProvider = ({ children }) => {
       const result = await response.json();
       setNotifications(result?.data?.notifications || []);
     } catch (error) {
-      console.error("Error fetching notifications:", error);
+      console.log("Error fetching notifications:", error);
     }
   };
 
@@ -216,12 +216,11 @@ export const UserProvider = ({ children }) => {
          }
       );
       const result = await response.json();
-      console.log(result);
       
       setCertificates(result?.data?.bundleCertificates || []);
       setAvailableCertificates(result?.data?.bundleCertificates.length);
     } catch (error) {
-      console.error("Error fetching certificates:", error);
+      console.log("Error fetching certificates:", error);
       setError("حدث خطأ أثناء جلب الشهادات.");
     }
   };
@@ -259,7 +258,6 @@ export const UserProvider = ({ children }) => {
   };
   
   const fetchCourseData = async (classId, courseId) => {
-    if (!token || courseData) return; // Prevent repeated fetch if data exists
     try {
       const response = await fetch(
         `${apiUrl}/${classId}/learning-page/${courseId}`,
@@ -272,11 +270,12 @@ export const UserProvider = ({ children }) => {
       setCourseData(result.data);
       setChapters(result.data?.course?.chapters || []);
       setQuizzes(result.data?.course?.quizzes || []);
-      
+      setTeacher(result.data?.course?.teacher || []);
     } catch (error) {
       console.error("Error fetching course data:", error);
     }
   };
+  
 
   const fetchSinglePageProgramData = async () => {
     try {
@@ -306,7 +305,7 @@ export const UserProvider = ({ children }) => {
     await fetchAppliedProgramsData();
     await fetchProgramsInstallmentData();
     await fetchSinglePageProgramData();
-    if (programs.length > 0) {
+    if (programs?.length > 0) {
       await fetchCertificates(); // Fetch certificates only if programs exist
     }  };
 
@@ -342,6 +341,7 @@ export const UserProvider = ({ children }) => {
         courseData,
         chapters,
         quizzes,
+        teacher,
         fetchSinglePageProgramData,
         singlePageProgramData,
         fetchCourseData,
