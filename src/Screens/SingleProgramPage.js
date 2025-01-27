@@ -28,6 +28,16 @@ import leftVector from "../Images/Single Program Page/leftVector.svg";
 function SingleProgramPage() {
   const { fetchSinglePageProgramData, singlePageProgramData } =
     useContext(UserContext);
+    const { programId } = useParams(); // Access the userId parameter from the URL
+
+    const category_id =
+    singlePageProgramData?.categories?.length > 0 && singlePageProgramData.categories[0]?.id;
+
+    const bundle_id = programId;
+
+    const data = { category_id, bundle_id };
+
+    
 
     useEffect(() => {
       fetchSinglePageProgramData(); // Call the fetch function directly
@@ -38,100 +48,176 @@ function SingleProgramPage() {
       id: "overview",
       title: "Overview",
       content: (
-        <div>
-          <p>
-            The Cybersecurity Practitioner Program is a hands-on, immersive
-            course designed for professionals seeking to enhance their practical
-            skills in defending digital systems. Tailored for those already
-            working in or transitioning to cybersecurity roles, this program
-            equips participants with real-world tools and methodologies to
-            tackle modern cyber threats effectively.
-          </p>
-          <p>
-            Whether you’re a system administrator, IT specialist, or aspiring
-            security professional, this program bridges the gap between theory
-            and practice, preparing you to thrive in high-stakes environments.
-          </p>
-        </div>
+        <>
+          {programId === "66" ? (
+            <div>
+              <p>
+                The Cybersecurity Practitioner Program is a hands-on, immersive
+                course designed for professionals seeking to enhance their practical
+                skills in defending digital systems. Tailored for those already
+                working in or transitioning to cybersecurity roles, this program
+                equips participants with real-world tools and methodologies to
+                tackle modern cyber threats effectively.
+              </p>
+              <p>
+                Whether you’re a system administrator, IT specialist, or aspiring
+                security professional, this program bridges the gap between theory
+                and practice, preparing you to thrive in high-stakes environments.
+              </p>
+            </div>
+          ) : (
+            <div>
+              <p>
+              The Microsoft 365 Certified: Fundamentals program equips you with essential 
+              knowledge of Microsoft 365 services, benefits, and cloud computing principles. 
+              It’s ideal for individuals who are new to Microsoft 365 and want to understand its 
+              capabilities to transform business productivity and collaboration.  
+              </p>
+              
+            </div>
+          )}
+        </>
       ),
     },
     {
       id: "highlights",
       title: "Program Highlights",
       content: (
-        <div>
-          <h4>Core Focus Areas</h4>
-          <ul>
-            <li>Threat Detection and Mitigation</li>
-            <li>Ethical Hacking and Penetration Testing</li>
-            <li>Incident Response and Recovery</li>
-            <li>Vulnerability Assessments</li>
-            <li>Secure Network Architecture</li>
-          </ul>
-        </div>
+        <>
+          {programId === "66" ? (
+            <div>
+              <h4>Core Focus Areas</h4>
+              <ul>
+                <li>Threat Detection and Mitigation</li>
+                <li>Ethical Hacking and Penetration Testing</li>
+                <li>Incident Response and Recovery</li>
+                <li>Vulnerability Assessments</li>
+                <li>Secure Network Architecture</li>
+              </ul>
+            </div>
+          ) : (
+            <div>
+              <h4>Core Focus Areas</h4>
+              <ul>
+                <li>Comprehensive Introduction </li>
+                <li>Security and Compliance</li>
+                <li>Licensing and Subscriptions</li>
+                <li>Hands-On Learning </li>
+                <li>Certification Preparation </li>
+                <li>Expert-Led Training</li>
+                <li>Career Advancement </li>
+              </ul>
+            </div>
+          )}
+        </>
       ),
     },
     {
       id: "who-should-join",
       title: "Who Should Join?",
       content: (
-        <div>
-          <h4>This program is ideal for:</h4>
-          <ul>
-            <li>
-              People looking for a way in cybersecurity with basic computer
-              skills.
-            </li>
-            <li>IT professionals transitioning into cybersecurity.</li>
-            <li>
-              Technology professionals aiming to specialize in threat
-              prevention.
-            </li>
-          </ul>
-        </div>
+        <>
+          {programId === "66" ? (
+            <div>
+              <h4>This program is ideal for:</h4>
+              <ul>
+                <li>
+                  People looking for a way in cybersecurity with basic computer
+                  skills.
+                </li>
+                <li>IT professionals transitioning into cybersecurity.</li>
+                <li>
+                  Technology professionals aiming to specialize in threat
+                  prevention.
+                </li>
+              </ul>
+            </div>
+          ) : (
+            <div>
+              <h4>This program is ideal for:</h4>
+              <ul>
+                <li> Beginners exploring careers in cloud computing and IT. </li>
+                <li>Business professionals seeking to leverage Microsoft 365 for their organisation.  </li>
+                <li>Anyone preparing to take the Microsoft 365 Fundamentals (Exam MS-900) certification. </li>
+              </ul>
+            </div>
+          )}
+        </>
       ),
     },
     {
       id: "outcomes",
       title: "Key Learning Outcomes",
       content: (
-        <div className="content-container">
-          <h4>
-            Graduates of the Cybersecurity Practitioner Program will be able to:
-          </h4>
-          <ul>
-            <li>
-              Perform advanced threat detection and vulnerability assessments.
-            </li>
-            <li>Build and manage secure networks and applications.</li>
-            <li>
-              Execute ethical hacking practices and identify system weaknesses.
-            </li>
-            <li>
-              Lead incident response efforts to minimize damage and recover
-              operations.
-            </li>
-            <li>
-              Implement cutting-edge security measures to prevent future
-              attacks.
-            </li>
-          </ul>
-        </div>
+        <>
+          {programId === "66" ? (
+            <div className="content-container">
+              <h4>
+                Graduates of the Cybersecurity Practitioner Program will be able to:
+              </h4>
+              <ul>
+                <li>
+                  Perform advanced threat detection and vulnerability assessments.
+                </li>
+                <li>Build and manage secure networks and applications.</li>
+                <li>
+                  Execute ethical hacking practices and identify system weaknesses.
+                </li>
+                <li>
+                  Lead incident response efforts to minimize damage and recover
+                  operations.
+                </li>
+                <li>
+                  Implement cutting-edge security measures to prevent future
+                  attacks.
+                </li>
+              </ul>
+            </div>
+          ) : (
+            <div className="content-container">
+              <h4>
+              Upon completing the Microsoft 365 Certified: Fundamentals program, participants will :
+              </h4>
+              <ul>
+                <li>
+                Gain a solid understanding of Microsoft 365’s core services, including Microsoft Teams, SharePoint, OneDrive, and Exchange, as well as the fundamentals of cloud computing.
+                </li>
+                <li>Develop knowledge of security, compliance, and privacy principles within the Microsoft 365 environment and understand subscription and licensing models.</li>
+                <li>
+                Graduates will be equipped to articulate the business value of Microsoft 365 solutions, apply their knowledge to real-world scenarios, and confidently prepare for the Microsoft 365 Fundamentals (Exam MS-900) certification, enhancing their career prospects in IT and cloud-based roles.
+                </li>
+              </ul>
+            </div>
+          )}
+        </>
       ),
     },
     {
       id: "careers",
       title: "Careers",
       content: (
-        <div className="content-container">
-          <h4>Graduates from this program often secure roles such as:</h4>
-          <ul>
-            <li>Cybersecurity Analyst</li>
-            <li>Penetration Tester</li>
-            <li>Security Engineer</li>
-            <li>Incident Response Specialist</li>
-          </ul>
-        </div>
+        <>
+          {programId === "66" ? (
+            <div className="content-container">
+              <h4>Graduates from this program often secure roles such as:</h4>
+              <ul>
+                <li>Cybersecurity Analyst</li>
+                <li>Penetration Tester</li>
+                <li>Security Engineer</li>
+                <li>Incident Response Specialist</li>
+              </ul>
+            </div>
+          ) : (
+            <div className="content-container">
+              <ul>
+                <li>The Microsoft 365 Certified: Fundamentals program opens diverse career opportunities in IT and cloud-based roles.</li>
+                <li>Graduates can pursue positions such as IT Support Specialist, Cloud Administrator, Microsoft 365 Specialist, or Technology Consultant across industries.</li>
+                <li>This certification validates foundational knowledge of Microsoft 365 services, making it ideal for roles that involve deploying, managing, and supporting Microsoft 365 solutions. </li>
+                <li>Additionally, it serves as a stepping stone for advanced certifications and specialised roles in cloud technologies, enhancing employability in a rapidly growing job market driven by digital transformation. </li>
+              </ul>
+            </div>
+          )}
+        </>
       ),
     },
   ];
@@ -146,39 +232,39 @@ function SingleProgramPage() {
     (section) => section.id === activeSection
   );
 
-  const steps = [
-    {
-      step: 1,
-      title: "Application",
-      description: "Officially apply to the program",
-      buttonText: "Apply today",
-      highlight: true,
-    },
-    {
-      step: 2,
-      title: "Lorem ipsum dolor sit",
-      description:
-        "Lorem ipsum dolor sit amet consectetur. Nam vel netus faucibus pretium cras fringilla.",
-      buttonText: "Start now →",
-      highlight: false,
-    },
-    {
-      step: 3,
-      title: "Lorem ipsum dolor sit",
-      description:
-        "Lorem ipsum dolor sit amet consectetur. Nam vel netus faucibus pretium cras fringilla.",
-      buttonText: "Start now →",
-      highlight: false,
-    },
-    {
-      step: 4,
-      title: "Lorem ipsum dolor sit",
-      description:
-        "Lorem ipsum dolor sit amet consectetur. Nam vel netus faucibus pretium cras fringilla.",
-      buttonText: "Start now →",
-      highlight: false,
-    },
-  ];
+  // const steps = [
+  //   {
+  //     step: 1,
+  //     title: "Application",
+  //     description: "Officially apply to the program",
+  //     buttonText: "Apply today",
+  //     highlight: true,
+  //   },
+  //   {
+  //     step: 2,
+  //     title: "Lorem ipsum dolor sit",
+  //     description:
+  //       "Lorem ipsum dolor sit amet consectetur. Nam vel netus faucibus pretium cras fringilla.",
+  //     buttonText: "Start now →",
+  //     highlight: false,
+  //   },
+  //   {
+  //     step: 3,
+  //     title: "Lorem ipsum dolor sit",
+  //     description:
+  //       "Lorem ipsum dolor sit amet consectetur. Nam vel netus faucibus pretium cras fringilla.",
+  //     buttonText: "Start now →",
+  //     highlight: false,
+  //   },
+  //   {
+  //     step: 4,
+  //     title: "Lorem ipsum dolor sit",
+  //     description:
+  //       "Lorem ipsum dolor sit amet consectetur. Nam vel netus faucibus pretium cras fringilla.",
+  //     buttonText: "Start now →",
+  //     highlight: false,
+  //   },
+  // ];
 
   const testimonials = [
     {
@@ -229,20 +315,20 @@ function SingleProgramPage() {
     <div className="programDetailsScreen">
       <ProgramHeader
         program={singlePageProgramData}
-        appDeadline="Oct 2"
-        durationInSemesters="3"
-        durationInHours="230"
-        durationDetails="6 months, 10 hours a week"
-        level="Beginner"
-        levelDetails="No need for previous experience"
-        courseLanguage="Arabic/English"
+        programId={programId}
+        data={data}
+        // appDeadline="Oct 2"
+        // durationInSemesters="3"
+        // durationInHours="230"
+        // durationDetails="6 months, 10 hours a week"
+        // level="Beginner"
+        // levelDetails="No need for previous experience"
+        // courseLanguage="Arabic/English"
       />
 
       <div className="single-program-id-bar">
         <div className="single-program-id-bar-items">
-          <p onClick={() => scrollToSection("program-details")}>
-            Program Details
-          </p>
+          <p onClick={() => scrollToSection("program-details")}>Program Details</p>
           <p onClick={() => scrollToSection("Hands-on-Labs")}>Hands-on Labs</p>
           <p onClick={() => scrollToSection("certification")}>Certification</p>
           <p onClick={() => scrollToSection("pricing")}>pricing</p>
@@ -309,8 +395,9 @@ function SingleProgramPage() {
         </div>
 
         <Description
-          title="Why Learning :Lorem ipsum dolor sit amet ?"
-          desc="The future of work is changing due to ai and data, secure your career with in-demand skills"
+        programId={programId}
+          // title="Why Learning :Lorem ipsum dolor sit amet ?"
+          // desc="The future of work is changing due to ai and data, secure your career with in-demand skills"
         />
 
         <div className="left-vector-container">
@@ -322,7 +409,7 @@ function SingleProgramPage() {
           desc="In todays digital world, cybersecurity is essential for protecting sensitive data, maintaining public trust, and ensuring national security. As cyber threats grow more sophisticated, organizations need skilled professionals to safeguard their systems, prevent costly breaches, and keep operations secure. A comprehensive cybersecurity program equips individuals with the expertise to defend against these evolving threats, meeting regulatory requirements and supporting the safety of critical infrastructures."
         />
 
-        <WhyEnroll />
+        <WhyEnroll programId={programId}/>
 
         <div className="hands-on-labs-section">
           <div id="Hands-on-Labs" className="single-program-section-title">
@@ -390,7 +477,7 @@ function SingleProgramPage() {
         </div>
       </div> */}
 
-        <PaymentSection sectionId="pricing" />
+        <PaymentSection sectionId="pricing" programId={programId} data={data}/>
 
         <AdditionalInfoSection sectionId="faq" />
       </div>

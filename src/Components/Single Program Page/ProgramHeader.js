@@ -22,28 +22,21 @@ const Popup = ({ message, onClose }) => (
 
 function ProgramHeader({
   program,
-  appDeadline,
-  durationInSemesters,
-  durationInHours,
-  durationDetails,
-  level,
-  levelDetails,
-  courseLanguage,
+  programId,
+  data,
+  // appDeadline,
+  // durationInSemesters,
+  // durationInHours,
+  // durationDetails,
+  // level,
+  // levelDetails,
+  // courseLanguage,
 }) {
+  
   const { programs } = useContext(UserContext);
   const [text, setText] = useState("Apply Now");
   const [isClickable, setIsClickable] = useState(true);
-
-  const category_id =
-    program?.categories?.length > 0 && program.categories[0]?.id;
-
-  const bundle_id =
-    program?.categories?.length > 0 &&
-    program.categories[0]?.bundles?.length > 6
-      ? program.categories[0].bundles[6]?.id
-      : null;
-
-  const data = { category_id, bundle_id };
+  
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -55,15 +48,22 @@ function ProgramHeader({
       ? program.categories[0].bundles[6]
       : null;
 
+  const microsoft = 
+  program?.categories?.length > 0 &&
+  program.categories[0]?.bundles?.length > 6
+    ? program.categories[0].bundles[7]
+    : null;
+
+
   useEffect(() => {
     let hasBought = false;
 
     if (programs?.length > 0) {
-      const programWithId66 = programs.find((program) => program.id === 66);
-      if (programWithId66) {
-        hasBought = programWithId66.has_bought || false;
+      const programWithId = programs.find((program) => program.id === Number(programId));
+      if (programWithId) {
+        hasBought = programWithId.has_bought || false;
       } else {
-        console.log("No program with ID 66 found.");
+        console.log("No program with ID found.");
       }
     } else {
       console.log("Programs array is empty or undefined.");
@@ -127,15 +127,15 @@ function ProgramHeader({
       navigate("/programs/consultant");
     }
   };
-
+  
   return (
     <div className="prog-header">
       <div className="nav-bar-border">
         <NavBar />
       </div>
       <div className="header-details">
-        <h2 className="header-title">{cyberSecurity?.title}</h2>
-        <p className="header-desc">{cyberSecurity?.description}</p>
+        <h2 className="header-title">{programId === "66" ? cyberSecurity?.title : microsoft?.title}</h2>
+        <p className="header-desc">{programId === "66" ? "Empowering the Frontline Defenders of the Digital World" : microsoft?.description}</p>
         <div className="header-details-container">
           <div className="application-buttons-container">
             <button className="header-button-outline">

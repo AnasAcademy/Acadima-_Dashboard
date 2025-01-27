@@ -35,7 +35,7 @@ function App() {
             {/* Public Routes */}
             <Route path="/login" element={<PublicRoute><LoginScreen /></PublicRoute>} />
             <Route path="/register" element={<PublicRoute><RegistrationScreen /></PublicRoute>} />      
-            <Route path="/programs" element={<SingleProgramPage />} />
+            <Route path="/programs/:programId" element={<SingleProgramPage />} />
             <Route path="/classes/:classId/course/:courseId" element={<ProtectedRoute><Course /></ProtectedRoute>} />
             <Route path="/classes/:classId/course/:courseId/Quiz" element={<ProtectedRoute><Exam /></ProtectedRoute>} />
             <Route path="/payment/:order_id" element={<ProtectedRoute><Payment /></ProtectedRoute>} />

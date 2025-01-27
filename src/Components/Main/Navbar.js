@@ -7,7 +7,7 @@ import notif from "../../Images/notification.svg";
 import activeNotif from "../../Images/active-notification.svg";
 import NavbarSidebar from "./Sidebar/NavbarSidebar";
 
-function Navbar({ userBriefData, hasUnreadNotifications, notifications }) {
+function Navbar({ userBriefData, hasUnreadNotifications, notifications , hasUserCode}) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showNotificationPopup, setShowNotificationPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState(null);
@@ -58,6 +58,12 @@ function Navbar({ userBriefData, hasUnreadNotifications, notifications }) {
     setShowNotificationPopup((prev) => !prev); // Toggle the popup manually
   };
 
+  function extractPlainText(html) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, "text/html");
+    return doc.body.textContent || "";
+  }
+
   return (
     <div className="navbar">
       <img src={AcadimaLogo} alt="AcadimaLogo" className="AcadimaLogo" />
@@ -72,7 +78,9 @@ function Navbar({ userBriefData, hasUnreadNotifications, notifications }) {
         menuOpen={menuOpen}
         full_name={userBriefData?.full_name}
         user_code={userBriefData?.user_code}
+        hasUserCode={hasUserCode}
         avatar={userBriefData?.avatar}
+        
       />
 
       <div className={`navbar-left`}>
@@ -104,7 +112,7 @@ function Navbar({ userBriefData, hasUnreadNotifications, notifications }) {
                             {notification.title}
                           </p>
                           <p className="navbar-notification-date">
-                            {notification.message}
+                          {extractPlainText(notification.message)}
                           </p>
                         </div>
                         <p className="navbar-notification-date">

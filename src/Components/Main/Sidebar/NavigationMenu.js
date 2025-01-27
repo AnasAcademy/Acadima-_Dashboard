@@ -37,7 +37,7 @@ import Activesettings from "../../../Images/Sidebar icons/activeIcons/Activesett
 function NavigationMenu({ installmentsCount, availableCertificates, hasUserCode }) {
   const navigate = useNavigate();
   const location = useLocation();
-
+  
   // State to track which dropdown is open
   const [openDropdown, setOpenDropdown] = useState(null);
 

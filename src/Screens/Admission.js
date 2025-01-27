@@ -106,9 +106,9 @@ function Admission() {
     <>
       <div className="admission-container">
         {/* Registered Programs Section */}
+        <h3 className="section-title">البرامج المسجلة</h3>
         {appliedPrograms.length > 0 ? (
           <div className="registered-admission">
-            <h3 className="section-title">البرامج المسجلة</h3>
             <div className="applied-programs-list">
               {appliedPrograms.map((program, index) => (
                 <div key={index} className="admission-card">
@@ -147,7 +147,7 @@ function Admission() {
             </div>
           </div>
         ) : (
-          <p>لا يوجد برامج مسجلة حاليا.</p>
+          <p className="no-applied-programs">لا يوجد برامج مسجلة حاليا.</p>
         )}
 
         {/* New Admission Request Section */}

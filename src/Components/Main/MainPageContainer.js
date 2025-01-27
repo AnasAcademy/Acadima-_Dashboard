@@ -10,7 +10,8 @@ function MainPageContainer() {
   const [menuOpen, setMenuOpen] = useState(false); // Sidebar toggle state
   const { userBriefData, notifications } = useContext(UserContext); // Consume userBriefData from context
   const [hasUnreadNotifications, setHasUnreadNotifications] = useState(false);
-
+  const hasUserCode = userBriefData?.user_code !== ("" || null || undefined);
+  
   useEffect(() => {
     const unreadExists = notifications?.some(
       (notification) => notification.status === "unread" // Check for unread status
@@ -34,6 +35,7 @@ function MainPageContainer() {
         menuOpen={menuOpen}
         onMenuToggle={handleMenuToggle}
         userBriefData={userBriefData} // Pass user brief data to Navbar
+        hasUserCode={hasUserCode}
         hasUnreadNotifications={hasUnreadNotifications} 
         notifications={notifications}// Pass unread notification status
       />
@@ -43,6 +45,7 @@ function MainPageContainer() {
         <Sidebar
           menuOpen={menuOpen}
           userBriefData={userBriefData} // Pass user brief data to Sidebar
+          hasUserCode={hasUserCode}
         />
         <div className="main-content">
           <Outlet /> {/* Renders child components */}

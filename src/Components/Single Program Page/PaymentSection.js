@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { apiUrl } from "../../API";
 import { UserContext } from "../../Context/UserContext";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -6,7 +6,7 @@ import "../../Styles/SingleProgramPage/PaymentSection.css";
 
 import check from "../../Images/Single Program Page/offerCheck.svg";
 
-function PaymentSection({ sectionId }) {
+function PaymentSection({ sectionId, programId, data }) {
   const whatCourseOffers = [
     "Personal career support",
     "Online, Part-Time",
@@ -16,14 +16,19 @@ function PaymentSection({ sectionId }) {
   ];
 
   const { singlePageProgramData, programs } = useContext(UserContext);
-  let program = singlePageProgramData?.categories?.[0]?.bundles?.[6] || null;
+  let program =
+    singlePageProgramData?.categories?.[0]?.bundles.find(
+      (program) => program.id === Number(programId)
+    ) || null;
 
   let hasBought = false;
 
   if (programs?.length > 0) {
-    const programWithId66 = programs.find((program) => program.id === 66);
-    if (programWithId66) {
-      hasBought = programWithId66.has_bought || false;
+    const programWithId = programs.find(
+      (program) => program.id === Number(programId)
+    );
+    if (programWithId) {
+      hasBought = programWithId.has_bought || false;
     } else {
       console.log("No program with ID 66 found.");
     }
@@ -33,6 +38,7 @@ function PaymentSection({ sectionId }) {
 
   const [popupMessage, setPopupMessage] = useState(""); // Popup message state
   const [isPopupVisible, setIsPopupVisible] = useState(false); // Popup visibility state
+  const [actionType, setActionType] = useState(null); // Tracks which button was clicked
 
   const calculateOldPrice = (newPrice, discount) => {
     if (!newPrice || !discount) return 0;
@@ -43,6 +49,55 @@ function PaymentSection({ sectionId }) {
   const location = useLocation();
 
   const token = localStorage.getItem("token");
+
+  if (programs?.length > 0) {
+    const programWithId = programs.find(
+      (program) => program.id === Number(programId)
+    );
+    let hasBought = programWithId?.has_bought || false;
+  
+    // console.log("Has bought:", hasBought);
+  }  
+
+  const applyToProgram = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login", { state: { from: location } });
+      return;
+    }
+
+    try {
+      const response = await fetch(apiUrl + "/panel/programs/apply", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": "1234",
+          "ngrok-skip-browser-warning": true,
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (result.success || (!result.success && hasBought === false)) {        
+        if (actionType === "cash") {
+          handleCashClick();
+        } else if (actionType === "installment") {
+          handleInstallmentClick();
+        }
+      } else {
+        // setPopupMessage("You have already paid for this program.");
+        // setIsPopupVisible(true);
+        console.log(result);
+        
+        // console.log("API call failed.");
+        // console.log("API Errors:", result);
+      }
+    } catch (error) {
+      console.log("Error applying to program:", error);
+    }
+  };
 
   const handleCashClick = async () => {
     if (!token) {
@@ -87,16 +142,23 @@ function PaymentSection({ sectionId }) {
       navigate("/login", { state: { from: location } });
       return;
     } else if (hasBought === true) {
-        setPopupMessage("You have already paid for this program.");
-        setIsPopupVisible(true);
+      setPopupMessage("You have already paid for this program.");
+      setIsPopupVisible(true);
     } else {
       navigate("/finances/installments/conditions", {
         state: {
           program: program,
+          from: location.pathname,
         },
       });
+      console.log(program);
     }
   }
+
+  const handleButtonClick = (type) => {
+    setActionType(type); // Set action type ('cash' or 'installment')
+    applyToProgram(); // Always call applyToProgram first
+  };
 
   const closePopup = () => {
     setIsPopupVisible(false);
@@ -109,9 +171,7 @@ function PaymentSection({ sectionId }) {
         <div className="popup-container">
           <div className="popup">
             <p>{popupMessage}</p>
-            <button onClick={closePopup}>
-              Close
-            </button>
+            <button onClick={closePopup}>Close</button>
           </div>
         </div>
       )}
@@ -168,7 +228,7 @@ function PaymentSection({ sectionId }) {
             <div className="payment-buttons-container">
               <button
                 className="register-btn"
-                onClick={() => handleCashClick()}
+                onClick={() => handleButtonClick("cash")}
               >
                 Register Now
               </button>
@@ -189,8 +249,8 @@ function PaymentSection({ sectionId }) {
               <span className="old-price">
                 {program?.total_installment_payment
                   ? `${calculateOldPrice(
-                    program?.total_installment_payment,
-                    program.discount || 25
+                      program?.total_installment_payment,
+                      program.discount || 25
                     )} $`
                   : ""}
               </span>
@@ -198,11 +258,15 @@ function PaymentSection({ sectionId }) {
           </div>
           <div className="plan-bottom">
             <div className="payment-buttons-container">
-              <button className="register-btn" onClick={handleInstallmentClick}>
+              <button
+                className="register-btn"
+                onClick={() => handleButtonClick("installment")}
+              >
                 Register Now
               </button>
-              <button className="register-btn details-btn"   
-              onClick={() => navigate("/installments-conditions")}
+              <button
+                className="register-btn details-btn"
+                onClick={() => navigate("/installments-conditions")}
               >
                 View installment details
               </button>

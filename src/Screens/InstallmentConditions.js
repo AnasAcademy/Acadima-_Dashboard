@@ -12,7 +12,12 @@ import installmentdeadline from "../Images/installmentdeadline.svg";
 function InstallmentConditions() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { program } = location.state || {};
+  const { program, from } = location.state || {}; // Get program and previous route
+
+  const displayUpfront =
+  from?.startsWith("/programs/") && program?.upfront
+    ? `$ ${program?.upfront}`
+    : program?.installment_plan?.upfront;
 
   const token = localStorage.getItem("token");
 
@@ -70,7 +75,7 @@ function InstallmentConditions() {
             <div className="brief-details-part">
               <img src={payment} alt="payment" className="payment-icon" />
               <span className="brief-program-name">
-                {program?.installment_plan?.upfront}
+              {displayUpfront}
               </span>
             </div>
             <div className="brief-details-part">

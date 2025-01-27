@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "../../../Styles/Main/Sidebar.css";
-
+import { UserContext } from "../../../Context/UserContext";
 import NavigationMenu from "./NavigationMenu";
 
 import sidebarlogo from "../../../Images/Sidebar icons/sidebarLogo.png";
 
-function NavbarSidebar({ menuOpen, full_name, user_code, avatar }) {
+function NavbarSidebar({ menuOpen, full_name, user_code, avatar, hasUserCode}) {
+  const { installmentsCount, availableCertificates } = useContext(UserContext);
 
   return (
     <div className={`navbar-sidebar ${menuOpen ? "open" : ""}`}>
@@ -20,7 +21,10 @@ function NavbarSidebar({ menuOpen, full_name, user_code, avatar }) {
           <span className="sidebarinfo-code">{user_code}</span>
         </div>
       </div>
-      <NavigationMenu />
+      <NavigationMenu  
+        installmentsCount={installmentsCount}
+        availableCertificates={availableCertificates}
+        hasUserCode={hasUserCode}/>
     </div>
   );
 }

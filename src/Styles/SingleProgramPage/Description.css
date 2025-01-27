@@ -34,7 +34,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    width: 70%;
+    width: 80%;
     margin: auto;
 }
 .desc-title {
@@ -60,7 +60,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-start;
   color: #ccf5ff;
   gap: 10px;
   width: 80%;
@@ -171,6 +171,7 @@
     }
     .desc-bottom {
         flex-direction: column;
+        align-items: center;
         transform: translate(0%,0%);
     }
     .desc-bottom-content {

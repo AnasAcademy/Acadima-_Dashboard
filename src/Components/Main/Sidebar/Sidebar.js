@@ -6,9 +6,8 @@ import NavigationMenu from "./NavigationMenu";
 
 import sidebarlogo from "../../../Images/Sidebar icons/sidebarLogo.png";
 
-function Sidebar({ userBriefData }) {
+function Sidebar({ userBriefData, hasUserCode }) {
   const { installmentsCount, availableCertificates } = useContext(UserContext);
-  const hasUserCode = userBriefData?.user_code !== ("" || null || undefined);
 
   return (
     <>

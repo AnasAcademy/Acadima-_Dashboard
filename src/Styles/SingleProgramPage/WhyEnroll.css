@@ -42,7 +42,6 @@
 
 .why-enrol-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   gap: 20px;
   justify-items: center;
   align-items: start;
@@ -50,7 +49,13 @@
   margin: auto;
   margin-top: 0;
 }
+.grid-66 {
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
 
+.grid-67 {
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+}
 .benefit-card {
   background-color: transparent;
   border: none;
@@ -146,6 +151,15 @@
   .why-enrol-title {
     transform: translate(55%, -150%);
     font-size: 22px;
+  }
+  /* .why-enrol-section {
+    gap: 20px;
+  } */
+  .benefit-card {
+    width: 80%;
+  }
+  .benefit-description {
+    width: 100%;
   }
 }
 @media (max-width: 800px) {

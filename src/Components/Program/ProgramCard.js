@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { apiUrl } from "../../API";
 
 import "../../Styles/Program/Program.css";
 
 function ProgramCard({ program, programInstallmentData }) {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const token = localStorage.getItem("token");
 
@@ -13,6 +14,7 @@ function ProgramCard({ program, programInstallmentData }) {
     navigate("/finances/installments/conditions", {
       state: {
         program: program,
+        from: location.pathname
       },
     });
   }

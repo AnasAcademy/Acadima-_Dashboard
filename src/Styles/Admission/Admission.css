@@ -10,7 +10,11 @@
   text-align: right;
   font-family: "nf-l", sans-serif !important;
 }
-
+.no-applied-programs {
+  color: #fff;
+  margin: 0;
+  font-size: 18px;
+}
 .section-title {
   color: #ccf5ff;
   text-align: right;
