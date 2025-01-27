@@ -87,8 +87,8 @@ function PaymentSection({ sectionId, programId, data }) {
           handleInstallmentClick();
         }
       } else {
-        // setPopupMessage("You have already paid for this program.");
-        // setIsPopupVisible(true);
+        setPopupMessage("You have already paid for this program.");
+        setIsPopupVisible(true);
         console.log(result);
         
         // console.log("API call failed.");
