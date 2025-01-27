@@ -12,6 +12,11 @@
   scrollbar-width: none;
   max-height: 100vh; */
 }
+.no-programs {
+  color: #fff;
+  text-align: center;
+  margin: auto;
+}
 .programs-top {
   display: flex;
   flex-direction: column;

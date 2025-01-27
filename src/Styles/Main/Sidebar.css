@@ -12,6 +12,13 @@
 .small-screen-sidebar {
   display: none;
 }
+.sidebar-top {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  gap: 20px;
+}
 .sidebarlogo {
   width: 90px;
   height: 90px;

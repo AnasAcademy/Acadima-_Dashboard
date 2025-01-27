@@ -34,7 +34,7 @@ import Activeschedule from "../../../Images/Sidebar icons/activeIcons/Activesche
 import settings from "../../../Images/Sidebar icons/settings.png";
 import Activesettings from "../../../Images/Sidebar icons/activeIcons/Activesettings.png";
 
-function NavigationMenu({ installmentsCount, availableCertificates }) {
+function NavigationMenu({ installmentsCount, availableCertificates, hasUserCode }) {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -59,32 +59,37 @@ function NavigationMenu({ installmentsCount, availableCertificates }) {
   };
 
   const menuItems = [
-    { defaultIcon: dashboard, activeIcon: Activedashboard, label: "الرئيسية", route: "/" },
+    ...(hasUserCode
+      ? [{ defaultIcon: dashboard, activeIcon: Activedashboard, label: "الرئيسية", route: "/" }]
+      : []),
     { defaultIcon: admission, activeIcon: Activeadmission, label: "القبول و التسجيل", route: "/admission" },
-    { defaultIcon: classes, activeIcon: Activeclasses, label: "المقررات الدراسية", route: "/classes" },
+    ...(hasUserCode
+      ? [{ defaultIcon: classes, activeIcon: Activeclasses, label: "المقررات الدراسية", route: "/classes/1" }]
+      : []),
     {
       defaultIcon: payment,
       activeIcon: Activepayment,
       label: "المالية",
       hasDropdown: true,
-      route: '/finances',
+      route: "/finances",
       children: [
-        // Conditionally include this menu item
         { defaultIcon: installments, activeIcon: ActiveInstallments, label: "دفع رسوم البرنامج", route: "/finances/program" },
-        ...(installmentsCount 
-          ? [{ defaultIcon: pay, activeIcon: ActivePay, label: "الأقساط", route: "/finances/installments" },]
+        ...(installmentsCount
+          ? [{ defaultIcon: pay, activeIcon: ActivePay, label: "الأقساط", route: "/finances/installments" }]
           : []),
-        
       ],
     },
     ...(availableCertificates > 0
-      ? [{ defaultIcon: certificates, activeIcon: Activecertificates, label: "الشهادات", route: "/certificates" },]
+      ? [{ defaultIcon: certificates, activeIcon: Activecertificates, label: "الشهادات", route: "/certificates" }]
       : []),
-    
-    { defaultIcon: notifications, activeIcon: Activenotifications, label: "الاشعارات", route: "/notifications" },
-    // { defaultIcon: schedule, activeIcon: Activeschedule, label: "الخدمات الإلكترونية", route: "/services" },
-    { defaultIcon: settings, activeIcon: Activesettings, label: "الإعدادات", route: "/settings" },
+    ...(hasUserCode
+      ? [{ defaultIcon: notifications, activeIcon: Activenotifications, label: "الاشعارات", route: "/notifications" }]
+      : []),
+    ...(hasUserCode
+      ? [{ defaultIcon: settings, activeIcon: Activesettings, label: "الإعدادات", route: "/settings" }]
+      : []),
   ];
+  
 
   return (
     <ul className="navigation-menu">

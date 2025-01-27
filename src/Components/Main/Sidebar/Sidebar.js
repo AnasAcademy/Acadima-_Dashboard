@@ -6,17 +6,31 @@ import NavigationMenu from "./NavigationMenu";
 
 import sidebarlogo from "../../../Images/Sidebar icons/sidebarLogo.png";
 
-function Sidebar({userBriefData}) {
-    const { installmentsCount, availableCertificates} = useContext(UserContext);
-  
+function Sidebar({ userBriefData }) {
+  const { installmentsCount, availableCertificates } = useContext(UserContext);
+  const hasUserCode = userBriefData?.user_code !== ("" || null || undefined);
+
   return (
     <>
       <div className="sidebar">
-        <img src={userBriefData?.avatar || sidebarlogo} alt="sidebarlogo" className="sidebarlogo" />
-        <NavigationMenu installmentsCount={installmentsCount} availableCertificates={availableCertificates} />
+        <div className="sidebar-top">
+          <img
+            src={userBriefData?.avatar || sidebarlogo}
+            alt="sidebarlogo"
+            className="sidebarlogo"
+          />
+          <div className="navbar-p">
+            <p className="sidebarinfo-text">{userBriefData?.full_name}</p>
+            <p className="student-code" style={{fontSize: "16px"}}>{userBriefData?.user_code}</p>
+          </div>
+        </div>
+        <NavigationMenu
+          installmentsCount={installmentsCount}
+          availableCertificates={availableCertificates}
+          hasUserCode={hasUserCode}
+        />
       </div>
       <span className="sidebar-separator"></span>
-      
     </>
   );
 }

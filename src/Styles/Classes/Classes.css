@@ -20,7 +20,7 @@
   font-size: 18px;
   font-weight: bold;
   color: #fff; /* Dark text color */
-  margin:0;
+  margin: 0;
   margin-bottom: 12px;
 }
 
@@ -33,6 +33,26 @@
   direction: rtl;
   width: 80%;
 }
+.pagination-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+}
+.pagination-button {
+  border-radius: 6px;
+  background: #ccf5ff;
+  font-size: 18px;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+}
+.pagination-button.active {
+  box-shadow: 0 0 5px 3px #73becf; /* Box shadow to create a border effect */
+}
+
 .classes-bottom-main {
   display: flex;
   flex-direction: column;
@@ -184,7 +204,7 @@
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
-  line-height: 20px; 
+  line-height: 20px;
 }
 .classes-wide-screen-view {
   display: flex;
@@ -201,7 +221,7 @@
   width: 100%;
   box-sizing: border-box;
 }
-@media(max-width: 1600px) {
+@media (max-width: 1600px) {
   .classes-bottom {
     width: 100%;
   }
@@ -210,18 +230,18 @@
   }
 }
 
-@media(max-width: 1280px) {
+@media (max-width: 1280px) {
   .assignments-table {
     width: 95%;
   }
 }
-@media(max-width: 1200px) {
+@media (max-width: 1200px) {
   .classes-programs-container {
     width: 90%;
   }
 }
 
-@media(max-width: 1000px) {
+@media (max-width: 1000px) {
   .classes-programs-container {
     width: 100%;
   }
@@ -236,7 +256,7 @@
   }
 }
 
-@media(max-width: 800px) {
+@media (max-width: 800px) {
   .classes-wide-screen-view {
     display: none;
   }

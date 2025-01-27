@@ -5,36 +5,63 @@ import "../Styles/Classes/Classes.css";
 
 import ProgramCard from "../Components/Classes/ProgramCard";
 import AssignmentCard from "../Components/Classes/AssignmentCard";
-import MobileAssignmentCard from "../Components/Classes/MobileAssignmentCard";
 
 import noevents from "../Images/noEvents.svg";
 
 function Classes() {
   const navigate = useNavigate();
-  const { id } = useParams(); // Get the `id` from the URL if it exists
+  const { id, page } = useParams(); // Get `id` and `page` from URL
 
-  const { classesData, fetchClassesData } = useContext(UserContext); // Fetch data from UserContext
+  const { fetchClassesData } = useContext(UserContext);
+  const [classesData, setClassesData] = useState([]);
 
   const [selectedCard, setSelectedCard] = useState(null);
-   useEffect(() => {
-    fetchClassesData();
-    }, [classesData]);
+  const [currentPage, setCurrentPage] = useState(Number(page?.replace("page-", "")) || 1); // Parse page number
+  const [lastPage, setLastPage] = useState(1); // Total pages available
 
   useEffect(() => {
-    if (id) {
-      const selectedProgram = classesData.find(
-        (bundle) => bundle.id === Number(id) // Match `id` as a number
-      );      
-      
-      if (selectedProgram) {
-        setSelectedCard(selectedProgram); // Select the matching program
+    let isMounted = true;
+
+    const fetchClassesAndPages = async () => {
+      try {
+        const result = await fetchClassesData(currentPage);
+        if (isMounted) {
+          setClassesData(result.classes);
+          setLastPage(result.lastPage);
+        }
+      } catch (error) {
+        console.log("Error fetching data:", error);
+        if (isMounted)
+          console.log("حدث خطأ أثناء جلب البيانات. يرجى المحاولة لاحقًا.");
       }
-    }
-  }, [id, classesData]); // Run this effect whenever `id` or `classesData` changes
+    };
+
+    fetchClassesAndPages();
+    return () => (isMounted = false); // Cleanup
+  }, [currentPage]);
+
+  // useEffect(() => {
+  //   if (id) {
+  //     const selectedProgram = classesData.find(
+  //       (bundle) => bundle.id === Number(id)
+  //     );
+
+  //     if (selectedProgram) {
+  //       setSelectedCard(selectedProgram); // Set the selected card
+  //     }
+  //   }
+  // }, [id, classesData]);
 
   const handleCardSelect = (program) => {
-    setSelectedCard(program); // Update the selected program
-    navigate(`/classes/${program.id}`); // Change the route dynamically
+    setSelectedCard(program);
+    navigate(`/classes/${program.id}/page-${currentPage}`);
+  };
+
+  const handlePageChange = (page) => {
+    if (page !== currentPage) {
+      setCurrentPage(page);
+      navigate(`/classes/${id ? `${id}/` : ""}page-${page}`);
+    }
   };
 
   return (
@@ -42,15 +69,35 @@ function Classes() {
       <div className="classes-top">
         <h3 className="classes-top-title">البرامج المسجلة</h3>
         <div className="classes-programs-container">
-          {classesData.map((item) => (
-            <ProgramCard
-              key={item.id}
-              item={item}
-              isSelected={selectedCard?.id === item.id} // Highlight if selected
-              onClick={() => handleCardSelect(item)} // Handle card click
-            />
-          ))}
+          {classesData.length > 0 ? (
+            classesData.map((item) => (
+              <ProgramCard
+                key={item.id}
+                item={item}
+                isSelected={selectedCard?.id === item.id}
+                onClick={() => handleCardSelect(item)}
+              />
+            ))
+          ) : (
+            <p>لا توجد برامج مسجلة حالياً.</p>
+          )}
         </div>
+      </div>
+      {/* Pagination Buttons */}
+      <div className="pagination-container">
+        {Array.from({ length: lastPage }, (_, index) => index + 1).map(
+          (page) => (
+            <button
+              key={page}
+              className={`pagination-button ${
+                page === currentPage ? "active" : ""
+              }`}
+              onClick={() => handlePageChange(page)}
+            >
+              {page}
+            </button>
+          )
+        )}
       </div>
       <div className="classes-bottom-main">
         <div className="classes-bottom">
@@ -116,27 +163,7 @@ function Classes() {
                   </div>
                 ) : (
                   <div className="default-view">
-                    <p className="default-text">
-                        لا يوجد مقررات للبرنامج
-                    </p>
-                    <img
-                      src={noevents}
-                      alt="noEvents"
-                      className="noAssignment-image"
-                    />
-                  </div>
-                )}
-              </div>
-              <div className="mobile-screen-view">
-                {selectedCard?.courses?.length > 0 ? (
-                  selectedCard.courses.map((course, index) => (
-                    <MobileAssignmentCard key={index} course={course} />
-                  ))
-                ) : (
-                  <div className="default-view">
-                    <p className="default-text">
-                      قم باختيار أحد البرامج لإظهار جدول المقررات
-                    </p>
+                    <p className="default-text">لا يوجد مقررات للبرنامج</p>
                     <img
                       src={noevents}
                       alt="noEvents"

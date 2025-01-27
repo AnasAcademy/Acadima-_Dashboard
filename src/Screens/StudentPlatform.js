@@ -14,19 +14,18 @@ import Calendar from "../Components/Student Platform/Calendar/Calendar";
 
 function StudentPlatform() {
   const navigate = useNavigate();
-  const { userData} = useContext(UserContext); // Access userData from context
+  const { userData } = useContext(UserContext); // Access userData from context
 
-  
-  const [selectedLectureType, setSelectedLectureType] =
-    useState("المحاضرات المسجلة");
+  const [selectedLectureType, setSelectedLectureType] = useState("المحاضرات المسجلة");
 
+  // Dynamically load lectures from purchased programs
   const lectures = {
-    "المحاضرات المسجلة": [
-      
-    ],
-    "المحاضرات المباشرة": [
-     
-    ],
+    "المحاضرات المسجلة": userData?.purchased_programs?.flatMap((program) =>
+      program.webinars?.filter((webinar) => webinar.type === "recorded") || []
+    ) || [],
+    "المحاضرات المباشرة": userData?.purchased_programs?.flatMap((program) =>
+      program.webinars?.filter((webinar) => webinar.type === "live") || []
+    ) || [],
   };
 
   return (
@@ -170,42 +169,48 @@ function StudentPlatform() {
         {/* Schedule */}
         <ContentCard>
           <div className="schedule-card">
-            <p className="schedule-title">الجدول الأسبوعي</p>
-            <div className="lecture-types">
-              {/* Lecture Type Tabs */}
-              {Object.keys(lectures).map((type) => (
-                <p
-                  key={type}
-                  className={`lecture-type ${
-                    type === selectedLectureType ? "active" : ""
-                  }`}
-                  onClick={() => setSelectedLectureType(type)}
-                >
-                  {type}
-                </p>
-              ))}
-            </div>
-            {/* Lecture List */}
-            <div className="dashboard-lecture-list-container">
-              <ul className="dashboard-lecture-list">
-                {lectures[selectedLectureType].map((lecture, index) => (
-                  <li key={index} className="dashboard-lecture-item">
-                    <div className="lecture-info">
-                      <img
-                        src={lecture.type === "live" ? liveIcon : recordedIcon}
-                        alt={lecture.type}
-                        className="lecture-icon"
-                      />
-                      <div className="lecture-details">
-                        <span className="lecture-order">{`${lecture.order}`}</span>
-                        <span className="lecture-course">{`${lecture.courseName}`}</span>
-                      </div>
-                    </div>
-                    <button className="lecture-button">الذهاب للمحاضرة</button>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <p className="schedule-title">الجدول الأسبوعي</p>
+            {lectures[selectedLectureType]?.length === 0 ? (
+              <p className="no-programs">لا يوجد محاضرات حالياً</p>
+            ) : (
+              <>
+                <div className="lecture-types">
+                  {/* Lecture Type Tabs */}
+                  {Object.keys(lectures).map((type) => (
+                    <p
+                      key={type}
+                      className={`lecture-type ${
+                        type === selectedLectureType ? "active" : ""
+                      }`}
+                      onClick={() => setSelectedLectureType(type)}
+                    >
+                      {type}
+                    </p>
+                  ))}
+                </div>
+                {/* Lecture List */}
+                <div className="dashboard-lecture-list-container">
+                  <ul className="dashboard-lecture-list">
+                    {lectures[selectedLectureType].map((lecture, index) => (
+                      <li key={index} className="dashboard-lecture-item">
+                        <div className="lecture-info">
+                          <img
+                            src={lecture.type === "live" ? liveIcon : recordedIcon}
+                            alt={lecture.type}
+                            className="lecture-icon"
+                          />
+                          <div className="lecture-details">
+                            <span className="lecture-order">{lecture.order}</span>
+                            <span className="lecture-course">{lecture.title}</span>
+                          </div>
+                        </div>
+                        <button className="lecture-button">الذهاب للمحاضرة</button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </>
+            )}
           </div>
         </ContentCard>
 
@@ -224,10 +229,6 @@ function StudentPlatform() {
                     (window.location.href =
                       "https://anasacademy.com/new-request")
                   }
-                  // onClick={() =>
-                  //   (window.location.href =
-                  //     "https://support.anasacademy.uk")
-                  // }
                 >
                   تقديم طلب جديد
                 </button>
@@ -236,9 +237,6 @@ function StudentPlatform() {
                   onClick={() =>
                     (window.location.href = "https://anasacademy.com/follow-up")
                   }
-                  //   onClick={() =>
-                  //     (window.location.href = "https://support.anasacademy.uk/search")
-                  //   }
                 >
                   متابعة طلب سابق
                 </button>

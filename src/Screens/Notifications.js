@@ -41,6 +41,12 @@ function Notifications() {
       console.error("Error marking notification as seen:", error);
     }
   };
+
+  function extractPlainText(html) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, "text/html");
+    return doc.body.textContent || "";
+  }
   
 
   // Automatically mark the notification as seen if notification_id exists in the URL
@@ -89,7 +95,7 @@ function Notifications() {
                 </div>
                 <div className="chosen-notification-bottom">
                   <span className="chosen-notification-description">
-                    {selectedNotification.message}
+                  {extractPlainText(selectedNotification.message)}
                   </span>
                 </div>
               </div>

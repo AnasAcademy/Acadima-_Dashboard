@@ -51,8 +51,8 @@ function App() {
               <Route index element={<ProtectedRoute><StudentPlatform /></ProtectedRoute>} />
               <Route path="/admission" element={<ProtectedRoute><Admission /></ProtectedRoute>} />
               <Route path="/finances/program" element={<ProtectedRoute><Program /></ProtectedRoute>} />
-              <Route path="/classes" element={<ProtectedRoute><Classes /></ProtectedRoute>} />
-              <Route path="/classes/:id" element={<ProtectedRoute><Classes /></ProtectedRoute>} />
+              <Route path="/classes/:page" element={<ProtectedRoute><Classes /></ProtectedRoute>} />
+              <Route path="/classes/:id/:page" element={<ProtectedRoute><Classes /></ProtectedRoute>} />
               <Route path="/certificates" element={<ProtectedRoute><Certificates /></ProtectedRoute>} />
               <Route path="/finances/installments" element={<ProtectedRoute><Installments /></ProtectedRoute>} />
               <Route path="/notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />

@@ -109,26 +109,26 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  const fetchClassesData = async () => {
+  const fetchClassesData = async (page = 1) => {
     try {
-      const response = await fetch(apiUrl + "/panel/programs/purchases", {
+      const response = await fetch(`${apiUrl}/panel/programs/purchases?page=${page}`, {
         method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": "1234",
-          "ngrok-skip-browser-warning": true,
-          Authorization: `Bearer ${localStorage.getItem("token")}`, // Use localStorage directly
-        },      
+        headers,
       });
 
       const result = await response.json();
-      setClassesData(result?.data?.bundles || []);
+      setClassesData(result?.data?.bundles?.data || []);
+      return {
+        classes: result?.data?.bundles?.data || [],
+        lastPage: result?.data?.bundles?.last_page || 1,
+      };
     } catch (error) {
       console.log("Error fetching classes data:", error);
       setError("حدث خطأ أثناء جلب البيانات. يرجى المحاولة لاحقًا.");
+      return { classes: [], lastPage: 1 };
     }
   };
-
+  
   const fetchNotifications = async () => {
     try {
       const response = await fetch(`${apiUrl}/panel/notifications`, {

@@ -79,7 +79,7 @@
 
 .reg-2-input-group input{
     height: 20px;
-    width: 60%;
+    width: 45%;
     padding: 15px 50px;
     border: 1px solid #dcdfe6;
     font-size: 1rem;
@@ -101,7 +101,7 @@
     width: 100%;
 }
 .country-select {
-    width: 25%;
+    width: 27%;
     padding: 0.75rem;
     border: 1px solid #ccc;
     border-radius: 8px;

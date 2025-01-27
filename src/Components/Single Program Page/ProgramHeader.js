@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { apiUrl } from "../../API";
 import { UserContext } from "../../Context/UserContext";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -31,7 +31,8 @@ function ProgramHeader({
   courseLanguage,
 }) {
   const { programs } = useContext(UserContext);
-  // const hasBought = programs[0]?.has_bought
+  const [text, setText] = useState("Apply Now");
+  const [isClickable, setIsClickable] = useState(true);
 
   const category_id =
     program?.categories?.length > 0 && program.categories[0]?.id;
@@ -54,6 +55,29 @@ function ProgramHeader({
       ? program.categories[0].bundles[6]
       : null;
 
+  useEffect(() => {
+    let hasBought = false;
+
+    if (programs?.length > 0) {
+      const programWithId66 = programs.find((program) => program.id === 66);
+      if (programWithId66) {
+        hasBought = programWithId66.has_bought || false;
+      } else {
+        console.log("No program with ID 66 found.");
+      }
+    } else {
+      console.log("Programs array is empty or undefined.");
+    }
+
+    if (hasBought) {
+      setText("Applied");
+      setIsClickable(false);
+    } else {
+      setText("Apply Now");
+      setIsClickable(true);
+    }
+  }, [programs]);
+
   const applyToProgram = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -75,29 +99,12 @@ function ProgramHeader({
         body: JSON.stringify(data),
       });
 
-      let hasBought = false;
-
-      if (programs?.length > 0) {
-        const programWithId66 = programs.find((program) => program.id === 66);
-        if (programWithId66) {
-          hasBought = programWithId66.has_bought || false;
-        } else {
-          console.log("No program with ID 66 found.");
-        }
-      } else {
-        console.log("Programs array is empty or undefined.");
-      }
-      
-
       const result = await response.json();
 
       if (result.success) {
-        // Navigate if the application is successful and the program hasn't been purchased
-        navigate("/finances/program");
-      }  else if (!result.success){
-        setErrorMessage("You have already applied to this program");
+        setText("Applied");
+        setIsClickable(false);
       } else {
-        // Handle API failure
         console.log("API call failed.");
         console.log("API Errors:", result);
         const errorDetail =
@@ -115,10 +122,8 @@ function ProgramHeader({
   const handleConsultantClick = () => {
     const token = localStorage.getItem("token"); // Check for the token
     if (!token) {
-      // Navigate to login if no token is found
       navigate("/login", { state: { from: location } }); // Pass the current location as state
     } else {
-      // Navigate to the consultant page if the token exists
       navigate("/programs/consultant");
     }
   };
@@ -141,8 +146,13 @@ function ProgramHeader({
                 Consult
               </p>
             </button>
-            <button className="header-button" onClick={applyToProgram}>
-              <p className="enroll-p"> Apply now</p>
+            <button
+              className="header-button"
+              onClick={applyToProgram}
+              style={{ cursor: isClickable ? "pointer" : "not-allowed" }}
+              disabled={!isClickable}
+            >
+              <p className="enroll-p">{text}</p>
             </button>
           </div>
           <div className="more-details">

@@ -263,12 +263,12 @@ function LoginScreen() {
             </span>
           </div>
 
-          <a className="forgot-password" onClick={() => setShowForgotPasswordPopup(true)}>
+          <a className="forgot-password" onClick={() => setShowForgotPasswordPopup(true)} style={{cursor: "pointer" }}>
             نسيت كلمة المرور؟
           </a>
 
           <div className="buttons-container">
-            <button className="login-button" type="submit" disabled={loading}>
+            <button className="login-button" type="submit" disabled={loading} style={{cursor: "pointer" }}>
               <span className="login-button-text">تسجيل دخول</span>
             </button>
           </div>
@@ -276,7 +276,7 @@ function LoginScreen() {
 
         {/* Social Login */}
         <div className="social-login">
-          <div className="social-login-divider">
+          {/* <div className="social-login-divider">
             <span className="line"></span>
             <span className="text" style={{ color: "white" }}>
               سجل الدخول عبر
@@ -293,10 +293,10 @@ function LoginScreen() {
             <a href="">
               <img src={facebookLogo} alt="Facebook Login" />
             </a>
-          </div>
+          </div> */}
           <p className="register-link">
-            <span style={{ color: "white" }}>ليس لديك حساب؟ </span>{" "}
-            <a onClick={() => navigate("/register")}>
+            <span style={{ color: "white"}}>ليس لديك حساب؟ </span>{" "}
+            <a onClick={() => navigate("/register")} style={{cursor: "pointer" }}>
               إنشاء حساب
             </a>
           </p>
@@ -304,14 +304,14 @@ function LoginScreen() {
       </div>
 
       {/* Support Links */}
-      <div className="post-form">
+      {/* <div className="post-form">
         <a href="https://anasacademy.uk/certificate/certificate-check.php" className="post-form-text">
           التحقق من الشهادات
         </a>
         <a href="https://support.anasacademy.uk/" className="post-form-text">
           فريق الدعم والتواصل
         </a>
-      </div>
+      </div> */}
 
       {/* Error Popup */}
       {error && <Popup message={error} onClose={() => setError(null)} />}

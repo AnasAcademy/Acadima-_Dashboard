@@ -99,10 +99,9 @@ function Admission() {
   };
 
   const goToProgram = (id) => {
-    navigate(`/classes/${id}`); // Navigate to the specific program page
-    
+    navigate(`/classes/${id}/page-1`); // Default to page-1 when navigating to a specific program
   };
-
+  
   return (
     <>
       <div className="admission-container">

@@ -104,7 +104,7 @@ function ProgramCard({ program, programInstallmentData }) {
                 <div className="all-prices-cont"> 
 
                   <p className="price"  style={{direction: "ltr"}}>
-                   {program?.installment_plan?.upfront} 
+                   {program?.installment_plan?.totalPayments} $
                   </p>
                   {/* <p className="price">=</p> */}
                   {/* <p className="price">

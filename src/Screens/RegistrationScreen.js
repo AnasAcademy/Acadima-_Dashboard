@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../Styles/Registration/RegistartionScreen.css";
 import "../Styles/Registration/LoginScreen.css";
@@ -39,14 +39,38 @@ function RegistrationScreen() {
   const [countryPrefix, setCountryPrefix] = useState("+1");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [countryOptions, setCountryOptions] = useState([]);
 
   const navigate = useNavigate();
 
-  const countryOptions = [
-    { code: "+966", name: "KSA" },
-    { code: "+20", name: "EGP" },
-    // Add more country options here
-  ];
+  useEffect(() => {
+    const fetchCountryOptions = async () => {
+      try {
+        const response = await fetch(`${apiUrl}/country_code`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key": "1234",
+            "ngrok-skip-browser-warning": true,
+          },
+        });
+        const data = await response.json();
+
+        // Transform the API response into the required format
+        const formattedOptions = Object.entries(data).map(([name, code]) => ({
+          name,
+          code,
+        }));
+
+        setCountryOptions(formattedOptions);
+      } catch (error) {
+        console.error("Error fetching country options:", error);
+        setError("Unable to fetch country options. Please try again later.");
+      }
+    };
+
+    fetchCountryOptions();
+  }, []);
 
   // Toggle password visibility
   const togglePasswordVisibility = () => {
@@ -95,8 +119,10 @@ function RegistrationScreen() {
         if (data.errors) {
           const errorMessages = [];
           if (data.errors.email) errorMessages.push(`${data.errors.email[0]}`);
-          if (data.errors.mobile) errorMessages.push(`${data.errors.mobile[0]}`);
-          if (data.errors.password) errorMessages.push(`${data.errors.password[0]}`);
+          if (data.errors.mobile)
+            errorMessages.push(`${data.errors.mobile[0]}`);
+          if (data.errors.password)
+            errorMessages.push(`${data.errors.password[0]}`);
           setError(errorMessages.join(" و "));
         } else {
           setError("Failed to register. Please try again.");
@@ -127,7 +153,11 @@ function RegistrationScreen() {
       <div className="reg-formContainer">
         <div className="form-one">
           <a className="login-logo-container" href="https://anasacademy.uk">
-            <img src={anasAcadlogo} alt="anasAcadlogo" className="anasAcadlogo" />
+            <img
+              src={anasAcadlogo}
+              alt="anasAcadlogo"
+              className="anasAcadlogo"
+            />
           </a>
         </div>
 
@@ -166,11 +196,12 @@ function RegistrationScreen() {
                 className="country-select"
               >
                 {countryOptions.map((country, index) => (
-                  <option key={index} value={country.code}>
-                    {country.code} {country.name}
+                  <option key={`${country.code}-${index}`} value={country.code}>
+                    {country.name}
                   </option>
                 ))}
               </select>
+
               <div className="input-container">
                 <img src={phone} alt="phone" className="icon" />
                 <input
@@ -204,7 +235,12 @@ function RegistrationScreen() {
           </div>
 
           <div className="reg-buttons-container">
-            <button type="submit" className="login-button" disabled={loading}>
+            <button
+              type="submit"
+              className="login-button"
+              disabled={loading}
+              style={{ cursor: "pointer" }}
+            >
               <span className="login-button-text">
                 {loading ? "جاري الإرسال..." : "إنشاء حساب"}
               </span>
@@ -213,7 +249,7 @@ function RegistrationScreen() {
         </form>
 
         <div className="social-login">
-          <div className="social-login-divider">
+          {/* <div className="social-login-divider">
             <span className="line"></span>
             <span className="text" style={{ color: "white" }}>
               أو أنشئ الحساب عبر
@@ -231,9 +267,13 @@ function RegistrationScreen() {
             <a href="">
               <img src={facebookLogo} alt="Facebook Login" />
             </a>
-          </div>
-          <p className="register-link" style={{ color: "white" }}>
-            لديك حساب بالفعل؟{" "}
+          </div> */}
+          <p
+            className="register-link"
+            style={{ color: "white", cursor: "pointer" }}
+          >
+            لديك حساب بالفعل؟
+            {"   "}
             <a href="#" onClick={() => navigate("/login")}>
               تسجيل دخول
             </a>

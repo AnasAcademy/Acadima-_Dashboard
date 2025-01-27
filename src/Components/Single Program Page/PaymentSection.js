@@ -184,14 +184,13 @@ function PaymentSection({ sectionId }) {
             <div className="discount">25%</div>
             <div className="price">
               <h2 className="new-price">
-                {/* {program?.installment_plan?.upfront} */}
-                3000
+                {program?.total_installment_payment} $
               </h2>
               <span className="old-price">
-                {3000
+                {program?.total_installment_payment
                   ? `${calculateOldPrice(
-                      3000,
-                      25 || 25
+                    program?.total_installment_payment,
+                    program.discount || 25
                     )} $`
                   : ""}
               </span>

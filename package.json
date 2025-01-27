@@ -1,6 +1,6 @@
 {
-  "name": "my-react-app",
-  "homepage": "https://lms.acadima.tech",
+  "name": "platform.acadima.tech",
+  "homepage": "https://platform.acadima.tech",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
