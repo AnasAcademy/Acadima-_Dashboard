@@ -28,20 +28,26 @@ import leftVector from "../Images/Single Program Page/leftVector.svg";
 function SingleProgramPage() {
   const { fetchSinglePageProgramData, singlePageProgramData } =
     useContext(UserContext);
-    const { programId } = useParams(); // Access the userId parameter from the URL
+  const { programName } = useParams(); // Access the userId parameter from the URL
+  let programId = 0;
 
-    const category_id =
-    singlePageProgramData?.categories?.length > 0 && singlePageProgramData.categories[0]?.id;
+if (programName === "cybersecurity") {
+  programId = 66;
+} else {
+  programId = 67;
+}
 
-    const bundle_id = programId;
+  const category_id =
+    singlePageProgramData?.categories?.length > 0 &&
+    singlePageProgramData.categories[0]?.id;
 
-    const data = { category_id, bundle_id };
+  const bundle_id = programId;
 
-    
+  const data = { category_id, bundle_id };
 
-    useEffect(() => {
-      fetchSinglePageProgramData(); // Call the fetch function directly
-    }, []);
+  useEffect(() => {
+    fetchSinglePageProgramData(); // Call the fetch function directly
+  }, []);
 
   const sections = [
     {
@@ -49,31 +55,32 @@ function SingleProgramPage() {
       title: "Overview",
       content: (
         <>
-          {programId === "66" ? (
+          {programId === 66 ? (
             <div>
               <p>
                 The Cybersecurity Practitioner Program is a hands-on, immersive
-                course designed for professionals seeking to enhance their practical
-                skills in defending digital systems. Tailored for those already
-                working in or transitioning to cybersecurity roles, this program
-                equips participants with real-world tools and methodologies to
-                tackle modern cyber threats effectively.
+                course designed for professionals seeking to enhance their
+                practical skills in defending digital systems. Tailored for
+                those already working in or transitioning to cybersecurity
+                roles, this program equips participants with real-world tools
+                and methodologies to tackle modern cyber threats effectively.
               </p>
               <p>
-                Whether you’re a system administrator, IT specialist, or aspiring
-                security professional, this program bridges the gap between theory
-                and practice, preparing you to thrive in high-stakes environments.
+                Whether you’re a system administrator, IT specialist, or
+                aspiring security professional, this program bridges the gap
+                between theory and practice, preparing you to thrive in
+                high-stakes environments.
               </p>
             </div>
           ) : (
             <div>
               <p>
-              The Microsoft 365 Certified: Fundamentals program equips you with essential 
-              knowledge of Microsoft 365 services, benefits, and cloud computing principles. 
-              It’s ideal for individuals who are new to Microsoft 365 and want to understand its 
-              capabilities to transform business productivity and collaboration.  
+                The Microsoft 365 Certified: Fundamentals program equips you
+                with essential knowledge of Microsoft 365 services, benefits,
+                and cloud computing principles. It’s ideal for individuals who
+                are new to Microsoft 365 and want to understand its capabilities
+                to transform business productivity and collaboration.
               </p>
-              
             </div>
           )}
         </>
@@ -84,7 +91,7 @@ function SingleProgramPage() {
       title: "Program Highlights",
       content: (
         <>
-          {programId === "66" ? (
+          {programId === 66 ? (
             <div>
               <h4>Core Focus Areas</h4>
               <ul>
@@ -117,7 +124,7 @@ function SingleProgramPage() {
       title: "Who Should Join?",
       content: (
         <>
-          {programId === "66" ? (
+          {programId === 66 ? (
             <div>
               <h4>This program is ideal for:</h4>
               <ul>
@@ -136,9 +143,18 @@ function SingleProgramPage() {
             <div>
               <h4>This program is ideal for:</h4>
               <ul>
-                <li> Beginners exploring careers in cloud computing and IT. </li>
-                <li>Business professionals seeking to leverage Microsoft 365 for their organisation.  </li>
-                <li>Anyone preparing to take the Microsoft 365 Fundamentals (Exam MS-900) certification. </li>
+                <li>
+                  {" "}
+                  Beginners exploring careers in cloud computing and IT.{" "}
+                </li>
+                <li>
+                  Business professionals seeking to leverage Microsoft 365 for
+                  their organisation.{" "}
+                </li>
+                <li>
+                  Anyone preparing to take the Microsoft 365 Fundamentals (Exam
+                  MS-900) certification.{" "}
+                </li>
               </ul>
             </div>
           )}
@@ -150,18 +166,21 @@ function SingleProgramPage() {
       title: "Key Learning Outcomes",
       content: (
         <>
-          {programId === "66" ? (
+          {programId === 66 ? (
             <div className="content-container">
               <h4>
-                Graduates of the Cybersecurity Practitioner Program will be able to:
+                Graduates of the Cybersecurity Practitioner Program will be able
+                to:
               </h4>
               <ul>
                 <li>
-                  Perform advanced threat detection and vulnerability assessments.
+                  Perform advanced threat detection and vulnerability
+                  assessments.
                 </li>
                 <li>Build and manage secure networks and applications.</li>
                 <li>
-                  Execute ethical hacking practices and identify system weaknesses.
+                  Execute ethical hacking practices and identify system
+                  weaknesses.
                 </li>
                 <li>
                   Lead incident response efforts to minimize damage and recover
@@ -176,15 +195,26 @@ function SingleProgramPage() {
           ) : (
             <div className="content-container">
               <h4>
-              Upon completing the Microsoft 365 Certified: Fundamentals program, participants will :
+                Upon completing the Microsoft 365 Certified: Fundamentals
+                program, participants will :
               </h4>
               <ul>
                 <li>
-                Gain a solid understanding of Microsoft 365’s core services, including Microsoft Teams, SharePoint, OneDrive, and Exchange, as well as the fundamentals of cloud computing.
+                  Gain a solid understanding of Microsoft 365’s core services,
+                  including Microsoft Teams, SharePoint, OneDrive, and Exchange,
+                  as well as the fundamentals of cloud computing.
                 </li>
-                <li>Develop knowledge of security, compliance, and privacy principles within the Microsoft 365 environment and understand subscription and licensing models.</li>
                 <li>
-                Graduates will be equipped to articulate the business value of Microsoft 365 solutions, apply their knowledge to real-world scenarios, and confidently prepare for the Microsoft 365 Fundamentals (Exam MS-900) certification, enhancing their career prospects in IT and cloud-based roles.
+                  Develop knowledge of security, compliance, and privacy
+                  principles within the Microsoft 365 environment and understand
+                  subscription and licensing models.
+                </li>
+                <li>
+                  Graduates will be equipped to articulate the business value of
+                  Microsoft 365 solutions, apply their knowledge to real-world
+                  scenarios, and confidently prepare for the Microsoft 365
+                  Fundamentals (Exam MS-900) certification, enhancing their
+                  career prospects in IT and cloud-based roles.
                 </li>
               </ul>
             </div>
@@ -197,7 +227,7 @@ function SingleProgramPage() {
       title: "Careers",
       content: (
         <>
-          {programId === "66" ? (
+          {programId === 66 ? (
             <div className="content-container">
               <h4>Graduates from this program often secure roles such as:</h4>
               <ul>
@@ -210,10 +240,26 @@ function SingleProgramPage() {
           ) : (
             <div className="content-container">
               <ul>
-                <li>The Microsoft 365 Certified: Fundamentals program opens diverse career opportunities in IT and cloud-based roles.</li>
-                <li>Graduates can pursue positions such as IT Support Specialist, Cloud Administrator, Microsoft 365 Specialist, or Technology Consultant across industries.</li>
-                <li>This certification validates foundational knowledge of Microsoft 365 services, making it ideal for roles that involve deploying, managing, and supporting Microsoft 365 solutions. </li>
-                <li>Additionally, it serves as a stepping stone for advanced certifications and specialised roles in cloud technologies, enhancing employability in a rapidly growing job market driven by digital transformation. </li>
+                <li>
+                  The Microsoft 365 Certified: Fundamentals program opens
+                  diverse career opportunities in IT and cloud-based roles.
+                </li>
+                <li>
+                  Graduates can pursue positions such as IT Support Specialist,
+                  Cloud Administrator, Microsoft 365 Specialist, or Technology
+                  Consultant across industries.
+                </li>
+                <li>
+                  This certification validates foundational knowledge of
+                  Microsoft 365 services, making it ideal for roles that involve
+                  deploying, managing, and supporting Microsoft 365 solutions.{" "}
+                </li>
+                <li>
+                  Additionally, it serves as a stepping stone for advanced
+                  certifications and specialised roles in cloud technologies,
+                  enhancing employability in a rapidly growing job market driven
+                  by digital transformation.{" "}
+                </li>
               </ul>
             </div>
           )}
@@ -328,7 +374,9 @@ function SingleProgramPage() {
 
       <div className="single-program-id-bar">
         <div className="single-program-id-bar-items">
-          <p onClick={() => scrollToSection("program-details")}>Program Details</p>
+          <p onClick={() => scrollToSection("program-details")}>
+            Program Details
+          </p>
           <p onClick={() => scrollToSection("Hands-on-Labs")}>Hands-on Labs</p>
           <p onClick={() => scrollToSection("certification")}>Certification</p>
           <p onClick={() => scrollToSection("pricing")}>pricing</p>
@@ -395,7 +443,7 @@ function SingleProgramPage() {
         </div>
 
         <Description
-        programId={programId}
+          programId={programId}
           // title="Why Learning :Lorem ipsum dolor sit amet ?"
           // desc="The future of work is changing due to ai and data, secure your career with in-demand skills"
         />
@@ -403,13 +451,13 @@ function SingleProgramPage() {
         <div className="left-vector-container">
           <img src={leftVector} alt="Vector" className="leftVector" />
         </div>
-        
+
         <WhyStart
           title="Cybersecurity Program"
           desc="In todays digital world, cybersecurity is essential for protecting sensitive data, maintaining public trust, and ensuring national security. As cyber threats grow more sophisticated, organizations need skilled professionals to safeguard their systems, prevent costly breaches, and keep operations secure. A comprehensive cybersecurity program equips individuals with the expertise to defend against these evolving threats, meeting regulatory requirements and supporting the safety of critical infrastructures."
         />
 
-        <WhyEnroll programId={programId}/>
+        <WhyEnroll programId={programId} />
 
         <div className="hands-on-labs-section">
           <div id="Hands-on-Labs" className="single-program-section-title">
@@ -477,7 +525,7 @@ function SingleProgramPage() {
         </div>
       </div> */}
 
-        <PaymentSection sectionId="pricing" programId={programId} data={data}/>
+        <PaymentSection sectionId="pricing" programId={programId} data={data} />
 
         <AdditionalInfoSection sectionId="faq" />
       </div>

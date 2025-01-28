@@ -134,8 +134,8 @@ function ProgramHeader({
         <NavBar />
       </div>
       <div className="header-details">
-        <h2 className="header-title">{programId === "66" ? cyberSecurity?.title : microsoft?.title}</h2>
-        <p className="header-desc">{programId === "66" ? "Empowering the Frontline Defenders of the Digital World" : microsoft?.description}</p>
+        <h2 className="header-title">{programId === 66 ? cyberSecurity?.title : microsoft?.title}</h2>
+        <p className="header-desc">{programId === 66 ? "Empowering the Frontline Defenders of the Digital World" : microsoft?.description}</p>
         <div className="header-details-container">
           <div className="application-buttons-container">
             <button className="header-button-outline">

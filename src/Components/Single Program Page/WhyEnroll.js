@@ -2,7 +2,7 @@ import React from "react";
 import "../../Styles/SingleProgramPage/WhyEnroll.css";
 
 function WhyEnroll({programId}) {
-  const benefits = programId === "66" ? [
+  const benefits = programId === 66 ? [
     {
       number: "01.",
       title: "Practical Learning",
@@ -71,10 +71,10 @@ function WhyEnroll({programId}) {
       <div className="why-enrol-top">
         <div className="backgroundImg"></div>
         <h2 className="why-enrol-title">
-          Why Enrol in the {programId === "66" ? "Cybersecurity Practitioner" : "Microsoft Foundation"} Program?
+          Why Enrol in the {programId === 66 ? "Cybersecurity Practitioner" : "Microsoft Foundation"} Program?
         </h2>
       </div>
-      <div   className={`why-enrol-grid ${programId === "66" ? "grid-66" : programId === "67" ? "grid-67" : ""}`}>
+      <div   className={`why-enrol-grid ${programId === 66 ? "grid-66" : programId === 67 ? "grid-67" : ""}`}>
         {benefits.map((benefit, index) => (
           <div key={index} className="benefit-card">
             <h3 className="benefit-number">{benefit.number}</h3>
