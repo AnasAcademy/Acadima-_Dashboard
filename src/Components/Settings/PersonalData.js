@@ -176,7 +176,7 @@ function PersonalData({ onNext, allUserData, setAllUserData, updateProgress }) {
         }
       }
     } catch (error) {
-      console.log("Error submitting form:", error);
+      // console.log("Error submitting form:", error);
       setErrors("حدث خطأ غير معروف.");
     }
   };

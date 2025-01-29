@@ -106,13 +106,13 @@ function Calendar() {
   }, [currentDate]);
 
   const handleDateClick = (date) => {
-    // console.log("Selected Date:", date);
+    // // console.log("Selected Date:", date);
     setSelectedDate(date);
   };
 
   const renderEvents = () => {
     const selectedDateString = format(selectedDate, "yyyy-MM-dd");
-    // console.log(
+    // // console.log(
     //   "Rendering events for selected date:",
     //   selectedDate,
     //   selectedDateString
@@ -158,7 +158,7 @@ function Calendar() {
   };
 
   const renderHeader = () => {
-    // console.log("Current Date:", currentDate);
+    // // console.log("Current Date:", currentDate);
     return (
       <div className="calendar-header">
         <div className="arrows-container">

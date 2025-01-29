@@ -44,10 +44,10 @@ function InstallmentConditions() {
           state: { from: "/finances/installments" },
         });
       } else {
-        console.log("API Error:", result);
+        // console.log("API Error:", result);
       }
     } catch (error) {
-      console.log("Error in handleInstallmentPayment:", error);
+      // console.log("Error in handleInstallmentPayment:", error);
     }
   };
 

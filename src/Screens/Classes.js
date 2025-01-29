@@ -30,7 +30,7 @@ function Classes() {
           setLastPage(result.lastPage);
         }
       } catch (error) {
-        console.log("Error fetching data:", error);
+        // console.log("Error fetching data:", error);
         if (isMounted)
           console.log("حدث خطأ أثناء جلب البيانات. يرجى المحاولة لاحقًا.");
       }

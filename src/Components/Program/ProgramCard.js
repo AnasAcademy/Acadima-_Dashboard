@@ -44,17 +44,17 @@ function ProgramCard({ program, programInstallmentData }) {
         },
         body: JSON.stringify({ item_id: programId }),
       });
-      console.log(programId);
+      // console.log(programId);
 
       const result = await response.json();
 
-      console.log(result);
+      // console.log(result);
       if (result.success === true) {
         let order_id = result?.data?.order?.id;
         navigate("/payment/" + order_id);
         // alert(result.message);
       } else {
-        console.log(result.errors);
+        // console.log(result.errors);
       }
     } catch (error) {}
   };

@@ -144,7 +144,7 @@ function Education({ onNext, education, setEducation, updateProgress }) {
   
       // // Debugging log to ensure certificate_type is included
       // for (const pair of formData.entries()) {
-      //   console.log(`${pair[0]}:`, pair[1]);
+      //   // console.log(`${pair[0]}:`, pair[1]);
       // }
   
       const response = await fetch(apiUrl + `/panel/profile-setting/education`, {
@@ -165,7 +165,7 @@ function Education({ onNext, education, setEducation, updateProgress }) {
         alert(`حدث خطأ: ${result.message}`);
       }
     } catch (error) {
-      console.log("Error submitting education data:", error);
+      // console.log("Error submitting education data:", error);
     }
   };
   

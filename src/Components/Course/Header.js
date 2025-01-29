@@ -14,7 +14,7 @@ function Header({ toggleLayout, title }) {
     if (classId) {
       navigate(`/classes/${classId}`); // Navigate to `/classes/:classId`
     } else {
-      console.log("Class ID is missing in the URL");
+      // console.log("Class ID is missing in the URL");
     }
   };
 

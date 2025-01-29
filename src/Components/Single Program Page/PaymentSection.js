@@ -30,10 +30,12 @@ function PaymentSection({ sectionId, programId, data }) {
     if (programWithId) {
       hasBought = programWithId.has_bought || false;
     } else {
-      console.log("No program with ID 66 found.");
+      // console.log("No program with ID 66 found.");
     }
   } else {
-    console.log("Programs array is empty or undefined.");
+    // console.log("Programs ===> ");
+    // console.log(programs);    
+    // console.log("Programs array is empty or undefined.");
   }
 
   const [popupMessage, setPopupMessage] = useState(""); // Popup message state
@@ -56,7 +58,7 @@ function PaymentSection({ sectionId, programId, data }) {
     );
     let hasBought = programWithId?.has_bought || false;
   
-    // console.log("Has bought:", hasBought);
+    // // console.log("Has bought:", hasBought);
   }  
 
   const applyToProgram = async () => {
@@ -89,13 +91,13 @@ function PaymentSection({ sectionId, programId, data }) {
       } else {
         setPopupMessage("You have already paid for this program.");
         setIsPopupVisible(true);
-        console.log(result);
+        // console.log(result);
         
-        // console.log("API call failed.");
-        // console.log("API Errors:", result);
+        // // console.log("API call failed.");
+        // // console.log("API Errors:", result);
       }
     } catch (error) {
-      console.log("Error applying to program:", error);
+      // console.log("Error applying to program:", error);
     }
   };
 
@@ -126,12 +128,12 @@ function PaymentSection({ sectionId, programId, data }) {
         setPopupMessage("You have already paid for this program.");
         setIsPopupVisible(true);
       } else {
-        console.log("Error in cash payment:", result.errors);
+        // console.log("Error in cash payment:", result.errors);
         setPopupMessage("An error occurred. Please try again.");
         setIsPopupVisible(true);
       }
     } catch (error) {
-      console.log("Error in handleCashClick:", error);
+      // console.log("Error in handleCashClick:", error);
       setPopupMessage("An unknown error occurred. Please try again.");
       setIsPopupVisible(true);
     }
@@ -151,7 +153,7 @@ function PaymentSection({ sectionId, programId, data }) {
           from: location.pathname,
         },
       });
-      console.log(program);
+      // console.log(program);
     }
   }
 

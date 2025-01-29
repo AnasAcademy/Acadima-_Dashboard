@@ -63,10 +63,10 @@ function ProgramHeader({
       if (programWithId) {
         hasBought = programWithId.has_bought || false;
       } else {
-        console.log("No program with ID found.");
+        // console.log("No program with ID found.");
       }
     } else {
-      console.log("Programs array is empty or undefined.");
+      // console.log("Programs array is empty or undefined.");
     }
 
     if (hasBought) {
@@ -105,8 +105,8 @@ function ProgramHeader({
         setText("Applied");
         setIsClickable(false);
       } else {
-        console.log("API call failed.");
-        console.log("API Errors:", result);
+        // console.log("API call failed.");
+        // console.log("API Errors:", result);
         const errorDetail =
           result.errors?.bundle_id?.[0] ||
           result.message ||
@@ -115,7 +115,7 @@ function ProgramHeader({
       }
     } catch (error) {
       setErrorMessage("An unexpected error occurred. Please try again.");
-      console.log("Error applying to program:", error);
+      // console.log("Error applying to program:", error);
     }
   };
 

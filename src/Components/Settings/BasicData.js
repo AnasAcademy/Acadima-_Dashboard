@@ -41,7 +41,7 @@ function BasicData({ onNext, allUserData, setAllUserData, updateProgress }) {
       const result = await response.json();
       setTimezone(result.data || []);
     } catch (error) {
-      console.log("Error fetching timezones:", error);
+      // console.log("Error fetching timezones:", error);
     }
   };
 
@@ -97,7 +97,7 @@ function BasicData({ onNext, allUserData, setAllUserData, updateProgress }) {
       alert("يرجى تحميل صورة.");
       return;
     }
-    console.log(newAvatar);
+    // console.log(newAvatar);
 
     const formData = new FormData();
     formData.append("profile_image", newAvatar);
@@ -116,19 +116,19 @@ function BasicData({ onNext, allUserData, setAllUserData, updateProgress }) {
       });
 
       const result = await response.json();
-      console.log(result);
+      // console.log(result);
 
       if (response.ok && result.success) {
         alert("تم تحديث الصورة الشخصية بنجاح.");
         setAllUserData((prev) => ({ ...prev, avatar: result?.data?.avatar }));
         hidePopUp();
-        console.log(allUserData);
+        // console.log(allUserData);
       } else {
         setErrors(result.errors);
-        console.log(result.errors);
+        // console.log(result.errors);
       }
     } catch (error) {
-      console.log("Error updating avatar:", error);
+      // console.log("Error updating avatar:", error);
       alert("حدث خطأ أثناء تحديث الصورة الشخصية.");
     }
   };
@@ -170,7 +170,7 @@ function BasicData({ onNext, allUserData, setAllUserData, updateProgress }) {
       });
   
       const result = await response.json();
-      console.log("API Response:", result);
+      // console.log("API Response:", result);
   
       if (response.ok && result.success) {
         onNext();

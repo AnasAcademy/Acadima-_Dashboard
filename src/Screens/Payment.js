@@ -64,12 +64,12 @@ const { userBriefData, notifications } = useContext(UserContext); // Consume use
           Authorization: "Bearer " + token,
         },
       });
-      // console.log(response);
+      // // console.log(response);
       const result = await response.json();
       if (result.data.order.status === "paid") {
         navigate("/");
       }
-      // console.log(result);
+      // // console.log(result);
       setPaymentData(result.data);
       settotalAmount(result?.data?.order?.total_amount);
       setUserCharge(result?.data?.userCharge);
@@ -83,7 +83,7 @@ const { userBriefData, notifications } = useContext(UserContext); // Consume use
       } else {
         setType("الرسوم");
       }
-      // console.log("order", paymentData?.order?.total_amount);
+      // // console.log("order", paymentData?.order?.total_amount);
     } catch (error) {
       console.error("Error fetching payment data:", error);
     }
@@ -106,12 +106,12 @@ const { userBriefData, notifications } = useContext(UserContext); // Consume use
       });
 
       const result = await response.json();
-      console.log(response);
+      // console.log(response);
       if (result.success) {
         setCouponDetails(result.data);
         settotalAmount(result?.data?.total_amount);
         setCouponMsg(result?.message);
-        console.log(result);
+        // console.log(result);
         setCouponValid(true);
         setData({ ...data, coupon: coupon });
       } else {
@@ -120,7 +120,7 @@ const { userBriefData, notifications } = useContext(UserContext); // Consume use
           total_amount: paymentData?.order?.total_amount,
         });
         settotalAmount(paymentData?.order?.total_amount);
-        console.log("jj", paymentData?.order?.total_amount);
+        // console.log("jj", paymentData?.order?.total_amount);
 
         setCouponValid(false);
       }
@@ -129,7 +129,7 @@ const { userBriefData, notifications } = useContext(UserContext); // Consume use
       setCouponDetails({
         total_amount: paymentData?.order?.total_amount,
       });
-      console.log("hh", paymentData?.order?.total_amount);
+      // console.log("hh", paymentData?.order?.total_amount);
       setCouponValid(false);
     }
   };
@@ -143,19 +143,19 @@ const { userBriefData, notifications } = useContext(UserContext); // Consume use
     if (userCharge > 0) {
       if (totalAmount > paymentData?.userCharge) {
         setCharge(paymentData?.userCharge);
-        console.log(charge);
+        // console.log(charge);
         settotalAmount((prevTotalAmount) => {
           const newTotal = prevTotalAmount - paymentData?.userCharge;
-          console.log("New Total Amount:", newTotal);
+          // console.log("New Total Amount:", newTotal);
           return newTotal;
         });
         setUserCharge(0);
-        console.log(totalAmount);
+        // console.log(totalAmount);
       } else {
         setCharge(totalAmount);
-        console.log(charge);
+        // console.log(charge);
         settotalAmount(0);
-        console.log(totalAmount);
+        // console.log(totalAmount);
         setUserCharge((prevCharge) => {
           const newCharge = prevCharge - totalAmount;
           return newCharge;
@@ -167,8 +167,8 @@ const { userBriefData, notifications } = useContext(UserContext); // Consume use
   function resetCharge() {
     setCharge(0);
     settotalAmount(couponDetails?.total_amount);
-    console.log(couponDetails);
-    console.log(totalAmount);
+    // console.log(couponDetails);
+    // console.log(totalAmount);
     setUserCharge(paymentData?.userCharge);
   }
   function returnBack() {
@@ -182,7 +182,7 @@ const { userBriefData, notifications } = useContext(UserContext); // Consume use
 
   const checkout = async () => {
     try {
-      console.log("Location state in checkout:", location.state);
+      // console.log("Location state in checkout:", location.state);
 
       const response = await fetch(apiUrl + "/checkout", {
         method: "POST",
@@ -201,7 +201,7 @@ const { userBriefData, notifications } = useContext(UserContext); // Consume use
           state: { showPopup: true, popupMessage: "تم دفع القسط بنجاح" },
         });
       } else {
-        console.log("Order not paid. Displaying error...");
+        // console.log("Order not paid. Displaying error...");
         navigate("/", {
           state: { showPopup: true, popupMessage: "فشل الدفع. حاول مرة أخرى." },
         });

@@ -38,7 +38,7 @@ function Consultant() {
       const result = await response.json();
       setTimezone(result.data || []);
     } catch (error) {
-      console.log("Error fetching timezones:", error);
+      // console.log("Error fetching timezones:", error);
     }
   };
 
@@ -55,7 +55,7 @@ function Consultant() {
       const result = await response.json();
       setMeetingTimes(result.times || []);
     } catch (error) {
-      console.log("Error fetching meeting times:", error);
+      // console.log("Error fetching meeting times:", error);
     }
   };
 
@@ -72,7 +72,7 @@ function Consultant() {
       const result = await response.json();
       setWebinars(result.webinars || []);
     } catch (error) {
-      console.log("Error fetching webinars:", error);
+      // console.log("Error fetching webinars:", error);
     }
   };
 
@@ -89,7 +89,7 @@ function Consultant() {
       const result = await response.json();
       setBundles(result.bundles);
     } catch (error) {
-      console.log("Error fetching bundles:", error);
+      // console.log("Error fetching bundles:", error);
     }
   };
 
@@ -150,11 +150,11 @@ function Consultant() {
         setPopupMessage(errorMessages.join("\n")); // Combine error messages
         setIsPopupVisible(true); // Show popup
       } else {
-        console.log("Form submitted successfully:", result);
+        // console.log("Form submitted successfully:", result);
         // Perform additional success actions (if needed)
       }
     } catch (err) {
-      console.log("Error submitting form:", err);
+      // console.log("Error submitting form:", err);
       setPopupMessage("حدث خطأ أثناء إرسال الطلب."); // Generic error message
       setIsPopupVisible(true); // Show popup
     }

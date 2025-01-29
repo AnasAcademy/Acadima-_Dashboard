@@ -24,14 +24,14 @@ function InstallmentTable({ id, order_id, step, program }) {
       );
 
       const result = await response.json();
-      console.log(result);
+      // console.log(result);
       if (result?.success === true) {
         navigate(`/payment/${result?.data?.order?.id}`, {
           state: { from: "/finances/installments" },
         });
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -58,10 +58,10 @@ function InstallmentTable({ id, order_id, step, program }) {
           state: { from: "/finances/installments" },
         });
       } else {
-        console.log("API Error:", result);
+        // console.log("API Error:", result);
       }
     } catch (error) {
-      console.log("Error in handleInstallmentPayment:", error);
+      // console.log("Error in handleInstallmentPayment:", error);
     }
   };
 

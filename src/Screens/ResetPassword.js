@@ -63,17 +63,17 @@ function ResetPassword() {
       // Check for server-side errors
       if (!response.ok || data.success === false) {
         setErrorMessage(data.message || "حدث خطأ أثناء إستعادة كلمة المرور");
-        console.log("Server Error:", data);
+        // console.log("Server Error:", data);
         return;
       }
 
       // Successful response
       setSuccessMessage("تم تغيير كلمة المرور بنجاح");
-      console.log("Success:", data);
+      // console.log("Success:", data);
     } catch (error) {
       // Catch and handle unexpected errors
       setErrorMessage("حدث خطأ غير متوقع. الرجاء المحاولة مرة أخرى");
-      console.log("Error:", error);
+      // console.log("Error:", error);
     } finally {
       setLoading(false); // Stop loading spinner
     }

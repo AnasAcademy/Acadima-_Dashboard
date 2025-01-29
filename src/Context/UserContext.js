@@ -57,7 +57,7 @@ export const UserProvider = ({ children }) => {
       const result = response.data.data;
       setUserData(result);
     } catch (error) {
-      console.log("Error fetching user data:", error);
+      // console.log("Error fetching user data:", error);
     } 
   };
 
@@ -76,14 +76,14 @@ export const UserProvider = ({ children }) => {
       });
 
       if (!response.ok) {
-        console.log("Failed to fetch user brief data:", response.statusText);
+        // console.log("Failed to fetch user brief data:", response.statusText);
         return;
       }
 
       const result = await response.json();
       setUserBriefData(result.data);
     } catch (error) {
-      console.log("Error fetching user brief data:", error);
+      // console.log("Error fetching user brief data:", error);
     }
   };
 
@@ -123,7 +123,7 @@ export const UserProvider = ({ children }) => {
         lastPage: result?.data?.bundles?.last_page || 1,
       };
     } catch (error) {
-      console.log("Error fetching classes data:", error);
+      // console.log("Error fetching classes data:", error);
       setError("حدث خطأ أثناء جلب البيانات. يرجى المحاولة لاحقًا.");
       return { classes: [], lastPage: 1 };
     }
@@ -144,7 +144,7 @@ export const UserProvider = ({ children }) => {
       const result = await response.json();
       setNotifications(result?.data?.notifications || []);
     } catch (error) {
-      console.log("Error fetching notifications:", error);
+      // console.log("Error fetching notifications:", error);
     }
   };
 
@@ -161,7 +161,7 @@ export const UserProvider = ({ children }) => {
       });
 
       const result = await response.json();
-      // console.log(result);
+      // // console.log(result);
       setAllUserSettingsData(result.data);
 
       setProgressData(
@@ -176,14 +176,13 @@ export const UserProvider = ({ children }) => {
         }
       );
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
   const fetchAppliedProgramsData = async () => {
     try {
-      const response = await fetch(apiUrl + "/panel/programs/applieds", {
-        method: "GET",
+      const response = await axios.get(apiUrl + "/panel/programs/applieds", {
         headers: {
           "Content-Type": "application/json",
           "x-api-key": "1234",
@@ -193,13 +192,11 @@ export const UserProvider = ({ children }) => {
         },
       });
 
-      const result = await response.json();
-      // console.log(result);
-      setPrograms(result.data);
-      // console.log(result.data);
-
+      // const result = await response.json();
+      setPrograms(response.data);
+      // console.log(response.data);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -220,7 +217,7 @@ export const UserProvider = ({ children }) => {
       setCertificates(result?.data?.bundleCertificates || []);
       setAvailableCertificates(result?.data?.bundleCertificates.length);
     } catch (error) {
-      console.log("Error fetching certificates:", error);
+      // console.log("Error fetching certificates:", error);
       setError("حدث خطأ أثناء جلب الشهادات.");
     }
   };
@@ -253,7 +250,7 @@ export const UserProvider = ({ children }) => {
       setInstallmentsCount(hasIncompleteOrders);
   
     } catch (error) {
-      console.log("Error fetching installment data:", error);
+      // console.log("Error fetching installment data:", error);
     }
   };
   
@@ -287,11 +284,11 @@ export const UserProvider = ({ children }) => {
       });
 
       const result = await response.json();
-      // console.log(result);
+      // // console.log(result);
       setSinglePageProgramData(result.data);
 
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 

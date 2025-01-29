@@ -80,10 +80,10 @@ function Extrainfo({ onNext, additionalData, updateProgress }) {
       if (result.success) {
         onNext();
       } else {
-        console.log("Error response:", result);
+        // console.log("Error response:", result);
       }
     } catch (error) {
-      console.log("Error saving data:", error);
+      // console.log("Error saving data:", error);
     }
   };
 

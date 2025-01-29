@@ -13,7 +13,7 @@ function Certificates() {
 
 
   // const handleLinkedIn = (certificateId) => {
-  //   console.log(`Sharing certificate ${certificateId} on LinkedIn.`);
+  //   // console.log(`Sharing certificate ${certificateId} on LinkedIn.`);
   // };
 
   const handleDownloadPDF = async (programId) => {
