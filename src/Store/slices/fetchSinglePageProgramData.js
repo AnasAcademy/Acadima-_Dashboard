@@ -18,7 +18,8 @@ const singlePageProgramSlice = createSlice({
   name: 'single_page_program_slice',
   initialState: {
     status: 'idle',
-    error: null
+    error: null,
+    singlePageProgramData: []
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -26,8 +27,9 @@ const singlePageProgramSlice = createSlice({
       .addCase(fetchSinglePageProgramDataSlice.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(fetchSinglePageProgramDataSlice.fulfilled, (state) => {
+      .addCase(fetchSinglePageProgramDataSlice.fulfilled, (state, action) => {
         state.status = 'succeeded';
+        state.singlePageProgramData = action.payload;
       })
       .addCase(fetchSinglePageProgramDataSlice.rejected, (state, action) => {
         state.status = 'failed';

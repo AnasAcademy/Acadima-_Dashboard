@@ -24,11 +24,11 @@ import WhyEnroll from "../Components/Single Program Page/WhyEnroll";
 import handson from "../Images/Single Program Page/handson.png";
 import righthVector from "../Images/Single Program Page/rightVector.svg";
 import leftVector from "../Images/Single Program Page/leftVector.svg";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchSinglePageProgramDataSlice } from "../Store/slices/fetchSinglePageProgramData";
 
 function SingleProgramPage() {
-  const { fetchSinglePageProgramData, singlePageProgramData } = useContext(UserContext) || {};
+  // const { fetchSinglePageProgramData, singlePageProgramData } = useContext(UserContext) || {};
   const { programName } = useParams(); // Access the userId parameter from the URL
   console.log("programName");
   console.log(programName);
@@ -42,18 +42,22 @@ if (programName === "cybersecurity") {
   programId = 67;
 }
 
-  const category_id =
-    singlePageProgramData?.categories?.length > 0 &&
-    singlePageProgramData.categories[0]?.id;
+  const category_id = 4
+    // singlePageProgramData?.categories?.length > 0 &&
+    // singlePageProgramData.categories[0]?.id;
 
   const bundle_id = programId;
 
   const data = { category_id, bundle_id };
 
+  // useEffect(() => {
+  //   dispatch(fetchSinglePageProgramDataSlice()); 
+  //   // fetchSinglePageProgramData(); // Call the fetch function directly
+  // }, []);
+
   useEffect(() => {
-    dispatch(fetchSinglePageProgramDataSlice()); 
-    // fetchSinglePageProgramData(); // Call the fetch function directly
-  }, []);
+      dispatch(fetchSinglePageProgramDataSlice());
+  }, [dispatch]);
 
   const sections = [
     {

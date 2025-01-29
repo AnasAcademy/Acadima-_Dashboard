@@ -2,7 +2,6 @@ import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
 
 import { apiUrl } from "../API";
-import { fetchSinglePageProgramDataSlice } from "../Store/slices/fetchSinglePageProgramData";
 import { useDispatch } from "react-redux";
 
 export const UserContext = createContext();
