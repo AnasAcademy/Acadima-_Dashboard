@@ -58,7 +58,7 @@ const ForgotPasswordPopup = ({ onClose, onSend }) => {
 };
 
 function LoginScreen() {
-  const { refreshUserData } = useContext(UserContext);
+  const { refreshUserData } = useContext(UserContext) || {};
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -104,11 +104,11 @@ function LoginScreen() {
       localStorage.setItem("token", token);
 
       // Refresh user data
-      await refreshUserData();
+      // await refreshUserData();
 
       // Navigate based on role or previous route
       if (previousRoute) {        
-        navigate(previousRoute);
+        navigate("/");
       } else if (data?.data?.user?.role === "user") {
         navigate("/");
       } else if (data?.data?.user?.user_code) {
@@ -118,6 +118,7 @@ function LoginScreen() {
       }
     } catch (err) {
       setError("حدث خطأ غير متوقع");
+      console.log(err);      
     } finally {
       setLoading(false);
     }

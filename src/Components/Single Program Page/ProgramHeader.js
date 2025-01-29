@@ -33,7 +33,7 @@ function ProgramHeader({
   // courseLanguage,
 }) {
   
-  const { programs } = useContext(UserContext);
+  const { programs } = useContext(UserContext) || {};
   const [text, setText] = useState("Apply Now");
   const [isClickable, setIsClickable] = useState(true);
   

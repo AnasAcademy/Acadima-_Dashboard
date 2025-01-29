@@ -15,7 +15,7 @@ function PaymentSection({ sectionId, programId, data }) {
     "Learn Groundbreaking Tech & AI Skills",
   ];
 
-  const { singlePageProgramData, programs } = useContext(UserContext);
+  const { singlePageProgramData, programs } = useContext(UserContext) || {};
   let program =
     singlePageProgramData?.categories?.[0]?.bundles.find(
       (program) => program.id === Number(programId)

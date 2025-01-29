@@ -2,10 +2,13 @@ import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
 
 import { apiUrl } from "../API";
+import { fetchSinglePageProgramDataSlice } from "../Store/slices/fetchSinglePageProgramData";
+import { useDispatch } from "react-redux";
 
 export const UserContext = createContext();
 
-export const UserProvider = ({ children }) => {
+export const UserProvider = ({ children }) => {  
+  const dispatch = useDispatch();
   const [userData, setUserData] = useState(null); // Full user data
   const [userBriefData, setUserBriefData] = useState(null); // Brief user data
   const [classesData, setClassesData] = useState([]); // Classes data
@@ -195,7 +198,7 @@ export const UserProvider = ({ children }) => {
 
       const result = await response.json();
       // console.log(result);
-      setPrograms(result.data);
+      // setPrograms([7,8, 9]);
       // console.log(result.data);
 
     } catch (error) {
@@ -277,23 +280,23 @@ export const UserProvider = ({ children }) => {
   };
   
 
-  const fetchSinglePageProgramData = async () => {
-    try {
-      const response = await fetch(apiUrl + "/programs", {
-        method: "GET",
-        headers: {
-          "x-api-key": "1234",
-        },
-      });
+  // const fetchSinglePageProgramData = async () => {
+  //   try {
+  //     const response = await fetch(apiUrl + "/programs", {
+  //       method: "GET",
+  //       headers: {
+  //         "x-api-key": "1234",
+  //       },
+  //     });
 
-      const result = await response.json();
-      // console.log(result);
-      setSinglePageProgramData(result.data);
+  //     const result = await response.json();
+  //     // console.log(result);
+  //     setSinglePageProgramData(result.data);
 
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const refreshUserData = async () => {
     await fetchUserData();
@@ -304,7 +307,7 @@ export const UserProvider = ({ children }) => {
     await fetchAllUserSettingsData();
     await fetchAppliedProgramsData();
     await fetchProgramsInstallmentData();
-    await fetchSinglePageProgramData();
+    // fetchSinglePageProgramData();
     if (programs?.length > 0) {
       await fetchCertificates(); // Fetch certificates only if programs exist
     }  };
@@ -342,7 +345,7 @@ export const UserProvider = ({ children }) => {
         chapters,
         quizzes,
         teacher,
-        fetchSinglePageProgramData,
+        // fetchSinglePageProgramData,
         singlePageProgramData,
         fetchCourseData,
         error

@@ -14,7 +14,7 @@ import Calendar from "../Components/Student Platform/Calendar/Calendar";
 
 function StudentPlatform() {
   const navigate = useNavigate();
-  const { userData } = useContext(UserContext); // Access userData from context
+  const { userData } = useContext(UserContext) || {}; // Access userData from context
 
   const [selectedLectureType, setSelectedLectureType] = useState("المحاضرات المسجلة");
 

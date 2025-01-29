@@ -24,11 +24,16 @@ import WhyEnroll from "../Components/Single Program Page/WhyEnroll";
 import handson from "../Images/Single Program Page/handson.png";
 import righthVector from "../Images/Single Program Page/rightVector.svg";
 import leftVector from "../Images/Single Program Page/leftVector.svg";
+import { useDispatch } from "react-redux";
+import { fetchSinglePageProgramDataSlice } from "../Store/slices/fetchSinglePageProgramData";
 
 function SingleProgramPage() {
-  const { fetchSinglePageProgramData, singlePageProgramData } =
-    useContext(UserContext);
+  const { fetchSinglePageProgramData, singlePageProgramData } = useContext(UserContext) || {};
   const { programName } = useParams(); // Access the userId parameter from the URL
+  console.log("programName");
+  console.log(programName);
+  const dispatch = useDispatch();
+  
   let programId = 0;
 
 if (programName === "cybersecurity") {
@@ -46,7 +51,8 @@ if (programName === "cybersecurity") {
   const data = { category_id, bundle_id };
 
   useEffect(() => {
-    fetchSinglePageProgramData(); // Call the fetch function directly
+    dispatch(fetchSinglePageProgramDataSlice()); 
+    // fetchSinglePageProgramData(); // Call the fetch function directly
   }, []);
 
   const sections = [
