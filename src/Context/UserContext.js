@@ -194,7 +194,7 @@ export const UserProvider = ({ children }) => {
 
       // const result = await response.json();
       setPrograms(response.data);
-      // console.log(response.data);
+      // console.log(programs);
     } catch (error) {
       // console.log(error);
     }

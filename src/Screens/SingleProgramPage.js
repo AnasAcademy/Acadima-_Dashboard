@@ -29,6 +29,8 @@ function SingleProgramPage() {
   const { fetchSinglePageProgramData, singlePageProgramData } =
     useContext(UserContext);
   const { programName } = useParams(); // Access the userId parameter from the URL
+  console.log("programName", programName);
+  
   let programId = 0;
 
 if (programName === "cybersecurity") {

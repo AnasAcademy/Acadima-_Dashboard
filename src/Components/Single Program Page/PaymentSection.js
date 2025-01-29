@@ -7,6 +7,7 @@ import "../../Styles/SingleProgramPage/PaymentSection.css";
 import check from "../../Images/Single Program Page/offerCheck.svg";
 
 function PaymentSection({ sectionId, programId, data }) {
+  console.log("programId", programId);
   const whatCourseOffers = [
     "Personal career support",
     "Online, Part-Time",
@@ -23,7 +24,9 @@ function PaymentSection({ sectionId, programId, data }) {
 
   let hasBought = false;
 
-  if (programs?.length > 0) {
+  console.log("programs");  
+  console.log(programs);  
+  if (programs) {
     const programWithId = programs.find(
       (program) => program.id === Number(programId)
     );
@@ -35,7 +38,7 @@ function PaymentSection({ sectionId, programId, data }) {
   } else {
     // console.log("Programs ===> ");
     // console.log(programs);    
-    // console.log("Programs array is empty or undefined.");
+    console.log("Programs array is empty or undefined.");
   }
 
   const [popupMessage, setPopupMessage] = useState(""); // Popup message state
