@@ -193,7 +193,7 @@ export const UserProvider = ({ children }) => {
       });
 
       // const result = await response.json();
-      setPrograms(response.data);
+      setPrograms(response.data.data);
       // console.log(programs);
     } catch (error) {
       // console.log(error);
